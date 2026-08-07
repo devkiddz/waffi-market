@@ -350,7 +350,7 @@ export function NewProductsWidget() {
     <ProductRuntimeGrid
       eyebrow="Catalogue update"
       title="New Products"
-      description="Products currently marked as new in the active AJ Logik catalogue."
+      description="Products currently marked as new in the active Shelsea catalogue."
       emptyLabel="No product is currently marked new"
       products={
         products

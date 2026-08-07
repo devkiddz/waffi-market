@@ -46,7 +46,7 @@ export default function IdentityProvider({ children }: IdentityProviderProps) {
         ? {
             id: session.user.id,
 
-            name: session.user.name ?? 'AJ Logik Member',
+            name: session.user.name ?? 'Shelsea Member',
 
             email: session.user.email,
 

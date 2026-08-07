@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 
+/* SHELSEA_ADMIN_EDIT_VARIANT_COLOR_V1 */
+
 import AdminProductEditor from '@/features/admin/products/AdminProductEditor';
 import { getAdminAccess } from '@/features/admin/auth/adminPermissions';
 import { prisma } from '@/lib/prisma';
@@ -37,6 +39,8 @@ export default async function EditAdminProductPage({ params }: { params: Promise
           select: {
             id: true,
             label: true,
+            color: true,
+            colorHex: true,
             sku: true,
             price: true,
             compareAtPrice: true,
@@ -87,6 +91,8 @@ export default async function EditAdminProductPage({ params }: { params: Promise
         variants: product.variants.map(variant => ({
           id: variant.id,
           label: variant.label,
+          color: variant.color ?? '',
+          colorHex: variant.colorHex ?? '',
           sku: variant.sku ?? '',
           price: Number(variant.price),
           compareAtPrice: variant.compareAtPrice ? Number(variant.compareAtPrice) : null,

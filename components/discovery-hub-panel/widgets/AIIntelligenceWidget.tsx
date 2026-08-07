@@ -277,7 +277,7 @@ export default function AIIntelligenceWidget() {
           </p>
 
           <h3 className="mt-2 text-base font-black tracking-tight">
-            Ask AJ
+            Ask Shelsea
           </h3>
 
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
@@ -468,7 +468,7 @@ export default function AIIntelligenceWidget() {
           <Link
             href="/ai"
             className="mt-4 inline-flex h-9 items-center gap-2 rounded-full bg-primary px-4 text-[10px] font-black text-primary-foreground">
-            Ask AJ
+            Ask Shelsea
 
             <ArrowRight className="size-3.5" />
           </Link>

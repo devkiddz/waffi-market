@@ -191,3 +191,72 @@
     transition: none;
   }
 }
+
+
+/* SHELSEA_PRODUCT_PAGE_SIX_PER_SLIDE_V1 */
+
+/*
+ * Product-page relationship rails are intentionally independent
+ * from Store/product-grid density.
+ *
+ * Desktop:
+ *   exactly 6 complete cards in the visible rail
+ *   + 5 shared app-card gaps
+ *
+ * The card width is derived from the rail's own available width,
+ * so very wide screens cannot leak a seventh product into view.
+ */
+@container product-page (min-width: 64rem) {
+  .rail {
+    grid-auto-columns:
+      calc(
+        (
+          100% -
+          (5 * var(--app-card-gap))
+        ) /
+        6
+      );
+  }
+}
+
+
+/* ============================================================
+   SHELSEA_PRODUCT_PAGE_HUB_AWARE_CAROUSEL_V1_1
+
+   Desktop relationship carousel:
+   Hub closed → 6 complete cards
+   Hub open   → 4 complete cards
+
+   Repeated gap subtraction avoids relying on CSS multiplication
+   operators and is supported by current browsers.
+============================================================ */
+
+@media (min-width: 64rem) {
+  .rail {
+    grid-auto-columns:
+      calc(
+        (
+          100% -
+          var(--app-card-gap) -
+          var(--app-card-gap) -
+          var(--app-card-gap) -
+          var(--app-card-gap) -
+          var(--app-card-gap)
+        ) /
+        6
+      );
+  }
+
+  .rail[data-hub-open='true'] {
+    grid-auto-columns:
+      calc(
+        (
+          100% -
+          var(--app-card-gap) -
+          var(--app-card-gap) -
+          var(--app-card-gap)
+        ) /
+        4
+      );
+  }
+}

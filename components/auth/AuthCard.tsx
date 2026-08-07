@@ -23,7 +23,7 @@ export default function AuthCard({ eyebrow, title, description, children }: Auth
             </div>
 
             <div>
-              <p className="text-sm font-bold tracking-tight text-foreground">AJ Logik</p>
+              <p className="text-sm font-bold tracking-tight text-foreground">Shelsea</p>
 
               <p className="text-xs text-muted-foreground">Personal commerce experience</p>
             </div>

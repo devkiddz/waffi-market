@@ -9,7 +9,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       intent: 'GREETING',
       primaryQuestion: 'Hello',
       answerTemplate:
-        'Hi 👋 Welcome to AJ Logik. I am AJ Support Intelligence. I can help you understand the platform, shop, find the right order or delivery support, or connect you to a human agent when personal attention is needed.',
+        'Hi 👋 Welcome to Shelsea. I am AJ Support Intelligence. I can help you understand the platform, shop, find the right order or delivery support, or connect you to a human agent when personal attention is needed.',
       clarificationAnswer:
         'What can I help you with today?',
       escalationAnswer: null,
@@ -35,13 +35,13 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
           id: 'greeting-shopping-help',
           label: 'Shopping help',
           kind: 'FOLLOW_UP',
-          prompt: 'How do I buy on AJ Logik?'
+          prompt: 'How do I buy on Shelsea?'
         },
         {
           id: 'greeting-platform-help',
-          label: 'About AJ Logik',
+          label: 'About Shelsea',
           kind: 'FOLLOW_UP',
-          prompt: 'What is AJ Logik?'
+          prompt: 'What is Shelsea?'
         }
       ],
       status: 'ACTIVE',
@@ -67,12 +67,12 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
     },
     {
       slug: 'what-is-aj-logik',
-      title: 'What AJ Logik is',
+      title: 'What Shelsea is',
       category: 'PLATFORM',
       intent: 'HOW_TO_USE_APP',
-      primaryQuestion: 'What is AJ Logik?',
+      primaryQuestion: 'What is Shelsea?',
       answerTemplate:
-        'AJ Logik is a discovery-led commerce marketplace for wines, spirits, meals, confectioneries, party essentials and other approved products. You can shop from approved vendors, manage orders and request human Support whenever a situation needs personal attention.',
+        'Shelsea is a discovery-led commerce marketplace for wines, spirits, meals, confectioneries, party essentials and other approved products. You can shop from approved vendors, manage orders and request human Support whenever a situation needs personal attention.',
       clarificationAnswer:
         'Would you like help shopping, understanding vendors, or using your account?',
       escalationAnswer:
@@ -84,8 +84,8 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       priority: 100,
       confidenceThreshold: 0.7,
       examples: [
-        { text: 'What is AJ Logik?' },
-        { text: 'What does AJ Logik do?' },
+        { text: 'What is Shelsea?' },
+        { text: 'What does Shelsea do?' },
         { text: 'How does this platform work?' }
       ]
     },
@@ -96,7 +96,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       intent: 'HOW_TO_USE_APP',
       primaryQuestion: 'What is AJ Liqz?',
       answerTemplate:
-        'AJ Liqz is the AJ Logik shopping experience focused on approved wines, spirits and related drink selections. Availability, delivery eligibility and age-verification requirements may depend on the customer, location and current marketplace rules.',
+        'AJ Liqz is the Shelsea shopping experience focused on approved wines, spirits and related drink selections. Availability, delivery eligibility and age-verification requirements may depend on the customer, location and current marketplace rules.',
       clarificationAnswer:
         'Are you looking for a product, delivery information, or a recommendation?',
       escalationAnswer:
@@ -114,10 +114,10 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
     },
     {
       slug: 'how-to-buy',
-      title: 'How to buy on AJ Logik',
+      title: 'How to buy on Shelsea',
       category: 'SHOPPING',
       intent: 'HOW_TO_BUY',
-      primaryQuestion: 'How do I buy on AJ Logik?',
+      primaryQuestion: 'How do I buy on Shelsea?',
       answerTemplate:
         'Browse the Store, open a product, choose an available variant, add it to your Cart and continue to Checkout. Confirm quantities, delivery details and payment information before placing the order.',
       clarificationAnswer:
@@ -145,9 +145,9 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       title: 'How vendors work',
       category: 'VENDOR',
       intent: 'MULTIVENDOR_AVAILABILITY',
-      primaryQuestion: 'Is AJ Logik a multivendor marketplace?',
+      primaryQuestion: 'Is Shelsea a multivendor marketplace?',
       answerTemplate:
-        'Yes. AJ Logik supports approved vendors inside one marketplace experience. Products may belong to different vendors, while preparation, fulfilment and delivery arrangements can remain separated where necessary. The current order details remain authoritative for a specific purchase.',
+        'Yes. Shelsea supports approved vendors inside one marketplace experience. Products may belong to different vendors, while preparation, fulfilment and delivery arrangements can remain separated where necessary. The current order details remain authoritative for a specific purchase.',
       clarificationAnswer:
         'Are you asking as a customer or as a business interested in becoming a vendor?',
       escalationAnswer:
@@ -158,7 +158,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       priority: 85,
       confidenceThreshold: 0.68,
       examples: [
-        { text: 'Is AJ Logik multivendor?' },
+        { text: 'Is Shelsea multivendor?' },
         { text: 'Are there different sellers?' },
         { text: 'Can I buy from many vendors?' }
       ]
@@ -221,7 +221,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       intent: 'PAYMENT_HELP',
       primaryQuestion: 'I need help with a payment',
       answerTemplate:
-        'Use the payment and order records shown in your account as the verified source. A debit alert alone does not prove that an AJ Logik order or payment completed. Do not repeat payment until the current state has been checked.',
+        'Use the payment and order records shown in your account as the verified source. A debit alert alone does not prove that an Shelsea order or payment completed. Do not repeat payment until the current state has been checked.',
       clarificationAnswer:
         'Was your account debited, did payment fail, or is the order still showing pending?',
       escalationAnswer:
@@ -246,7 +246,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       intent: 'PRODUCT_AVAILABILITY',
       primaryQuestion: 'Is this product available?',
       answerTemplate:
-        'Current product and variant stock shown in AJ Logik is the verified availability source. Availability can change before Checkout, so the selected variant must still be active and in stock when the order is placed.',
+        'Current product and variant stock shown in Shelsea is the verified availability source. Availability can change before Checkout, so the selected variant must still be active and in stock when the order is placed.',
       clarificationAnswer:
         'Which product and variant would you like me to help identify?',
       escalationAnswer:
@@ -268,9 +268,9 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       title: 'Alcohol delivery eligibility',
       category: 'DELIVERY',
       intent: 'ALCOHOL_DELIVERY_ELIGIBILITY',
-      primaryQuestion: 'Can AJ Logik deliver alcohol to me?',
+      primaryQuestion: 'Can Shelsea deliver alcohol to me?',
       answerTemplate:
-        'Eligible alcohol products may be delivered where the product, customer, location and current marketplace requirements permit it. Age or identity verification may be required. AJ Logik should not promise eligibility without checking verified context.',
+        'Eligible alcohol products may be delivered where the product, customer, location and current marketplace requirements permit it. Age or identity verification may be required. Shelsea should not promise eligibility without checking verified context.',
       clarificationAnswer:
         'Are you asking about your location, age verification, a product, or a current order?',
       escalationAnswer:
@@ -307,7 +307,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       confidenceThreshold: 0.65,
       examples: [
         { text: 'How do Shopping Lists work?' },
-        { text: 'Can AJ Logik prepare my list?' },
+        { text: 'Can Shelsea prepare my list?' },
         { text: 'How do I add a list to cart?' }
       ]
     },
@@ -318,7 +318,7 @@ export const AJ_LOGIK_SUPPORT_KNOWLEDGE_SEED:
       intent: 'RETURNS_AND_REFUNDS',
       primaryQuestion: 'Can I return an item or get a refund?',
       answerTemplate:
-        'Return and refund eligibility depends on the verified order, product condition, payment state and applicable AJ Logik policy. The assistant must not promise a refund or claim one was approved before an authorised review is recorded.',
+        'Return and refund eligibility depends on the verified order, product condition, payment state and applicable Shelsea policy. The assistant must not promise a refund or claim one was approved before an authorised review is recorded.',
       clarificationAnswer:
         'Is this about a damaged item, wrong item, cancelled order, duplicate charge or another problem?',
       escalationAnswer:

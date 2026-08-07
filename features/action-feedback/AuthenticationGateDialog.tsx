@@ -18,7 +18,7 @@ type AuthenticationGateDialogProps = {
 const defaultBenefits = [
   'Save your activity and continue across devices.',
   'Preserve your wishlist, rewards and experience history.',
-  'Unlock AJ Logik member and test-mode benefits.'
+  'Unlock Shelsea member and test-mode benefits.'
 ];
 
 export function AuthenticationGateDialog({
@@ -34,7 +34,7 @@ export function AuthenticationGateDialog({
   const description =
     request?.copy?.description ??
     request?.action.description ??
-    'This action belongs to your personal AJ Logik experience. Sign in or create an account to continue securely.';
+    'This action belongs to your personal Shelsea experience. Sign in or create an account to continue securely.';
 
   return (
     <Dialog

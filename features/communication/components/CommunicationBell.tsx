@@ -85,7 +85,7 @@ function conversationTitle(
   return (
     conversation.subject ??
     conversation.vendor?.name ??
-    'AJ Logik conversation'
+    'Shelsea conversation'
   );
 }
 
@@ -552,7 +552,7 @@ function InboxPreview({
             <Inbox className="size-6" />
           }
           title="Sign in to use Inbox"
-          description="Your conversations and unread messages are protected by your AJ Logik account."
+          description="Your conversations and unread messages are protected by your Shelsea account."
           action={
             <button
               type="button"

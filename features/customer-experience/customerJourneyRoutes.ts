@@ -29,7 +29,7 @@ const CUSTOMER_JOURNEY_DEFINITIONS = {
     description:
       'Revisit every product that recently caught your attention, compare availability and continue from the exact point where your discovery journey paused.',
     historyTitle: 'Recent Views journey',
-    historySubtitle: 'Products recently explored across AJ Logik.'
+    historySubtitle: 'Products recently explored across Shelsea.'
   },
 
   wishlist: {
@@ -60,7 +60,7 @@ const CUSTOMER_JOURNEY_DEFINITIONS = {
     eyebrow: 'Experience memory',
     title: 'Activity Archive',
     description:
-      'Explore the meaningful experiences AJ Logik has preserved for you across products, categories, campaigns, collections, searches and Discovery Hub interactions.',
+      'Explore the meaningful experiences Shelsea has preserved for you across products, categories, campaigns, collections, searches and Discovery Hub interactions.',
     historyTitle: 'Activity Archive journey',
     historySubtitle: 'Recorded experience transitions and discovery context.'
   },
@@ -71,7 +71,7 @@ const CUSTOMER_JOURNEY_DEFINITIONS = {
     eyebrow: 'Commerce record',
     title: 'Order History',
     description:
-      'Review complete order records, payment state, item composition, delivery information and the financial breakdown of your recent AJ Logik purchases.',
+      'Review complete order records, payment state, item composition, delivery information and the financial breakdown of your recent Shelsea purchases.',
     historyTitle: 'Order History journey',
     historySubtitle: 'Recent orders, payments and delivery records.'
   },

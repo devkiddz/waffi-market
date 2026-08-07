@@ -21,10 +21,20 @@ export type CategoryType = {
 
 export type categoryType = CategoryType;
 
+/* SHELSEA_VARIANT_COLOR_GALLERY_CONTRACT_V1 */
 export type ProductVariantType = {
   id: string;
   label: string;
   image: string;
+
+  /**
+   * Optional richer commerce presentation metadata.
+   * Existing catalog rows remain valid without these fields.
+   */
+  color?: string;
+  colorHex?: string;
+  images?: string[];
+
   price: number;
   stockLeft: number;
 };

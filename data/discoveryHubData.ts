@@ -207,8 +207,9 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     id: 'home-deals',
     groupId: 'home',
     layout: 'hero',
-    title: 'Today’s Deals',
-    description: 'Hot offers picked for your next celebration.',
+    title: 'Shelsea Spotlight',
+    description:
+      'A rotating mix of fashion, nightwear, hair and fragrance worth discovering now.',
     defaultPriority: 100,
     pagePriority: {
       store: 150,
@@ -223,38 +224,44 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
       ]
     },
     status: 'warning',
-    badge: 'Hot',
-    meta: 'Deals',
+    badge: 'Curated',
+    meta: 'Spotlight',
     autoSlide: true,
     slides: [
       {
-        id: 'deal_1',
-        title: 'Weekend Discount',
-        subtitle: 'Save 20% on selected premium drinks',
-        image: '/products/moet-chandon-imperial_lg.jpg',
-        badge: '20% OFF'
+        id: 'prod_1',
+        title: 'New Season Style',
+        subtitle:
+          'A polished women’s piece from the Shelsea clothing edit.',
+        image:
+          '/shelsea/products/prod_1.webp',
+        badge: 'For Her'
       },
       {
-        id: 'deal_2',
-        title: 'Luxury Night Picks',
-        subtitle: 'Dom Pérignon, Moët Nectar and more',
-        image: '/products/DomPérignon_lg.jpg',
-        badge: 'Premium'
+        id: 'prod_169',
+        title: 'After Dark',
+        subtitle:
+          'Lingerie and nightwear selected for a softer evening wardrobe.',
+        image:
+          '/shelsea/products/prod_169.webp',
+        badge: 'Nightwear'
       },
       {
-        id: 'deal_3',
-        title: 'Party Ready',
-        subtitle: 'Fast-moving spirits for the weekend',
-        image: '/products/jackdaniels_lg.jpg',
-        badge: 'Trending'
+        id: 'prod_133',
+        title: 'Signature Scent',
+        subtitle:
+          'Add fragrance to the look with a memorable Shelsea scent.',
+        image:
+          '/shelsea/products/prod_133.webp',
+        badge: 'Fragrance'
       }
     ],
     action: {
-      label: 'Explore deals',
-      href: '/store?category=deals'
+      label: 'Explore Shelsea',
+      href: '/store'
     }
   },
- {
+  {
   id: 'cart-summary',
 
   groupId: 'home',
@@ -300,7 +307,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     groupId: 'home',
     layout: 'tracking',
     title: 'Delivery Tracker',
-    description: 'Your AJ Logik order is currently on the way.',
+    description: 'Your Shelsea order is currently on the way.',
     defaultPriority: 105,
     pagePriority: {
       tracking: 260,
@@ -646,7 +653,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     groupId: 'orders',
     layout: 'grid',
     title: 'Recent Orders',
-    description: 'Your latest AJ Logik order activity.',
+    description: 'Your latest Shelsea order activity.',
     defaultPriority: 110,
     pagePriority: {
       orders: 250,
@@ -885,7 +892,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     slides: champagneSlides,
     insight: 'Tonight’s mood looks like premium champagne with sweet pairings.',
     action: {
-      label: 'Ask AJ AI',
+      label: 'Ask Shelsea AI',
       href: '/ai'
     }
   },

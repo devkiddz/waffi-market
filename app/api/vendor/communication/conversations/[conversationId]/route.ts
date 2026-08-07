@@ -247,7 +247,7 @@ export async function PATCH(
     return response(
       {
         error:
-          'AJ Logik could not update the vendor conversation.'
+          'Shelsea could not update the vendor conversation.'
       },
       500
     );

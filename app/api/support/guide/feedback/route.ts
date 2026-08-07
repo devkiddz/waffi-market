@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
         error:
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not record this feedback.'
+            : 'Shelsea could not record this feedback.'
       },
       400
     );

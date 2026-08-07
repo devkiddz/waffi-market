@@ -44,7 +44,7 @@ export async function seedCatalog(
   images: number;
   inventories: number;
 }> {
-  console.log('Seeding AJ Logik catalog...');
+  console.log('Seeding Shelsea showcase catalog...');
   const workspace =
   await prisma.workspace.findFirst({
     where: {

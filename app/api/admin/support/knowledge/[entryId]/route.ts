@@ -68,7 +68,7 @@ export async function PATCH(
     }
 
     return response(
-      { error: 'AJ Logik could not update Support Knowledge.' },
+      { error: 'Shelsea could not update Support Knowledge.' },
       500
     );
   }

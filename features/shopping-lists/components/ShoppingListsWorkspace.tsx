@@ -83,7 +83,7 @@ export function ShoppingListsWorkspace() {
               </h1>
               <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
                 Keep every list inside your private dashboard. When a plan is ready to inspire other shoppers,
-                submit it for review; AJ Logik publishes it to the Store only after administrator approval.
+                submit it for review; Shelsea publishes it to the Store only after administrator approval.
               </p>
             </div>
             <button

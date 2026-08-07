@@ -1,106 +1,473 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRightCircle } from 'lucide-react';
-import { Promo } from '@/data/promos';
-import { ProductType } from '@/types/types';
-import PromoCard from './PromoCard';
-import { Button } from '../ui/button';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
+
+import {
+  ArrowRightCircle,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
+
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import {
+  useRouter
+} from 'next/navigation';
+
+import type {
+  Promo
+} from '@/data/promos';
+
+import type {
+  ProductType
+} from '@/types/types';
+
+import PromoCard from './PromoCard';
+
+import {
+  Button
+} from '../ui/button';
 
 type Props = {
   promos: Promo[];
   products: ProductType[];
-  onSelect?: (id: string) => void;
+  onSelect?: (
+    id: string
+  ) => void;
 };
 
-export default function PromoSection({ promos, products, onSelect }: Props) {
-  const router = useRouter();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+const AUTO_SLIDE_MS =
+  5200;
 
-  const activePromos = promos.filter(p => p.active).sort((a, b) => a.priority - b.priority);
+export default function PromoSection({
+  promos,
+  products,
+  onSelect
+}: Props) {
+  const router =
+    useRouter();
 
-  if (activePromos.length === 0) return null;
+  const scrollRef =
+    useRef<HTMLDivElement>(
+      null
+    );
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 320;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
+  const [
+    activeIndex,
+    setActiveIndex
+  ] =
+    useState(0);
 
-  const selectPromo = (promo: Promo) => {
-    if (onSelect) {
-      onSelect(promo.id);
+  const [
+    isHovered,
+    setIsHovered
+  ] =
+    useState(false);
+
+  const activePromos =
+    useMemo(
+      () =>
+        promos
+          .filter(
+            promo =>
+              promo.active
+          )
+          .sort(
+            (
+              first,
+              second
+            ) =>
+              first.priority -
+              second.priority
+          ),
+      [
+        promos
+      ]
+    );
+
+  const goTo =
+    useCallback(
+      (
+        index: number
+      ) => {
+        if (
+          activePromos.length ===
+          0
+        ) {
+          return;
+        }
+
+        const normalizedIndex =
+          (
+            index +
+            activePromos.length
+          ) %
+          activePromos.length;
+
+        setActiveIndex(
+          normalizedIndex
+        );
+
+        const container =
+          scrollRef.current;
+
+        const item =
+          container
+            ?.children[
+              normalizedIndex
+            ] as
+            | HTMLElement
+            | undefined;
+
+        if (
+          container &&
+          item
+        ) {
+          container.scrollTo({
+            left:
+              item.offsetLeft,
+            behavior:
+              'smooth'
+          });
+        }
+      },
+      [
+        activePromos.length
+      ]
+    );
+
+  useEffect(
+    () => {
+      if (
+        isHovered ||
+        activePromos.length <=
+          1
+      ) {
+        return;
+      }
+
+      const timer =
+        window.setInterval(
+          () => {
+            setActiveIndex(
+              currentIndex => {
+                const nextIndex =
+                  (
+                    currentIndex +
+                    1
+                  ) %
+                  activePromos.length;
+
+                const container =
+                  scrollRef.current;
+
+                const item =
+                  container
+                    ?.children[
+                      nextIndex
+                    ] as
+                    | HTMLElement
+                    | undefined;
+
+                if (
+                  container &&
+                  item
+                ) {
+                  container.scrollTo({
+                    left:
+                      item.offsetLeft,
+                    behavior:
+                      'smooth'
+                  });
+                }
+
+                return nextIndex;
+              }
+            );
+          },
+          AUTO_SLIDE_MS
+        );
+
+      return () =>
+        window.clearInterval(
+          timer
+        );
+    },
+    [
+      activePromos.length,
+      isHovered
+    ]
+  );
+
+  if (
+    activePromos.length ===
+    0
+  ) {
+    return null;
+  }
+
+  const selectPromo = (
+    promo: Promo
+  ) => {
+    if (
+      onSelect
+    ) {
+      onSelect(
+        promo.id
+      );
+
       return;
     }
 
-    router.push(promo.href ?? `/promos/${promo.slug}`);
+    router.push(
+      promo.href ??
+        `/promos/${promo.slug}`
+    );
   };
 
   return (
     <section className="space-y-4">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+      <div
+        className="
+          flex
+          items-end
+          justify-between
+          gap-4
+        "
+      >
         <div>
-          <h2 className="text-xl font-bold tracking-tight">Promos & Deals</h2>
-          <p className="text-sm text-muted-foreground">Hot picks and exclusive offers.</p>
+          <p
+            className="
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+              text-muted-foreground
+            "
+          >
+            Shelsea campaigns
+          </p>
+
+          <h2
+            className="
+              mt-1
+              text-xl
+              font-bold
+              tracking-tight
+            "
+          >
+            Promos & Deals
+          </h2>
+
+          <p
+            className="
+              mt-0.5
+              text-sm
+              text-muted-foreground
+            "
+          >
+            Fresh offers worth discovering.
+          </p>
         </div>
-        <Link href="/promos" className="hidden md:block">
-          <Button variant="outline" className="gap-2 rounded-full">
-            All <ArrowRightCircle className="h-4 w-4" />
-          </Button>
-        </Link>
+
+        <div
+          className="
+            flex
+            items-center
+            gap-2
+          "
+        >
+          <button
+            type="button"
+            onClick={() =>
+              goTo(
+                activeIndex -
+                  1
+              )
+            }
+            aria-label="Previous promotion"
+            className="
+              hidden
+              size-9
+              place-items-center
+              rounded-full
+              border
+              border-border/70
+              bg-card
+              text-muted-foreground
+              transition
+              hover:border-accent/40
+              hover:text-foreground
+              md:grid
+            "
+          >
+            <ChevronLeft className="size-4" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              goTo(
+                activeIndex +
+                  1
+              )
+            }
+            aria-label="Next promotion"
+            className="
+              hidden
+              size-9
+              place-items-center
+              rounded-full
+              border
+              border-border/70
+              bg-card
+              text-muted-foreground
+              transition
+              hover:border-accent/40
+              hover:text-foreground
+              md:grid
+            "
+          >
+            <ChevronRight className="size-4" />
+          </button>
+
+          <Link
+            href="/promos"
+            className="
+              hidden
+              md:block
+            "
+          >
+            <Button
+              variant="outline"
+              size="sm"
+              className="
+                gap-2
+                rounded-full
+              "
+            >
+              All
+
+              <ArrowRightCircle className="size-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
 
-      {/* Relative container to hold buttons and scrollable area */}
       <div
-        className="group relative"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}>
-        {/* Navigation Buttons (Overlay) */}
+        className="relative"
+        onMouseEnter={() =>
+          setIsHovered(
+            true
+          )
+        }
+        onMouseLeave={() =>
+          setIsHovered(
+            false
+          )
+        }
+      >
         <div
-          className={`absolute inset-y-0 left-0 z-10 flex items-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full shadow-lg ml-2  cursor-pointer"
-            onClick={() => scroll('left')}>
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
+          ref={
+            scrollRef
+          }
+          className="
+            flex
+            gap-4
+            overflow-x-auto
+            pb-2
+            scrollbar-hide
+            snap-x
+            snap-mandatory
+          "
+          style={{
+            scrollbarWidth:
+              'none',
+            msOverflowStyle:
+              'none'
+          }}
+        >
+          {activePromos.map(
+            (
+              promo,
+              index
+            ) => (
+              <div
+                key={
+                  promo.id
+                }
+                className="
+                  min-w-[82vw]
+                  snap-start
+                  sm:min-w-[320px]
+                  lg:min-w-[350px]
+                "
+              >
+                <PromoCard
+                  promo={
+                    promo
+                  }
+                  products={
+                    products.filter(
+                      product =>
+                        promo.productIds.includes(
+                          product.id
+                        )
+                    )
+                  }
+                  onSelect={() =>
+                    selectPromo(
+                      promo
+                    )
+                  }
+                />
+              </div>
+            )
+          )}
         </div>
 
-        <div
-          className={`absolute inset-y-0 right-0 z-10 flex items-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full shadow-lg mr-2  cursor-pointer"
-            onClick={() => scroll('right')}>
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-        </div>
-
-        {/* Scrollable Container */}
-        <div
-          ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          {activePromos.map(promo => (
-            <div key={promo.id} className="min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] snap-start">
-              <PromoCard
-                promo={promo}
-                products={products.filter(p => promo.productIds.includes(p.id))}
-                onSelect={() => selectPromo(promo)}
-              />
-            </div>
-          ))}
-        </div>
+        {activePromos.length >
+        1 ? (
+          <div
+            className="
+              mt-3
+              flex
+              justify-center
+              gap-1.5
+            "
+          >
+            {activePromos.map(
+              (
+                promo,
+                index
+              ) => (
+                <button
+                  key={
+                    promo.id
+                  }
+                  type="button"
+                  onClick={() =>
+                    goTo(
+                      index
+                    )
+                  }
+                  aria-label={`Show ${promo.title}`}
+                  className={
+                    index ===
+                    activeIndex
+                      ? 'h-1.5 w-6 rounded-full bg-accent transition-all'
+                      : 'h-1.5 w-1.5 rounded-full bg-muted-foreground/30 transition-all hover:bg-muted-foreground/50'
+                  }
+                />
+              )
+            )}
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -36,7 +36,7 @@ function managementError(cause: unknown): SupportKnowledgeManagementError {
     return new SupportKnowledgeManagementError(cause.message, 'INVALID_INPUT');
   }
   return new SupportKnowledgeManagementError(
-    'AJ Logik could not update Support Knowledge.',
+    'Shelsea could not update Support Knowledge.',
     'INVALID_INPUT'
   );
 }

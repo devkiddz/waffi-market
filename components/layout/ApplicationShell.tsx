@@ -27,7 +27,7 @@ export default function ApplicationShell({ children }: ApplicationShellProps) {
         <div className="flex min-h-svh min-w-0 flex-col">
           <header className="sticky top-0 z-[120] shrink-0 bg-background" data-app-navbar>
             <Suspense fallback={null}>
-              <NavbarComponent brandName="AJ" brandSlug="Logik" />
+              <NavbarComponent brandName="Shelsea" brandSlug="" />
             </Suspense>
           </header>
 
@@ -43,7 +43,7 @@ export default function ApplicationShell({ children }: ApplicationShellProps) {
             </MobileApplicationShell>
           </main>
 
-          <FooterComponent brandName="AJ" brandSlug="Logik" />
+          <FooterComponent brandName="Shelsea" brandSlug="" />
         </div>
       </SidebarInset>
 

@@ -44,10 +44,10 @@ async function readFailure(
 
     return (
       payload.error ??
-      'AJ Logik could not refresh Quick Support.'
+      'Shelsea could not refresh Quick Support.'
     );
   } catch {
-    return 'AJ Logik could not refresh Quick Support.';
+    return 'Shelsea could not refresh Quick Support.';
   }
 }
 
@@ -251,7 +251,7 @@ export function useQuickSupportSummary():
           setError(
             cause instanceof Error
               ? cause.message
-              : 'AJ Logik could not refresh Quick Support.'
+              : 'Shelsea could not refresh Quick Support.'
           );
         } finally {
           if (

@@ -262,7 +262,7 @@ export function buildProductExperience(
       data: {
         title: 'Continue Discovering',
         subtitle:
-          'Keep exploring selections across AJ Logik.',
+          'Keep exploring selections across Shelsea.',
         products: continueDiscoveryProducts,
         source: 'continue-discovery'
       }

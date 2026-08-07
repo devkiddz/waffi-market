@@ -427,7 +427,7 @@ export default function CategoryProductExperienceSection({
       categorySlug &&
       categorySlug !== 'all'
         ? `Featured in ${categorySlug}`
-        : 'Featured across AJ Logik'
+        : 'Featured across Shelsea'
     );
 
   const scrollRail = (
@@ -466,7 +466,7 @@ export default function CategoryProductExperienceSection({
       <header className="mb-3 flex min-w-0 items-end justify-between gap-4 px-1">
         <div className="min-w-0">
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Featured by AJ Logik
+            Featured by Shelsea
           </p>
 
           <h2 className="mt-1 text-xl font-bold tracking-tight sm:text-2xl">

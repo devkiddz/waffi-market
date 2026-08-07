@@ -238,7 +238,7 @@ function describeIntent(intent: FeedIntent, context: ReturnType<typeof useFeedEx
 
     case 'home':
       return {
-        label: intent.title ?? 'AJ Logik experience',
+        label: intent.title ?? 'Shelsea experience',
         subtitle: intent.subtitle ?? null,
         categorySlug: 'all',
         source: 'SYSTEM' as const,

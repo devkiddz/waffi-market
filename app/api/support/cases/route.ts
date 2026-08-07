@@ -438,7 +438,7 @@ export async function POST(
     return response(
       {
         error:
-          'AJ Logik could not create the Support Case.'
+          'Shelsea could not create the Support Case.'
       },
       500
     );

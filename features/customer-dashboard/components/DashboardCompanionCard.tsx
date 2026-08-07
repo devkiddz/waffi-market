@@ -35,7 +35,7 @@ export function DashboardCompanionCard() {
           </p>
 
           <h3 className="mt-1 text-lg font-bold">
-            Ask AJ
+            Ask Shelsea
           </h3>
 
           <p className="mt-1 text-sm leading-5 text-white/60">

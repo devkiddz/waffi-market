@@ -39,7 +39,7 @@ export async function resolveCommunicationWorkspace(
 
   if (!runtime.activeWorkspace) {
     throw new Error(
-      'AJ Logik could not resolve an active workspace for communication.'
+      'Shelsea could not resolve an active workspace for communication.'
     );
   }
 

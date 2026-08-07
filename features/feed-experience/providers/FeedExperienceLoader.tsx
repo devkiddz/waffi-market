@@ -75,7 +75,7 @@ export default function FeedExperienceLoader({
     (intentType
       ? loadingCopy[intentType]
       : undefined) ?? {
-      eyebrow: 'AJ Logik experience',
+      eyebrow: 'Shelsea experience',
       title: 'Preparing your next view',
       description:
         'Connecting the Feed and Discovery Hub to the same active experience.'
@@ -120,7 +120,7 @@ export default function FeedExperienceLoader({
             </p>
 
             <p className="mt-1 text-sm font-semibold text-foreground">
-              AJ Logik
+              Shelsea
             </p>
           </div>
         </div>

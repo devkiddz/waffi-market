@@ -86,7 +86,7 @@ export function PWAGlobalStatus() {
 
           <div className="min-w-0 flex-1">
             <p className="text-xs font-bold">
-              AJ Logik update ready
+              Shelsea update ready
             </p>
 
             <p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">
@@ -159,14 +159,14 @@ export function PWAGlobalStatus() {
                 <h2
                   id="pwa-install-guide-title"
                   className="mt-1 text-xl font-black tracking-tight">
-                  Install AJ Logik
+                  Install Shelsea
                 </h2>
 
                 <p className="mt-2 text-xs leading-5 text-muted-foreground">
                   {platform ===
                   'ios'
                     ? 'Safari uses the iPhone or iPad Share menu for installation.'
-                    : 'Use your browser installation control to add AJ Logik as an app.'}
+                    : 'Use your browser installation control to add Shelsea as an app.'}
                 </p>
               </div>
 
@@ -192,7 +192,7 @@ export function PWAGlobalStatus() {
                       <Share className="size-4" />
                     }
                     title="Open the Share menu"
-                    description="Tap Safari’s Share button while AJ Logik is open."
+                    description="Tap Safari’s Share button while Shelsea is open."
                   />
 
                   <InstallStep
@@ -210,7 +210,7 @@ export function PWAGlobalStatus() {
                       <CheckCircle2 className="size-4" />
                     }
                     title="Confirm Add"
-                    description="Keep the AJ Logik name and icon, then tap Add."
+                    description="Keep the Shelsea name and icon, then tap Add."
                   />
                 </>
               ) : (
@@ -230,7 +230,7 @@ export function PWAGlobalStatus() {
                       <CheckCircle2 className="size-4" />
                     }
                     title="Confirm installation"
-                    description="AJ Logik will open in its own app window after installation."
+                    description="Shelsea will open in its own app window after installation."
                   />
                 </>
               )}
@@ -241,7 +241,7 @@ export function PWAGlobalStatus() {
                 </p>
 
                 <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                  New versions wait for your approval. AJ Logik will show an Update button instead of refreshing the installed app while you are using it.
+                  New versions wait for your approval. Shelsea will show an Update button instead of refreshing the installed app while you are using it.
                 </p>
               </div>
             </div>

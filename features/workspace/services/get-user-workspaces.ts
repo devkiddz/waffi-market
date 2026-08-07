@@ -189,7 +189,7 @@ export async function getGuestWorkspaceRuntime(): Promise<WorkspaceRuntime> {
       isPractice: false,
       isSandbox: false,
       switchingWorkspace: false,
-      error: 'The live AJ Logik workspace is unavailable.'
+      error: 'The live Shelsea workspace is unavailable.'
     };
   }
 

@@ -86,6 +86,7 @@ export default function DiscoveryHubPanel({
 
   return (
     <main
+      data-discovery-hub-panel
       className={cn(
         `
           flex h-full min-h-0
@@ -109,7 +110,7 @@ export default function DiscoveryHubPanel({
               uppercase tracking-[0.2em]
               text-primary/50
             ">
-            AJ Logik Workspace
+            SHELSEA
           </p>
 
           <h2

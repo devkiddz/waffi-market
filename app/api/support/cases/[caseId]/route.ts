@@ -262,7 +262,7 @@ export async function PATCH(
     return response(
       {
         error:
-          'AJ Logik could not update the Support Case.'
+          'Shelsea could not update the Support Case.'
       },
       500
     );

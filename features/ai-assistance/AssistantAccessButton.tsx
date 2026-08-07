@@ -39,7 +39,7 @@ function assistantDestination(
       href:
         '/admin/assistant',
       label:
-        'Ask AJ about this workspace'
+        'Ask Shelsea about this workspace'
     };
   }
 
@@ -52,7 +52,7 @@ function assistantDestination(
       href:
         '/vendor/assistant',
       label:
-        'Ask AJ about your Vendor workspace'
+        'Ask Shelsea about your Vendor workspace'
     };
   }
 
@@ -60,7 +60,7 @@ function assistantDestination(
     href:
       '/ai',
     label:
-      'Ask AJ for shopping help'
+      'Ask Shelsea for shopping help'
   };
 }
 
@@ -120,7 +120,7 @@ export function AssistantAccessButton() {
       </span>
 
       <span>
-        Ask AJ
+        Ask Shelsea
       </span>
     </Link>
   );

@@ -122,7 +122,7 @@ export async function GET(
     return response(
       {
         error:
-          'AJ Logik could not prepare Quick Support continuity.'
+          'Shelsea could not prepare Quick Support continuity.'
       },
       500
     );

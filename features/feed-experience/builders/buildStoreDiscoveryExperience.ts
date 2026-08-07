@@ -84,11 +84,10 @@ const STORE_REEL_LIMIT = 6;
 const ENABLE_STATIC_STORE_STUDIO_FALLBACK = true;
 
 const CATEGORY_SHELF_ORDER = [
-  'wines',
-  'spirits',
-  'kitchen',
-  'confectioneries',
-  'party-plans'
+  'clothing',
+  'apparel-accessories',
+  'hair',
+  'perfumes'
 ] as const;
 
 // ============================================================
@@ -347,16 +346,16 @@ export function buildStoreDiscoveryExperience(
       )
       .slice(0, STORE_REEL_LIMIT);
 
-  const shouldUseStaticStoreStudioFallback =
-    ENABLE_STATIC_STORE_STUDIO_FALLBACK &&
-    projectedCommerceStories.length === 0 &&
-    storeBannerSlides.length === 0 &&
-    projectedStoreReels.length === 0;
-
+  /* SHELSEA_STORE_STUDIO_INDEPENDENT_FALLBACK_V1 */
+/*
+ * Each Studio surface resolves independently.
+ * A database-backed Story should not accidentally suppress
+ * banner or Reel fallbacks, and vice versa.
+ */
   const activeStoreBannerSlides =
     storeBannerSlides.length > 0
       ? storeBannerSlides
-      : shouldUseStaticStoreStudioFallback
+      : ENABLE_STATIC_STORE_STUDIO_FALLBACK
         ? fallbackStoreBannerSlides
         : [];
 
@@ -366,14 +365,14 @@ export function buildStoreDiscoveryExperience(
           (firstStory, secondStory) =>
             secondStory.priority - firstStory.priority
         )
-      : shouldUseStaticStoreStudioFallback
+      : ENABLE_STATIC_STORE_STUDIO_FALLBACK
         ? fallbackCommerceStories
         : [];
 
   const activeStoreReels =
     projectedStoreReels.length > 0
       ? projectedStoreReels
-      : shouldUseStaticStoreStudioFallback
+      : ENABLE_STATIC_STORE_STUDIO_FALLBACK
         ? fallbackStoreReels.slice(0, STORE_REEL_LIMIT)
         : [];
 
@@ -486,12 +485,12 @@ export function buildStoreDiscoveryExperience(
 
   const categoryExperienceTitle =
     selectedCategory === 'all'
-      ? 'Featured across AJ Logik'
+      ? 'Featured across Shelsea'
       : selectedCategoryRecord?.label ?? 'Featured products';
 
   const categoryExperienceSubtitle =
     selectedCategory === 'all'
-      ? 'A premium mix of standout products from across the AJ Logik experience.'
+      ? 'A polished mix of fashion, hair, fragrance and finishing pieces from across Shelsea.'
       : selectedCategoryRecord?.shortDescription ??
         selectedCategoryRecord?.description ??
         `Explore standout products from ${categoryExperienceTitle}.`;
@@ -647,7 +646,7 @@ export function buildStoreDiscoveryExperience(
 
   const discoverySectionSubtitle =
     selectedCategory === 'all'
-      ? 'More products and moments from across the AJ Logik experience.'
+      ? 'Keep discovering more style, beauty and finishing pieces from across Shelsea.'
       : `Continue exploring products selected from ${categoryExperienceTitle}.`;
 
   const specialPickTitle =
@@ -735,7 +734,7 @@ export function buildStoreDiscoveryExperience(
               module: {
                 id: `store-category-shelf-${categorySlug}`,
                 type: 'product-rail',
-                priority: 30,
+                priority: 20,
                 data: {
                   title: categoryLabel,
                   subtitle:
@@ -756,6 +755,145 @@ export function buildStoreDiscoveryExperience(
   // ============================================================
   // EXPERIENCE MODULE CANDIDATES
   // ============================================================
+
+  // ============================================================
+  // SHELSEA CURATED DISCOVERY SHELVES
+  // ============================================================
+
+  const curatedShelves: Array<{
+    id: string;
+    title: string;
+    subtitle: string;
+    priority: number;
+    matches: (product: ProductType) => boolean;
+  }> = [
+    {
+      id: 'style-for-everyone',
+      title: 'Style for Everyone',
+      subtitle:
+        'A lively mix of women, men and kids pieces for a household that shops together.',
+      priority: 79,
+      matches: product =>
+        product.category === 'clothing' &&
+        ['women', 'men', 'kids'].includes(product.subcategory ?? '')
+    },
+    {
+      id: 'for-her',
+      title: 'For Her',
+      subtitle:
+        'Dresses, tailoring, relaxed pieces and wardrobe favourites selected for her.',
+      priority: 78,
+      matches: product =>
+        product.category === 'clothing' &&
+        product.subcategory === 'women'
+    },
+    {
+      id: 'after-dark',
+      title: 'Nightwear & Intimates',
+      subtitle:
+        'Lingerie, nightwear, underwear, hosiery and softer after-dark essentials.',
+      priority: 77,
+      matches: product =>
+        product.category === 'clothing' &&
+        ['lingerie', 'nightwear', 'underwear-basics', 'socks-hosiery'].includes(
+          product.subcategory ?? ''
+        )
+    },
+    {
+      id: 'for-him',
+      title: 'For Him',
+      subtitle:
+        'Smart casual, tailoring, everyday essentials and confident menswear.',
+      priority: 76,
+      matches: product =>
+        product.category === 'clothing' &&
+        product.subcategory === 'men'
+    },
+    {
+      id: 'crown-and-scent',
+      title: 'Crown & Scent',
+      subtitle:
+        'Mix premium hair, care essentials and signature fragrances in one beauty discovery.',
+      priority: 75,
+      matches: product =>
+        product.category === 'hair' ||
+        product.category === 'perfumes'
+    },
+    {
+      id: 'little-style',
+      title: 'Little Style',
+      subtitle:
+        'Playful, polished and comfortable picks for kids.',
+      priority: 74,
+      matches: product =>
+        product.category === 'clothing' &&
+        product.subcategory === 'kids'
+    },
+    {
+      id: 'date-night-edit',
+      title: 'The Date Night Edit',
+      subtitle:
+        'Evening clothing, fragrance and finishing pieces brought together for a complete look.',
+      priority: 73,
+      matches: product =>
+        product.category === 'perfumes' ||
+        (
+          product.category === 'apparel-accessories' &&
+          ['jewelry', 'watches', 'bags', 'shoes'].includes(
+            product.subcategory ?? ''
+          )
+        ) ||
+        (
+          product.category === 'clothing' &&
+          ['women', 'men', 'lingerie'].includes(product.subcategory ?? '') &&
+          /(dress|gown|blazer|shirt|suit|satin|lace|bodysuit)/i.test(product.name)
+        )
+    },
+    {
+      id: 'finishing-touch',
+      title: 'The Finishing Touch',
+      subtitle:
+        'Bags, shoes, jewelry, watches and accessories that complete the outfit.',
+      priority: 72,
+      matches: product =>
+        product.category === 'apparel-accessories'
+    }
+  ];
+
+  const curatedShelfCandidates: ExperienceModuleCandidate[] =
+    selectedCategory === 'all'
+      ? curatedShelves
+          .map(shelf => {
+            const matchingProducts =
+              catalog.products.filter(shelf.matches);
+
+            const shelfProducts = uniqueProducts([
+              ...matchingProducts.filter(
+                product => !previouslySurfacedProductIds.has(product.id)
+              ),
+              ...matchingProducts
+            ]).slice(0, CATEGORY_SHELF_PRODUCT_LIMIT);
+
+            return {
+              module: {
+                id: `shelsea-curated-${shelf.id}`,
+                type: 'product-rail',
+                priority: shelf.priority,
+                data: {
+                  title: shelf.title,
+                  subtitle: shelf.subtitle,
+                  products: shelfProducts,
+                  source: 'continue-discovery'
+                }
+              },
+              enabled: shelfProducts.length > 0,
+              reason: `Shelsea curated shelf "${shelf.title}" requires matching products.`
+            } satisfies ExperienceModuleCandidate;
+          })
+          .filter(candidate => candidate.enabled !== false)
+      : [];
+
+
 
   const candidates: ExperienceModuleCandidate[] = [
     // ----------------------------------------------------------
@@ -900,12 +1038,18 @@ export function buildStoreDiscoveryExperience(
         }
       },
       enabled:
+        selectedCategory !== 'all' &&
         !collectionFeedOwnsProductExperience &&
         filteredProducts.length > 0,
       reason: collectionFeedOwnsProductExperience
         ? 'The collection feed owns the complete product-experience layout.'
         : 'Category Product Experience provides a fallback when no resolved collection is available.'
-    },
+    },    // ----------------------------------------------------------
+    // SHELSEA CURATED SHELVES
+    // ----------------------------------------------------------
+    ...curatedShelfCandidates,
+
+
 
     // ----------------------------------------------------------
     // 8. MORE DISCOVERIES

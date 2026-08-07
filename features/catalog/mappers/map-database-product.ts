@@ -85,6 +85,7 @@ function normalizeProductAssetUrl(
     .join('/');
 }
 
+/* SHELSEA_CATALOG_VARIANT_COLOR_V1 */
 export function mapDatabaseProduct(
   product: DatabaseProductWithRelations
 ): ProductType {
@@ -201,6 +202,18 @@ export function mapDatabaseProduct(
             label:
               variant.label,
 
+
+            ...(variant.color
+              ? {
+                  color: variant.color
+                }
+              : {}),
+
+            ...(variant.colorHex
+              ? {
+                  colorHex: variant.colorHex
+                }
+              : {}),
             image:
               normalizeProductAssetUrl(
                 variant.image

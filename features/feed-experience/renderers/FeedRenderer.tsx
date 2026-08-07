@@ -159,7 +159,7 @@ function unifyFeaturedProductModules(
             module =>
               module.data.title
           )?.data.title ??
-          'Featured across AJ Logik',
+          'Featured across Shelsea',
 
         subtitle:
           featuredModules.find(

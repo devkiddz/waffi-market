@@ -2,23 +2,23 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import { PrismaClient } from '@/lib/generated/prisma/client';
 
-const connectionCandidates = [
-  process.env.AJLOJIK_DB_DATABASE_URL,
-  process.env.AJLOJIK_DB_POSTGRES_URL,
-  process.env.DATABASE_URL,
-  process.env.POSTGRES_URL
-].filter((value): value is string => Boolean(value));
-
+// SHELSEA_PRODUCTION_AUTHORITY_CLEANUP_V1
 const configuredConnectionString =
-  connectionCandidates.find(
-    value =>
-      value.startsWith('postgres://') ||
-      value.startsWith('postgresql://')
+  process.env.DATABASE_URL?.trim();
+
+if (
+  configuredConnectionString &&
+  !configuredConnectionString.startsWith('postgres://') &&
+  !configuredConnectionString.startsWith('postgresql://')
+) {
+  throw new Error(
+    'Shelsea runtime DATABASE_URL must be a PostgreSQL TCP connection string.'
   );
+}
 
 if (!configuredConnectionString) {
   throw new Error(
-    'A PostgreSQL TCP connection URL is missing.'
+    'Shelsea runtime DATABASE_URL is missing.'
   );
 }
 

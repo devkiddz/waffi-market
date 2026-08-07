@@ -204,7 +204,7 @@ export function PublicShoppingListRail({
               text-sm
               text-muted-foreground
             ">
-            Only lists intentionally shared by their owners and approved by AJ Logik appear here.
+            Only lists intentionally shared by their owners and approved by Shelsea appear here.
           </p>
         </div>
       </header>

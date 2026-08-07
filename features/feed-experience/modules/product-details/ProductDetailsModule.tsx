@@ -367,7 +367,7 @@ export function ProductDetailsModule({ module }: ProductDetailsModuleProps) {
             <h3 className="mt-4 text-sm font-semibold">Catalog availability</h3>
 
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
-              Variant prices and stock are resolved from the active AJ Logik catalog.
+              Variant prices and stock are resolved from the active Shelsea catalog.
             </p>
           </article>
 

@@ -172,7 +172,7 @@ export type HubWidget = {
 /**
  * Icons are registry keys rather than a closed union.
  *
- * Current AJ Logik keys still work, while future RCENTZ
+ * Current Shelsea keys still work, while future RCENTZ
  * blueprints may register new icons without changing this type.
  */
 export type HubGroupIcon = DiscoveryIconKey;

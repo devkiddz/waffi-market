@@ -35,7 +35,7 @@ export default async function AccountPage() {
   const activeWorkspace = workspaceRuntime.activeWorkspace;
 
   if (!activeWorkspace) {
-    throw new Error('AJ Logik could not resolve an active workspace for this dashboard.');
+    throw new Error('Shelsea could not resolve an active workspace for this dashboard.');
   }
 
   const dashboardData = await getCustomerDashboardData(session.user.id, activeWorkspace);

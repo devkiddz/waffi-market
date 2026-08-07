@@ -42,7 +42,7 @@ export default function VendorPromotionExperience({
           showError({
             title: 'Unable to add product',
             description:
-              'AJ Logik could not add this product to your cart. Please try again.'
+              'Shelsea could not add this product to your cart. Please try again.'
           });
         }
       });
@@ -92,7 +92,7 @@ export default function VendorPromotionExperience({
 
           <p className="mt-3 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
             {detail.promotion.description ??
-              'A verified merchant offer published through AJ Logik.'}
+              'A verified merchant offer published through Shelsea.'}
           </p>
         </div>
       </section>

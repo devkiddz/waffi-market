@@ -119,7 +119,7 @@ export const mockExperienceProfiles: MockExperienceProfile[] = [
     label: 'Guest',
 
     description:
-      'A first-time visitor discovering the AJ Logik experience.',
+      'A first-time visitor discovering the Shelsea experience.',
 
     user: {
       sessionId: 'mock-guest-session',
@@ -175,7 +175,7 @@ export const mockExperienceProfiles: MockExperienceProfile[] = [
       ],
 
       bannerMessage:
-        'Start exploring AJ Logik and discover premium experiences.'
+        'Start exploring Shelsea and discover premium experiences.'
     }
   },
 

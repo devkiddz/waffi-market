@@ -73,7 +73,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
 
   const heroFallbackImage = hero?.posterUrl?.trim() || DEFAULT_HERO_IMAGE;
 
-  const eyebrow = hero?.eyebrow?.trim() || 'The AJ Logik experience';
+  const eyebrow = hero?.eyebrow?.trim() || 'The Shelsea experience';
 
   const title = hero?.title?.trim() || 'Everything beautiful begins with the right experience.';
 
@@ -81,7 +81,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
     hero?.summary?.trim() ||
     'Discover premium wines, thoughtful meals and unforgettable moments—carefully arranged around the experience you want to create.';
 
-  const primaryLabel = hero ? hero.primaryLabel.trim() : 'Explore AJ Logik';
+  const primaryLabel = hero ? hero.primaryLabel.trim() : 'Explore Shelsea';
 
   const primaryHref = hero ? hero.primaryHref.trim() : '/store';
 
@@ -220,7 +220,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
 
               const categoryDescription =
                 category.slug === 'all'
-                  ? 'Explore the complete AJ Logik store.'
+                  ? 'Explore the complete Shelsea store.'
                   : category.shortDescription || 'Explore this experience.';
 
               const CategoryIcon = category.icon;
@@ -283,7 +283,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
         </div>
       </section>
 
-      {/* Why shop with AJ Logik */}
+      {/* Why shop with Shelsea */}
 
       <section className="relative overflow-hidden px-4 pb-20 pt-20 sm:px-6 sm:pb-24 lg:px-10 lg:pt-24">
         <div
@@ -294,7 +294,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
         <div className="relative mx-auto max-w-7xl">
           <div className="max-w-2xl">
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-amber-300">
-              Why shop with AJ Logik
+              Why shop with Shelsea
             </p>
 
             <h2 className="mt-3 text-3xl font-black leading-tight tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
@@ -302,7 +302,7 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
             </h2>
 
             <p className="mt-4 max-w-xl text-sm leading-7 text-white/55 sm:text-base">
-              AJ Logik brings products, occasions and thoughtful recommendations together so that every
+              Shelsea brings products, occasions and thoughtful recommendations together so that every
               purchase feels intentional.
             </p>
           </div>
@@ -345,14 +345,14 @@ export default function HomeStorefront({ hero }: HomeStorefrontProps) {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-white/55 sm:text-base">
-                Enter the store and let AJ Logik help you assemble the right experience.
+                Enter the store and let Shelsea help you assemble the right experience.
               </p>
             </div>
 
             <Link
               href="/store"
               className="relative mt-6 inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-bold text-[#07101d] shadow-xl transition duration-300 hover:-translate-y-0.5 hover:bg-amber-50 lg:mt-0">
-              Enter AJ Logik
+              Enter Shelsea
               <ArrowRight className="size-4" />
             </Link>
           </div>

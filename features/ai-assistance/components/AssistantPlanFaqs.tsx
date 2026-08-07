@@ -85,7 +85,7 @@ export function AssistantPlanFaqs({
       answer:
         nonAlcoholic
           ? `The active result reports ${nonAlcoholic}. Product-level reasons and facts remain available inside each accordion.`
-          : 'This result does not expose a non-alcoholic metric. Ask AJ to apply a minimum or alcohol-free constraint when that distinction matters.'
+          : 'This result does not expose a non-alcoholic metric. Ask Shelsea to apply a minimum or alcohol-free constraint when that distinction matters.'
     },
     {
       question:

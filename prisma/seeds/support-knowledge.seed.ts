@@ -143,7 +143,7 @@ async function main(): Promise<void> {
 
   if (!workspaces.length) {
     throw new Error(
-      'No active AJ Logik workspace was found for Support Knowledge seeding.'
+      'No active Shelsea Commerce workspace was found for Support Knowledge seeding.'
     );
   }
 

@@ -25,7 +25,7 @@ export function StoreGridDestination({
   const title = category?.label ?? 'All Products';
   const description =
     category?.description ??
-    'Browse the complete AJ Logik catalogue in a clear responsive product grid.';
+    'Browse the complete Shelsea catalogue in a clear responsive product grid.';
   const discoveryHref =
     selectedCategory === 'all'
       ? '/store'

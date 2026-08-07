@@ -121,7 +121,7 @@ export default function SignUpForm({
       setNotice({
         variant: 'warning',
         title: 'Your name is required',
-        description: 'Enter the name you would like connected to your AJ Logik account.'
+        description: 'Enter the name you would like connected to your Shelsea account.'
       });
 
       return;
@@ -263,7 +263,7 @@ export default function SignUpForm({
           <h2 className="mt-5 text-xl font-bold tracking-tight text-foreground">Check your email</h2>
 
           <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
-            Your account was created. Complete verification to securely enter your AJ Logik experience.
+            Your account was created. Complete verification to securely enter your Shelsea experience.
           </p>
         </div>
 

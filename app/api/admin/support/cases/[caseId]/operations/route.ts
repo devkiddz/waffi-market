@@ -256,7 +256,7 @@ export async function POST(
     return response(
       {
         error:
-          'AJ Logik could not update Support operations.'
+          'Shelsea could not update Support operations.'
       },
       500
     );

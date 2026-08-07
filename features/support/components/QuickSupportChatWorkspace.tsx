@@ -195,11 +195,11 @@ export function QuickSupportChatWorkspace() {
       });
 
       if (response.status === 401) {
-        throw new Error('Sign in to continue with AJ Logik Support.');
+        throw new Error('Sign in to continue with Shelsea Support.');
       }
 
       if (!response.ok) {
-        throw new Error(await readFailure(response, 'AJ Logik could not load this Support conversation.'));
+        throw new Error(await readFailure(response, 'Shelsea could not load this Support conversation.'));
       }
 
       return (await response.json()) as SupportCaseDetail;
@@ -278,7 +278,7 @@ export function QuickSupportChatWorkspace() {
       }
 
       if (!response.ok) {
-        throw new Error(await readFailure(response, 'AJ Logik could not inspect your Support history.'));
+        throw new Error(await readFailure(response, 'Shelsea could not inspect your Support history.'));
       }
 
       const snapshot = (await response.json()) as QuickSupportSummary;
@@ -331,7 +331,7 @@ export function QuickSupportChatWorkspace() {
       }
 
       if (sequence === viewSequenceRef.current && workspaceRef.current === workspaceId) {
-        const message = cause instanceof Error ? cause.message : 'AJ Logik could not prepare Quick Support.';
+        const message = cause instanceof Error ? cause.message : 'Shelsea could not prepare Quick Support.';
 
         if (message.startsWith('Sign in')) {
           setAuthenticationRequired(true);
@@ -399,7 +399,7 @@ export function QuickSupportChatWorkspace() {
 
         if (sequence === viewSequenceRef.current) {
           setError(
-            cause instanceof Error ? cause.message : 'AJ Logik could not switch Support conversations.'
+            cause instanceof Error ? cause.message : 'Shelsea could not switch Support conversations.'
           );
         }
       } finally {
@@ -438,7 +438,7 @@ export function QuickSupportChatWorkspace() {
           return;
         }
 
-        setError(cause instanceof Error ? cause.message : 'AJ Logik could not apply a live Support update.');
+        setError(cause instanceof Error ? cause.message : 'Shelsea could not apply a live Support update.');
       }
     },
     [commitCase, requestCaseDetail]
@@ -612,8 +612,8 @@ export function QuickSupportChatWorkspace() {
           await readFailure(
             response,
             selectedCaseId
-              ? 'AJ Logik could not send your Support message.'
-              : 'AJ Logik could not start Quick Support.'
+              ? 'Shelsea could not send your Support message.'
+              : 'Shelsea could not start Quick Support.'
           )
         );
       }
@@ -653,7 +653,7 @@ export function QuickSupportChatWorkspace() {
       }
 
       if (mountedRef.current && viewSequenceRef.current === viewSequence) {
-        setError(cause instanceof Error ? cause.message : 'AJ Logik could not send your Support message.');
+        setError(cause instanceof Error ? cause.message : 'Shelsea could not send your Support message.');
       }
     } finally {
       if (sendControllerRef.current === controller) {
@@ -715,7 +715,7 @@ export function QuickSupportChatWorkspace() {
           <h3 className="mt-4 text-base font-black">Sign in for secure Support</h3>
 
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Your messages, case history and live replies are protected by your AJ Logik account.
+            Your messages, case history and live replies are protected by your Shelsea account.
           </p>
 
           <Link

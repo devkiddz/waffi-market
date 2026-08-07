@@ -138,7 +138,7 @@ export async function GET(request: NextRequest) {
 
     return response(
       {
-        error: 'AJ Logik could not load notifications.'
+        error: 'Shelsea could not load notifications.'
       },
       500
     );
@@ -327,7 +327,7 @@ export async function PATCH(request: NextRequest) {
 
     return response(
       {
-        error: 'AJ Logik could not update notifications.'
+        error: 'Shelsea could not update notifications.'
       },
       500
     );

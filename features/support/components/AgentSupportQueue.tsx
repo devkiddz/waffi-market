@@ -97,7 +97,7 @@ export function AgentSupportQueue({
 
         if (!response.ok) {
           throw new Error(
-            'AJ Logik could not refresh the Support queue.'
+            'Shelsea could not refresh the Support queue.'
           );
         }
 
@@ -110,7 +110,7 @@ export function AgentSupportQueue({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not refresh the Support queue.'
+            : 'Shelsea could not refresh the Support queue.'
         );
       }
     });

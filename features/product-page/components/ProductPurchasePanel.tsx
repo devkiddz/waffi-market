@@ -81,6 +81,18 @@ export function ProductPurchasePanel({
           0
       }
     );
+  const originalSelectedVariantPrice =
+    selectedVariant &&
+    product.discountPercentage > 0 &&
+    product.discountPercentage < 100
+      ? selectedVariant.price /
+        (
+          1 -
+          product.discountPercentage /
+            100
+        )
+      : null;
+
 
   const inStock =
     Boolean(
@@ -104,7 +116,7 @@ export function ProductPurchasePanel({
 
   const merchantName =
     product.merchant?.name ??
-    'AJ Logik';
+    'Shelsea';
 
   const openDeepInsight =
     (): void => {
@@ -322,16 +334,48 @@ export function ProductPurchasePanel({
                 Price
               </p>
 
-              <p
+              <div
                 className={
-                  styles.price
+                  styles.priceDisplay
                 }>
-                {selectedVariant
-                  ? priceFormatter.format(
-                      selectedVariant.price
-                    )
-                  : 'Unavailable'}
-              </p>
+                <p
+                  className={
+                    styles.price
+                  }>
+                  {selectedVariant
+                    ? priceFormatter.format(
+                        selectedVariant.price
+                      )
+                    : 'Unavailable'}
+                </p>
+
+                {originalSelectedVariantPrice ? (
+                  <div
+                    className={
+                      styles.priceComparison
+                    }>
+                    <span
+                      className={
+                        styles.originalPrice
+                      }>
+                      {priceFormatter.format(
+                        originalSelectedVariantPrice
+                      )}
+                    </span>
+
+                    <span
+                      className={
+                        styles.savingCopy
+                      }>
+                      Save{' '}
+                      {
+                        product.discountPercentage
+                      }
+                      %
+                    </span>
+                  </div>
+                ) : null}
+              </div>
             </div>
 
             <div
@@ -450,7 +494,7 @@ export function ProductPurchasePanel({
               <Sparkles className="size-3.5" />
 
               <span className="truncate">
-                Ask AJ about this product
+                Ask Shelsea about this product
               </span>
             </Button>
 

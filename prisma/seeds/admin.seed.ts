@@ -1,4 +1,4 @@
-import {
+﻿import {
   randomUUID
 } from 'node:crypto';
 
@@ -21,7 +21,7 @@ const LEGACY_DEVELOPER_EMAIL =
   'devkiddzadmin@recentzadmin.com';
 
 const DEMO_EMAIL =
-  'demo.superadmin@ajlojik.com';
+  'demo.superadmin@shelsea.test';
 
 const DEVELOPER_NAME =
   process.env.DEVELOPER_ADMIN_NAME?.trim() ||
@@ -302,7 +302,7 @@ async function seedDemoAdmin(
             randomUUID(),
 
           name:
-            'AJ Logik Demo Super Admin',
+            'Shelsea Commerce Demo Super Admin',
 
           email:
             DEMO_EMAIL,
@@ -333,7 +333,7 @@ async function seedDemoAdmin(
 
       data: {
         name:
-          'AJ Logik Demo Super Admin',
+          'Shelsea Commerce Demo Super Admin',
 
         emailVerified:
           true,
@@ -391,3 +391,4 @@ export async function seedAdminAccounts(
     workspaces
   );
 }
+

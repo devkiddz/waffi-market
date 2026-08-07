@@ -549,13 +549,13 @@ export function resolveCatalogProductDeepInsight({
   const ratingEvidence =
     product.reviews >
       0
-      ? `${product.rating}/5 from ${product.reviews.toLocaleString()} customer reviews inside AJ Logik.`
+      ? `${product.rating}/5 from ${product.reviews.toLocaleString()} customer reviews inside Shelsea.`
       : 'No approved customer-review evidence is available yet.';
 
   const movementEvidence =
     product.soldCount >
       0
-      ? `${product.soldCount.toLocaleString()} recorded sales provide an AJ Logik marketplace-activity signal.`
+      ? `${product.soldCount.toLocaleString()} recorded sales provide an Shelsea marketplace-activity signal.`
       : 'Recorded sales activity is not yet strong enough to describe marketplace movement.';
 
   const availabilityEvidence =
@@ -601,7 +601,7 @@ export function resolveCatalogProductDeepInsight({
 
           detail:
             product.featured
-              ? 'AJ Logik is currently giving this product elevated discovery visibility.'
+              ? 'Shelsea is currently giving this product elevated discovery visibility.'
               : product.isNew
                 ? 'The listing is still in its new-arrival period.'
                 : 'The product is available through normal catalogue discovery.'
@@ -687,7 +687,7 @@ export function resolveCatalogProductDeepInsight({
             'How publicly established is this product?',
 
           answer:
-            `${ratingEvidence} ${movementEvidence} These are AJ Logik marketplace signals, not a claim about the wider public market.`
+            `${ratingEvidence} ${movementEvidence} These are Shelsea marketplace signals, not a claim about the wider public market.`
         },
 
         {
@@ -794,6 +794,6 @@ export function resolveCatalogProductDeepInsight({
       ),
     relatedProducts,
     sourceNote:
-      'This Deep Insight is grounded in AJ Logik catalogue data, approved customer activity and current commerce state. It does not claim wider public awareness or external facts until verified sources are connected.'
+      'This Deep Insight is grounded in Shelsea catalogue data, approved customer activity and current commerce state. It does not claim wider public awareness or external facts until verified sources are connected.'
   };
 }

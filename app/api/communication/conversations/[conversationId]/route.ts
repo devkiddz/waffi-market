@@ -250,7 +250,7 @@ export async function PATCH(
     return response(
       {
         error:
-          'AJ Logik could not update the conversation.'
+          'Shelsea could not update the conversation.'
       },
       500
     );

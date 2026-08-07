@@ -53,7 +53,7 @@ function titleFor(
   return (
     conversation.subject ??
     conversation.vendor?.name ??
-    'AJ Logik conversation'
+    'Shelsea conversation'
   );
 }
 
@@ -144,7 +144,7 @@ export function InboxWorkspace({
 
         if (!response.ok) {
           throw new Error(
-            'AJ Logik could not refresh the Inbox.'
+            'Shelsea could not refresh the Inbox.'
           );
         }
 
@@ -205,7 +205,7 @@ export function InboxWorkspace({
           throw new Error(
             'error' in payload && payload.error
               ? payload.error
-              : 'AJ Logik could not start the conversation.'
+              : 'Shelsea could not start the conversation.'
           );
         }
 
@@ -226,7 +226,7 @@ export function InboxWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not start the conversation.'
+            : 'Shelsea could not start the conversation.'
         );
       }
     });
@@ -252,7 +252,7 @@ export function InboxWorkspace({
                 <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
                   {audience === 'vendor'
                     ? `${vendorName ?? 'Vendor'} Inbox`
-                    : 'Your AJ Logik Inbox'}
+                    : 'Your Shelsea Inbox'}
                 </h1>
 
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">

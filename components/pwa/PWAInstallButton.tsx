@@ -97,7 +97,7 @@ export function PWAInstallButton({ className }: PWAInstallButtonProps) {
           className
         )}>
         {installed ? <CheckCircle2 className="size-4" /> : <Download className="size-4" />}
-        {installed ? 'AJ Logik installed' : 'Install AJ Logik'}
+        {installed ? 'Shelsea installed' : 'Install Shelsea'}
       </button>
 
       <Dialog open={instructionsOpen} onOpenChange={setInstructionsOpen}>
@@ -107,7 +107,7 @@ export function PWAInstallButton({ className }: PWAInstallButtonProps) {
           </div>
 
           <div>
-            <DialogTitle className="text-xl font-black">Install AJ Logik</DialogTitle>
+            <DialogTitle className="text-xl font-black">Install Shelsea</DialogTitle>
             <DialogDescription className="mt-2 leading-6">
               {isIOS
                 ? 'Safari handles installation from its Share menu.'
@@ -127,7 +127,7 @@ export function PWAInstallButton({ className }: PWAInstallButtonProps) {
             </div>
           ) : (
             <div className="rounded-2xl border border-border/70 bg-muted/35 p-4 text-sm leading-6 text-muted-foreground">
-              Open the browser menu and choose <strong className="text-foreground">Install AJ Logik</strong> or <strong className="text-foreground">Install app</strong>. On mobile, use <strong className="text-foreground">Add to Home screen</strong>.
+              Open the browser menu and choose <strong className="text-foreground">Install Shelsea</strong> or <strong className="text-foreground">Install app</strong>. On mobile, use <strong className="text-foreground">Add to Home screen</strong>.
             </div>
           )}
 

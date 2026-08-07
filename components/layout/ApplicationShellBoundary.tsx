@@ -12,7 +12,7 @@ type ApplicationShellBoundaryProps = {
 };
 
 /**
- * Customer routes use the AJ Logik navigation, sidebar, Hub and footer.
+ * Customer routes use the Shelsea navigation, sidebar, Hub and footer.
  * Admin, Vendor and Developer-login routes own dedicated operational shells
  * and must not inherit customer chrome or spacing.
  */

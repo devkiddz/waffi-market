@@ -60,7 +60,7 @@ export const supportGuideKnowledge:
         /\bi am (lost|confused)\b/i
       ],
       answer:
-        'AJ Logik is designed around your shopping journey. Use the Store to discover products, the cart to prepare checkout, Orders to follow purchases, Deliveries to track fulfilment, Shopping Lists to plan ahead, and Support whenever something needs human attention.',
+        'Shelsea is designed around your shopping journey. Use the Store to discover products, the cart to prepare checkout, Orders to follow purchases, Deliveries to track fulfilment, Shopping Lists to plan ahead, and Support whenever something needs human attention.',
       followUp:
         'Which part are you trying to use right now?',
       actions: [
@@ -252,7 +252,7 @@ export const supportGuideKnowledge:
         /\b(contact|message|chat|talk)\b.*\b(vendor|seller|store)\b/i
       ],
       answer:
-        'AJ Logik can connect customer questions to the relevant approved vendor where vendor communication is available. Product, order and vendor context should be preserved so you do not have to explain the same issue repeatedly.',
+        'Shelsea can connect customer questions to the relevant approved vendor where vendor communication is available. Product, order and vendor context should be preserved so you do not have to explain the same issue repeatedly.',
       followUp:
         'Is your question about a product before purchase or an item already included in an order?',
       actions: [
@@ -273,7 +273,7 @@ export const supportGuideKnowledge:
         /\b(return|refund|replacement|replace)\b/i
       ],
       answer:
-        'Returns, refunds and replacements depend on the affected order, product condition, payment record and the approved AJ Logik policy for that case. I should not promise an outcome before those details are reviewed.',
+        'Returns, refunds and replacements depend on the affected order, product condition, payment record and the approved Shelsea policy for that case. I should not promise an outcome before those details are reviewed.',
       followUp:
         'Is the item damaged, incorrect, missing, or simply no longer wanted?',
       actions: [

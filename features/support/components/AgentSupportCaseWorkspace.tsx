@@ -164,7 +164,7 @@ export function AgentSupportCaseWorkspace({
         throw new Error(
           'error' in next && next.error
             ? next.error
-            : 'AJ Logik could not update the Support Case.'
+            : 'Shelsea could not update the Support Case.'
         );
       }
 
@@ -273,7 +273,7 @@ export function AgentSupportCaseWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not update the Support Case.'
+            : 'Shelsea could not update the Support Case.'
         );
       }
     });

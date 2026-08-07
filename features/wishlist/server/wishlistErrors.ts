@@ -42,7 +42,7 @@ export function wishlistErrorResponse(
   return NextResponse.json(
     {
       error:
-        'AJ Logik could not complete the wishlist request.'
+        'Shelsea could not complete the wishlist request.'
     },
     {
       status: 500

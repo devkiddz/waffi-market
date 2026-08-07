@@ -32,7 +32,7 @@ export async function requireWishlistAccess(
   if (!userId) {
     throw new WishlistHttpError(
       401,
-      'Sign in to access your AJ Logik wishlist.'
+      'Sign in to access your Shelsea wishlist.'
     );
   }
 
@@ -45,7 +45,7 @@ export async function requireWishlistAccess(
   ) {
     throw new WishlistHttpError(
       400,
-      'A valid AJ Logik workspace is required.'
+      'A valid Shelsea workspace is required.'
     );
   }
 

@@ -396,7 +396,7 @@ export function StoreReelViewer({
 
               <div className="absolute left-4 top-7 z-30 min-w-0 pr-16 md:left-5">
                 <p className="truncate text-[10px] font-black uppercase tracking-[0.18em] text-amber-300">
-                  {activeReel.vendorName ?? 'AJ Logik'}
+                  {activeReel.vendorName ?? 'Shelsea'}
                 </p>
                 <p className="mt-1 text-xs font-semibold text-white/70">
                   Reel {activeIndex + 1} of {reels.length}
@@ -469,7 +469,7 @@ export function StoreReelViewer({
               <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-6 md:px-8 md:pb-8 md:pt-8">
                 <div className="pr-12">
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-300">
-                    AJ Logik · Store Reels
+                    Shelsea · Store Reels
                   </p>
 
                   <h2 className="mt-3 text-2xl font-black tracking-tight text-white md:text-4xl md:leading-tight">
@@ -495,7 +495,7 @@ export function StoreReelViewer({
                   ) : null}
 
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-semibold text-white/60">
-                    {activeReel.vendorName ?? 'AJ Logik'}
+                    {activeReel.vendorName ?? 'Shelsea'}
                   </span>
                 </div>
 

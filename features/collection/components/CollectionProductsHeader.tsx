@@ -18,7 +18,7 @@ export default function CollectionProductsHeader({
   subtitle,
   productCount,
   href,
-  actionLabel = 'View Collection',
+  actionLabel = 'View all',
   className
 }: CollectionProductsHeaderProps) {
   return (

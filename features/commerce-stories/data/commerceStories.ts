@@ -1,142 +1,242 @@
-import type {
-  CommerceStory
-} from '../contracts';
+import type { CommerceStory } from '../contracts';
 
 export const commerceStories: CommerceStory[] = [
   {
-    id: 'story-moet-nectar',
-    workspaceId: 'aj-logik',
-
-    title: 'Moët Nectar',
-    label: 'New arrival',
-
-    storyType: 'product',
-    mediaType: 'video',
-
-    mediaUrl:
-      '/stories/moet-nectar.mp4',
-
-    coverUrl:
-      '/stories/covers/moet-nectar.webp',
-
-    posterUrl:
-      '/stories/covers/moet-nectar.webp',
-
-    actionType: 'product',
-
+    id: "story-shelsea-new-season",
+    workspaceId: "shelsea-commerce-live",
+    title: "New Season",
+    label: "New arrivals",
+    storyType: "product",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/new-season.png",
+    coverUrl: "/shelsea/stories/new-season.png",
+    posterUrl: "/shelsea/stories/new-season.png",
+    actionType: "product",
     productIds: [
-      'prod_1'
+      "prod_1"
     ],
-
-    actionLabel:
-      'View product',
-
+    actionLabel: "Shop now",
+    durationMs: 6500,
+    active: true,
+    priority: 120,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-mens-edit",
+    workspaceId: "shelsea-commerce-live",
+    title: "Men's Edit",
+    label: "Modern classics",
+    storyType: "collection",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/mens-edit.png",
+    coverUrl: "/shelsea/stories/mens-edit.png",
+    posterUrl: "/shelsea/stories/mens-edit.png",
+    actionType: "collection",
+    collectionId: "mens-modern-classics",
+    actionLabel: "Explore",
+    durationMs: 6500,
+    active: true,
+    priority: 115,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-bags",
+    workspaceId: "shelsea-commerce-live",
+    title: "Bag Edit",
+    label: "Accessories",
+    storyType: "product",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/bags.png",
+    coverUrl: "/shelsea/stories/bags.png",
+    posterUrl: "/shelsea/stories/bags.png",
+    actionType: "product",
+    productIds: [
+      "prod_57"
+    ],
+    actionLabel: "Shop now",
+    durationMs: 6500,
+    active: true,
+    priority: 110,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-heels",
+    workspaceId: "shelsea-commerce-live",
+    title: "Shoe Drop",
+    label: "Just in",
+    storyType: "product",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/heels.png",
+    coverUrl: "/shelsea/stories/heels.png",
+    posterUrl: "/shelsea/stories/heels.png",
+    actionType: "product",
+    productIds: [
+      "prod_67"
+    ],
+    actionLabel: "Shop now",
+    durationMs: 6500,
+    active: true,
+    priority: 105,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-wig-room",
+    workspaceId: "shelsea-commerce-live",
+    title: "The Wig Room",
+    label: "Premium hair",
+    storyType: "collection",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/wig-room.png",
+    coverUrl: "/shelsea/stories/wig-room.png",
+    posterUrl: "/shelsea/stories/wig-room.png",
+    actionType: "collection",
+    collectionId: "wig-room",
+    actionLabel: "Explore",
+    durationMs: 6500,
     active: true,
     priority: 100,
-
-    createdAt:
-      '2026-07-28T08:00:00.000Z',
-
-    updatedAt:
-      '2026-07-28T08:00:00.000Z'
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
   },
-
   {
-    id: 'story-weekend-offer',
-    workspaceId: 'aj-logik',
-
-    title: 'Weekend Offer',
-    label: '20% off',
-
-    storyType: 'promotion',
-    mediaType: 'image',
-
-    mediaUrl:
-      '/stories/red-wine-pool.mp4',
-
-    coverUrl:
-      '/stories/covers/weekend-offer.webp',
-
-    actionType: 'promotion',
-
-    promotionId:
-      'weekend-discount',
-
-    actionLabel:
-      'View offer',
-
+    id: "story-shelsea-hair-care",
+    workspaceId: "shelsea-commerce-live",
+    title: "Hair Care",
+    label: "Routine essentials",
+    storyType: "promotion",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/hair-care.png",
+    coverUrl: "/shelsea/stories/hair-care.png",
+    posterUrl: "/shelsea/stories/hair-care.png",
+    actionType: "promotion",
+    promotionId: "hair-refresh",
+    actionLabel: "Explore",
+    durationMs: 6500,
+    active: true,
+    priority: 95,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-women-scents",
+    workspaceId: "shelsea-commerce-live",
+    title: "For Her",
+    label: "Signature scents",
+    storyType: "product",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/women-scents.png",
+    coverUrl: "/shelsea/stories/women-scents.png",
+    posterUrl: "/shelsea/stories/women-scents.png",
+    actionType: "product",
+    productIds: [
+      "prod_133"
+    ],
+    actionLabel: "Shop now",
+    durationMs: 6500,
     active: true,
     priority: 90,
-
-    createdAt:
-      '2026-07-28T08:00:00.000Z',
-
-    updatedAt:
-      '2026-07-28T08:00:00.000Z'
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
   },
-
   {
-    id: 'story-tonights-pour',
-    workspaceId: 'aj-logik',
-
-    title: 'Tonight’s Pour',
-    label: 'Collection',
-
-    storyType: 'collection',
-    mediaType: 'video',
-
-    mediaUrl:
-      '/stories/tonights-pour.mp4',
-
-    coverUrl:
-      '/stories/covers/tonights-pour.webp',
-
-    posterUrl:
-      '/stories/covers/tonights-pour.webp',
-
-    actionType: 'collection',
-
-    collectionId:
-      'tonights-pour',
-
-    actionLabel:
-      'Explore collection',
-
+    id: "story-shelsea-mens-scents",
+    workspaceId: "shelsea-commerce-live",
+    title: "For Him",
+    label: "Fragrance edit",
+    storyType: "product",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/mens-scents.png",
+    coverUrl: "/shelsea/stories/mens-scents.png",
+    posterUrl: "/shelsea/stories/mens-scents.png",
+    actionType: "product",
+    productIds: [
+      "prod_142"
+    ],
+    actionLabel: "Shop now",
+    durationMs: 6500,
+    active: true,
+    priority: 85,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-unisex-scents",
+    workspaceId: "shelsea-commerce-live",
+    title: "Unisex Scents",
+    label: "Wear your signature",
+    storyType: "collection",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/unisex-scents.png",
+    coverUrl: "/shelsea/stories/unisex-scents.png",
+    posterUrl: "/shelsea/stories/unisex-scents.png",
+    actionType: "collection",
+    collectionId: "signature-scents",
+    actionLabel: "Explore",
+    durationMs: 6500,
     active: true,
     priority: 80,
-
-    createdAt:
-      '2026-07-28T08:00:00.000Z',
-
-    updatedAt:
-      '2026-07-28T08:00:00.000Z'
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
   },
-
   {
-    id: 'story-party-night',
-    workspaceId: 'aj-logik',
-
-    title: 'Party Night',
-    label: 'Party plans',
-
-    storyType: 'announcement',
-    mediaType: 'image',
-
-    mediaUrl:
-      '/stories/party-night.webp',
-
-    coverUrl:
-      '/stories/covers/party-night.webp',
-
-    actionType: 'none',
-
+    id: "story-shelsea-best-sellers",
+    workspaceId: "shelsea-commerce-live",
+    title: "Best Sellers",
+    label: "Customer favourites",
+    storyType: "promotion",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/best-sellers.png",
+    coverUrl: "/shelsea/stories/best-sellers.png",
+    posterUrl: "/shelsea/stories/best-sellers.png",
+    actionType: "promotion",
+    promotionId: "shelsea-best-sellers",
+    actionLabel: "Explore",
+    durationMs: 6500,
+    active: true,
+    priority: 75,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-new-arrivals",
+    workspaceId: "shelsea-commerce-live",
+    title: "Just In",
+    label: "Fresh drops",
+    storyType: "promotion",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/new-arrivals.png",
+    coverUrl: "/shelsea/stories/new-arrivals.png",
+    posterUrl: "/shelsea/stories/new-arrivals.png",
+    actionType: "promotion",
+    promotionId: "new-arrivals-week",
+    actionLabel: "Explore",
+    durationMs: 6500,
     active: true,
     priority: 70,
-
-    createdAt:
-      '2026-07-28T08:00:00.000Z',
-
-    updatedAt:
-      '2026-07-28T08:00:00.000Z'
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
+  },
+  {
+    id: "story-shelsea-style-guide",
+    workspaceId: "shelsea-commerce-live",
+    title: "Style Guide",
+    label: "Complete the look",
+    storyType: "collection",
+    mediaType: "image",
+    mediaUrl: "/shelsea/stories/style-guide.png",
+    coverUrl: "/shelsea/stories/style-guide.png",
+    posterUrl: "/shelsea/stories/style-guide.png",
+    actionType: "collection",
+    collectionId: "finishing-touch",
+    actionLabel: "Explore",
+    durationMs: 6500,
+    active: true,
+    priority: 65,
+    createdAt: "2026-08-07T10:00:00.000Z",
+    updatedAt: "2026-08-07T10:00:00.000Z"
   }
 ];

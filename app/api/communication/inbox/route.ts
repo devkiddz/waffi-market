@@ -124,7 +124,7 @@ export async function GET(
     return response(
       {
         error:
-          'AJ Logik could not load the communication inbox.'
+          'Shelsea could not load the communication inbox.'
       },
       500
     );

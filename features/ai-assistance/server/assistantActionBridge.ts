@@ -1110,7 +1110,7 @@ async function applyProductDraft(
 
   if (!recognised) {
     throw new AssistantRuntimeError(
-      'This response does not contain a recognised Product draft. Ask AJ to create a Product and include its exact name and category.',
+      'This response does not contain a recognised Product draft. Ask Shelsea to create a Product and include its exact name and category.',
       422
     );
   }
@@ -1190,7 +1190,7 @@ async function applyProductDraft(
 
   if (!category) {
     throw new AssistantRuntimeError(
-      'The recognised Product category is no longer available. Ask AJ to recognise the Product again.',
+      'The recognised Product category is no longer available. Ask Shelsea to recognise the Product again.',
       409
     );
   }

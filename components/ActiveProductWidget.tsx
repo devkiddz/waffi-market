@@ -1,5 +1,37 @@
 'use client';
 
+
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
+
+import {
+  ArrowLeft,
+  BadgeCheck,
+  BrainCircuit,
+  CalendarClock,
+  Eye,
+  Heart,
+  Layers3,
+  ListPlus,
+  LoaderCircle,
+  Minus,
+  MoreHorizontal,
+  PackageCheck,
+  Plus,
+  ShoppingCart,
+  Sparkles,
+  Star,
+  Tag
+} from 'lucide-react';
+
+/* SHELSEA_HUB_GALLERY_RUNTIME_FIX_V1 */
+
+/* SHELSEA_HUB_GALLERY_COLOR_VARIANTS_V1_1 */
+
 /* AJ_HUB_CLOSE_BEFORE_PRODUCT_PAGE_V2K */
 
 /* AJ_HUB_DISCOVERY_CARDS_PREVIEW_ONLY_V2I */
@@ -11,27 +43,7 @@ import Link from 'next/link';
 /* AJ_HUB_PRODUCT_PAGE_AUTHORITY_V2D */
 /* AJ_FEED_HUB_PRODUCT_PAGE_AUTHORITY_V1 */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import {
-  ArrowLeft,
-  BadgeCheck,
-  BrainCircuit,
-  CalendarClock,
-  Eye,
-  Heart,
-  Layers3,
-  LoaderCircle,
-  Minus,
-  MoreHorizontal,
-  PackageCheck,
-  Plus,
-  ShoppingCart,
-  ListPlus,
-  Sparkles,
-  Star,
-  Tag
-} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/features/cart';
@@ -67,7 +79,8 @@ import { useWishlist } from '@/features/wishlist';
 import { cn } from '@/lib/utils';
 
 import type {
-  ProductType
+  ProductType,
+  ProductVariantType
 } from '@/types/types';
 
 function normalizeText(value?: string): string | undefined {
@@ -81,6 +94,92 @@ function formatLabel(value: string): string {
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+type ResolvedVariantColor = {
+  label: string;
+  hex: string;
+};
+
+const VARIANT_COLOR_SWATCHES: Array<{
+  label: string;
+  hex: string;
+  tokens: string[];
+}> = [
+  { label: 'Rose gold', hex: '#B76E79', tokens: ['rose gold', 'rose-gold'] },
+  { label: 'Burgundy', hex: '#800020', tokens: ['burgundy', 'wine'] },
+  { label: 'Navy', hex: '#1E3A5F', tokens: ['navy', 'navy blue'] },
+  { label: 'Royal blue', hex: '#4169E1', tokens: ['royal blue', 'royal-blue'] },
+  { label: 'Sky blue', hex: '#87CEEB', tokens: ['sky blue', 'sky-blue'] },
+  { label: 'Black', hex: '#111111', tokens: ['black'] },
+  { label: 'White', hex: '#FFFFFF', tokens: ['white'] },
+  { label: 'Cream', hex: '#FFFDD0', tokens: ['cream', 'ivory'] },
+  { label: 'Beige', hex: '#D9C5A5', tokens: ['beige', 'nude'] },
+  { label: 'Brown', hex: '#7A4B2A', tokens: ['brown', 'chocolate'] },
+  { label: 'Tan', hex: '#D2B48C', tokens: ['tan', 'camel'] },
+  { label: 'Red', hex: '#DC2626', tokens: ['red'] },
+  { label: 'Rose', hex: '#F43F5E', tokens: ['rose'] },
+  { label: 'Pink', hex: '#EC4899', tokens: ['pink', 'blush'] },
+  { label: 'Purple', hex: '#9333EA', tokens: ['purple', 'violet', 'lilac'] },
+  { label: 'Blue', hex: '#2563EB', tokens: ['blue'] },
+  { label: 'Green', hex: '#16A34A', tokens: ['green', 'olive'] },
+  { label: 'Yellow', hex: '#EAB308', tokens: ['yellow', 'mustard'] },
+  { label: 'Orange', hex: '#F97316', tokens: ['orange'] },
+  { label: 'Gold', hex: '#D4AF37', tokens: ['gold'] },
+  { label: 'Silver', hex: '#C0C0C0', tokens: ['silver'] },
+  { label: 'Grey', hex: '#6B7280', tokens: ['grey', 'gray', 'charcoal'] }
+];
+
+function resolveVariantColor(
+  variant: ProductVariantType
+): ResolvedVariantColor | undefined {
+  const explicitColor =
+    normalizeText(
+      variant.color
+    );
+
+  const explicitHex =
+    normalizeText(
+      variant.colorHex
+    );
+
+  if (explicitHex) {
+    return {
+      label:
+        explicitColor ??
+        variant.label,
+      hex:
+        explicitHex
+    };
+  }
+
+  const searchable =
+    `${explicitColor ?? ''} ${variant.label}`
+      .trim()
+      .toLowerCase();
+
+  const resolved =
+    VARIANT_COLOR_SWATCHES.find(
+      swatch =>
+        swatch.tokens.some(
+          token =>
+            searchable.includes(
+              token
+            )
+        )
+    );
+
+  if (!resolved) {
+    return undefined;
+  }
+
+  return {
+    label:
+      explicitColor ??
+      resolved.label,
+    hex:
+      resolved.hex
+  };
 }
 
 type ActiveProductWidgetProps = {
@@ -270,10 +369,106 @@ export default function ActiveProductWidget({
     actionTrayOpen,
     setActionTrayOpen
   ] = useState(false);
+  const [
+    galleryIndex,
+    setGalleryIndex
+  ] = useState(0);
+
 
   const selectedVariant = useMemo(
     () => product?.variants.find(variant => variant.id === selectedVariantId) ?? product?.variants[0],
     [product, selectedVariantId]
+  );
+
+  const productGallery = useMemo(
+    () => {
+      if (!product) {
+        return [];
+      }
+
+      const orderedImages = [
+        selectedVariant?.image,
+        ...(selectedVariant?.images ?? []),
+        ...(product.images ?? []),
+        ...product.variants.flatMap(
+          variant => [
+            variant.image,
+            ...(variant.images ?? [])
+          ]
+        )
+      ]
+        .map(
+          image =>
+            normalizeText(
+              image
+            )
+        )
+        .filter(
+          (
+            image
+          ): image is string =>
+            Boolean(
+              image
+            )
+        );
+
+      return Array.from(
+        new Set(
+          orderedImages
+        )
+      );
+    },
+    [
+      product,
+      selectedVariant
+    ]
+  );
+
+  const hasColorVariants =
+    useMemo(
+      () =>
+        Boolean(
+          product?.variants.some(
+            variant =>
+              resolveVariantColor(
+                variant
+              )
+          )
+        ),
+      [
+        product
+      ]
+    );
+
+  useEffect(
+    () => {
+      setGalleryIndex(
+        0
+      );
+    },
+    [
+      product?.id,
+      selectedVariant?.id
+    ]
+  );
+
+  useEffect(
+    () => {
+      if (
+        galleryIndex <
+        productGallery.length
+      ) {
+        return;
+      }
+
+      setGalleryIndex(
+        0
+      );
+    },
+    [
+      galleryIndex,
+      productGallery.length
+    ]
   );
 
   const priceFormatter = useMemo(() => {
@@ -310,7 +505,53 @@ export default function ActiveProductWidget({
     return null;
   }
 
-  const productArtwork = selectedVariant?.image ?? product.variants[0]?.image ?? category?.image;
+  const productArtwork =
+    productGallery[
+      galleryIndex
+    ] ??
+    selectedVariant?.image ??
+    product.variants[0]?.image ??
+    category?.image;
+
+  const hasMultipleProductImages =
+    productGallery.length > 1;
+
+  const handlePreviousProductImage =
+    (): void => {
+      if (
+        productGallery.length <= 1
+      ) {
+        return;
+      }
+
+      setGalleryIndex(
+        current =>
+          (
+            current -
+            1 +
+            productGallery.length
+          ) %
+          productGallery.length
+      );
+    };
+
+  const handleNextProductImage =
+    (): void => {
+      if (
+        productGallery.length <= 1
+      ) {
+        return;
+      }
+
+      setGalleryIndex(
+        current =>
+          (
+            current +
+            1
+          ) %
+          productGallery.length
+      );
+    };
 
   const categoryCover = category?.coverImages?.[0] ?? category?.image;
 
@@ -344,7 +585,14 @@ export default function ActiveProductWidget({
   const categoryDescription =
     normalizeText(category?.description) ?? normalizeText(category?.shortDescription);
 
-  const visibleTags = (product.tags ?? []).filter(tag => !tag.includes(':')).slice(0, 12);
+  const visibleTags = Array.from(
+    new Map(
+      (product.tags ?? [])
+        .map(tag => tag.trim())
+        .filter(tag => tag.length > 0 && !tag.includes(':'))
+        .map(tag => [tag.toLowerCase(), tag] as const)
+    ).values()
+  ).slice(0, 12);
 
   const selectedVariantReachedStockLimit = Boolean(
     selectedVariant && selectedVariantCartQuantity >= selectedVariant.stockLeft
@@ -783,7 +1031,7 @@ export default function ActiveProductWidget({
 
             {productArtwork ? (
               <Image
-                key={selectedVariant?.id}
+                key={`${selectedVariant?.id ?? 'default'}:${galleryIndex}`}
                 src={productArtwork}
                 alt={selectedVariant?.label ? `${product.name} — ${selectedVariant.label}` : product.name}
                 fill
@@ -799,6 +1047,105 @@ export default function ActiveProductWidget({
             )}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/15" />
+
+            {hasMultipleProductImages ? (
+              <>
+                <button
+                  type="button"
+                  aria-label="Previous product photo"
+                  onClick={
+                    handlePreviousProductImage
+                  }
+                  className="
+                    absolute left-2.5
+                    top-1/2 z-20
+                    inline-flex size-9
+                    -translate-y-1/2
+                    items-center
+                    justify-center
+                    rounded-full
+                    border border-white/20
+                    bg-black/38
+                    text-white
+                    shadow-lg
+                    backdrop-blur-md
+                    transition
+                    hover:scale-105
+                    hover:bg-rose-500
+                    focus-visible:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-rose-300/80
+                  ">
+                  <span
+                    aria-hidden="true"
+                    className="
+                      text-[1.45rem]
+                      font-light
+                      leading-none
+                    ">
+                    ‹
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Next product photo"
+                  onClick={
+                    handleNextProductImage
+                  }
+                  className="
+                    absolute right-2.5
+                    top-1/2 z-20
+                    inline-flex size-9
+                    -translate-y-1/2
+                    items-center
+                    justify-center
+                    rounded-full
+                    border border-white/20
+                    bg-black/38
+                    text-white
+                    shadow-lg
+                    backdrop-blur-md
+                    transition
+                    hover:scale-105
+                    hover:bg-rose-500
+                    focus-visible:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-rose-300/80
+                  ">
+                  <span
+                    aria-hidden="true"
+                    className="
+                      text-[1.45rem]
+                      font-light
+                      leading-none
+                    ">
+                    ›
+                  </span>
+                </button>
+
+                <div
+                  className="
+                    absolute right-3 top-3 z-20
+                    rounded-full
+                    border border-white/16
+                    bg-black/42
+                    px-2.5 py-1
+                    text-[10px]
+                    font-semibold
+                    tracking-wide
+                    text-white/90
+                    shadow-sm
+                    backdrop-blur-md
+                  ">
+                  {galleryIndex + 1}
+                  <span className="text-white/45">
+                    {' / '}
+                  </span>
+                  {productGallery.length}
+                </div>
+              </>
+            ) : null}
 
             {/* Product states */}
             <div className="absolute left-3 top-3 flex max-w-[55%] flex-wrap gap-2">
@@ -876,7 +1223,9 @@ export default function ActiveProductWidget({
               <div className="mb-2 flex items-center gap-2">
                 <Layers3 className="size-3.5 text-muted-foreground" />
                 <h3 className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                  Choose an option
+                  {hasColorVariants
+                    ? 'Choose colour / option'
+                    : 'Choose an option'}
                 </h3>
               </div>
 
@@ -884,6 +1233,11 @@ export default function ActiveProductWidget({
                 {product.variants.map(variant => {
                   const active = variant.id === selectedVariant?.id;
                   const unavailable = variant.stockLeft <= 0;
+
+                  const variantColor =
+                    resolveVariantColor(
+                      variant
+                    );
 
                   return (
                     <button
@@ -899,13 +1253,37 @@ export default function ActiveProductWidget({
                         })
                       }
                       className={cn(
-                        'rounded-full border px-3 py-1.5 text-xs font-medium transition',
+                        'inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition',
                         active
                           ? 'border-foreground bg-foreground text-background'
                           : 'border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground',
                         unavailable && 'cursor-not-allowed opacity-35'
                       )}>
-                      {variant.label}
+                      {variantColor ? (
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            'inline-flex size-4 shrink-0 rounded-full border p-[2px]',
+                            active
+                              ? 'border-background/55'
+                              : 'border-border bg-background'
+                          )}>
+                          <span
+                            className="
+                              size-full rounded-full
+                              shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]
+                            "
+                            style={{
+                              backgroundColor:
+                                variantColor.hex
+                            }}
+                          />
+                        </span>
+                      ) : null}
+
+                      <span>
+                        {variant.label}
+                      </span>
                     </button>
                   );
                 })}
@@ -1745,7 +2123,7 @@ export default function ActiveProductWidget({
                 </button>
 
                 <p className="mt-3 border-t border-accent/15 pt-3 text-[9px] leading-4 text-muted-foreground">
-                  This quick view uses AJ Logik catalog signals. Deep Insight stays inside the Hub AI section and is ready for verified media and external sources later.
+                  This quick view uses Shelsea catalog signals. Deep Insight stays inside the Hub AI section and is ready for verified media and external sources later.
                 </p>
               </div>
             </div>

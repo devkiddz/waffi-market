@@ -76,7 +76,7 @@ const copy: Record<
   activity: {
     eyebrow: 'Experience archive',
     title: 'Your activity journey',
-    description: 'Revisit meaningful categories, products, searches and assembled experiences saved by AJ Logik.',
+    description: 'Revisit meaningful categories, products, searches and assembled experiences saved by Shelsea.',
     icon: History
   },
   orders: {
@@ -253,7 +253,7 @@ function CartDestination({ items, subtotal }: { items: CommerceCartItem[]; subto
 
 function ActivityDestination({ history }: { history: CommerceHistoryEntry[] }) {
   if (history.length === 0) {
-    return <EmptyState icon={History} title="No experience activity has been preserved yet." href="/store" action="Explore AJ Logik" />;
+    return <EmptyState icon={History} title="No experience activity has been preserved yet." href="/store" action="Explore Shelsea" />;
   }
 
   return (

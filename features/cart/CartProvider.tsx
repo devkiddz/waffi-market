@@ -125,7 +125,7 @@ export function CartProvider({ children }: CartProviderProps) {
           title: addedQuantity > 1 ? 'Items added to your cart' : 'Added to your cart',
 
           banner: {
-            label: 'AJ Logik',
+            label: 'Shelsea',
             detail: 'Your shopping cart',
             badge: 'Cart updated'
           },

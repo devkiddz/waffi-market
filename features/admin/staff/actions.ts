@@ -16,7 +16,7 @@ export async function assignStaffLevel(formData: FormData) {
   if (!email || !['LEVEL_1', 'LEVEL_2', 'LEVEL_3'].includes(level)) throw new Error('A valid user email and staff level are required.');
 
   const user = await prisma.user.findUnique({ where: { email }, select: { id: true, name: true, isGhostDeveloper: true } });
-  if (!user) throw new Error('The user must create an AJ Logik account before staff access can be assigned.');
+  if (!user) throw new Error('The user must create an Shelsea account before staff access can be assigned.');
   if (user.isGhostDeveloper && user.id !== access.session.user.id) throw new Error('This protected account is not available.');
 
   const role = roleForStaffLevel(level);

@@ -114,7 +114,7 @@ export default function RecentlyViewedWidget() {
               mt-1 text-xs leading-5
               text-primary/50
             ">
-            Real products from your latest AJ Logik browsing activity.
+            Real products from your latest Shelsea browsing activity.
           </p>
         </div>
 

@@ -8,9 +8,9 @@ export default function SignUpPage() {
   return (
     <AuthExperienceShell>
       <AuthCard
-        eyebrow="AJ Logik Membership"
+        eyebrow="Shelsea Membership"
         title="Create your account"
-        description="Save products, continue your cart, track orders and receive a personal AJ Logik experience.">
+        description="Save products, continue your cart, track orders and receive a personal Shelsea experience.">
         <SignUpForm googleEnabled={googleEnabled} emailVerificationEnabled={emailVerificationEnabled} />
       </AuthCard>
     </AuthExperienceShell>

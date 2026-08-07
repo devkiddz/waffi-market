@@ -238,7 +238,7 @@ export default function ShoppingListsWidget() {
           </p>
 
           <p className="mt-1 text-xs leading-5 text-primary/50">
-            Customer-owned lists remain connected to your account across AJ Logik.
+            Customer-owned lists remain connected to your account across Shelsea.
           </p>
 
           <button

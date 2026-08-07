@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: storefront.name,
     description:
       storefront.description ??
-      `Shop products and collections from ${storefront.name} on AJ Logik.`
+      `Shop products and collections from ${storefront.name} on Shelsea.`
   };
 }
 

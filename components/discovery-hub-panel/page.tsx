@@ -25,7 +25,7 @@ export default function NotificationSettingsPage() {
               </h1>
 
               <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">
-                The Notification Engine is not active yet, so AJ Logik does not claim that push, deals or unread-alert delivery is enabled.
+                The Notification Engine is not active yet, so Shelsea does not claim that push, deals or unread-alert delivery is enabled.
               </p>
             </div>
           </div>

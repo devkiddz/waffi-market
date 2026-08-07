@@ -85,7 +85,7 @@ export default async function VendorOverviewPage() {
         <AdminPageHeader
           eyebrow="Vendor Studio"
           title={access.vendor.name}
-          description="Manage your catalogue and campaigns inside AJ Logik. Every public change remains subject to workspace approval."
+          description="Manage your catalogue and campaigns inside Shelsea. Every public change remains subject to workspace approval."
           action={
             <Link
               href={`/shops/${encodeURIComponent(access.vendor.slug)}`}

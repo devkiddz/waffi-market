@@ -24,7 +24,10 @@ type CollectionDetailsExperienceProps = {
 export default function CollectionDetailsExperience({
   slug
 }: CollectionDetailsExperienceProps) {
-  const { collections, products, loading, error } = useCatalog();
+  const {
+    collections, products, loading, error,
+    categories
+  } = useCatalog();
   const { addToCart } = useCart();
   const { error: showError } = useActionFeedback();
 
@@ -36,6 +39,96 @@ export default function CollectionDetailsExperience({
   const collectionProducts = collection
     ? resolveCollectionProducts(collection, products)
     : [];
+
+/* SHELSEA_CATEGORY_COLLECTION_HERO_V1 */
+  const categoryFrequency =
+    new Map<
+      string,
+      number
+    >();
+
+  for (
+    const product of
+      collectionProducts
+  ) {
+    const categorySlug =
+      product.category
+        .trim()
+        .toLowerCase();
+
+    categoryFrequency.set(
+      categorySlug,
+      (
+        categoryFrequency.get(
+          categorySlug
+        ) ?? 0
+      ) + 1
+    );
+  }
+
+  const dominantCategorySlug =
+    Array.from(
+      categoryFrequency.entries()
+    )
+      .sort(
+        (
+          first,
+          second
+        ) =>
+          second[1] -
+          first[1]
+      )[0]?.[0];
+
+  const heroCategory =
+    dominantCategorySlug
+      ? categories.find(
+          category =>
+            category.slug
+              .trim()
+              .toLowerCase() ===
+            dominantCategorySlug
+        )
+      : undefined;
+
+  const categoryHeroImages =
+    [
+      ...(heroCategory?.coverImages ??
+        []),
+      heroCategory?.image
+    ].filter(
+      (
+        image
+      ): image is string =>
+        Boolean(
+          image
+        )
+    );
+
+  const collectionHeroIndex =
+    collection &&
+    categoryHeroImages.length >
+      0
+      ? Array.from(
+          collection.slug
+        ).reduce(
+          (
+            total,
+            character
+          ) =>
+            total +
+            character.charCodeAt(
+              0
+            ),
+          0
+        ) %
+        categoryHeroImages.length
+      : 0;
+
+  const collectionHeroImage =
+    categoryHeroImages[
+      collectionHeroIndex
+    ] ??
+    collection?.banner?.image;
 
   const openProduct = useCallback((product: ProductType): void => {
     openCustomerProductExperience({
@@ -55,7 +148,7 @@ export default function CollectionDetailsExperience({
         if (!addedItem) {
           showError({
             title: 'Unable to add product',
-            description: 'AJ Logik could not add this product to your cart. Please try again.'
+            description: 'Shelsea could not add this product to your cart. Please try again.'
           });
         }
       });
@@ -105,16 +198,70 @@ export default function CollectionDetailsExperience({
       </Link>
 
       <article className="overflow-hidden rounded-[2rem] border border-border/60 bg-card/75 shadow-xl">
-        {collection.banner?.image ? (
-          <div className="relative aspect-[9/2] w-full overflow-hidden bg-muted">
+        {collectionHeroImage ? (
+          <div className="relative aspect-[16/5] min-h-44 w-full overflow-hidden bg-muted sm:min-h-56">
             <Image
-              src={collection.banner.image}
+              src={collectionHeroImage}
               alt={`${collection.title} collection cover`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1500px"
               className="object-cover object-center"
             />
+
+            <div
+              data-shelsea-collection-hero-overlay
+              aria-hidden="true"
+              className="
+                absolute inset-0
+                bg-gradient-to-r
+                from-[#081224]/78
+                via-[#081224]/28
+                to-transparent
+              "
+            />
+
+            <div
+              className="
+                absolute
+                bottom-4 left-4
+                max-w-[82%]
+                sm:bottom-6 sm:left-6
+              "
+            >
+              <span
+                className="
+                  inline-flex
+                  rounded-full
+                  border border-white/20
+                  bg-black/30
+                  px-3 py-1.5
+                  text-[10px]
+                  font-bold uppercase
+                  tracking-[0.16em]
+                  text-[#F3E2BA]
+                  backdrop-blur-xl
+                "
+              >
+                {heroCategory?.label ??
+                  'Shelsea Collection'}
+              </span>
+
+              <p
+                className="
+                  mt-2
+                  line-clamp-1
+                  text-xl
+                  font-black
+                  tracking-tight
+                  text-white
+                  drop-shadow
+                  sm:text-3xl
+                "
+              >
+                {collection.title}
+              </p>
+            </div>
           </div>
         ) : null}
 

@@ -95,7 +95,7 @@ export function ExperienceBackControl() {
         onClick={() =>
           void goBack()
         }
-        aria-label="Return to the previous AJ Logik experience"
+        aria-label="Return to the previous Shelsea experience"
         className="pointer-events-auto inline-flex h-10 items-center gap-2 rounded-full border border-border/70 bg-background/88 px-3.5 text-sm font-semibold text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.13),0_14px_38px_rgba(0,0,0,0.24)] backdrop-blur-[28px] backdrop-saturate-[180%] transition supports-[backdrop-filter]:bg-background/72 hover:border-primary/35 hover:bg-background disabled:cursor-wait disabled:opacity-60">
         {loading ? (
           <LoaderCircle className="size-4 animate-spin" />
@@ -406,7 +406,7 @@ export function ExperienceHistoryControl({
             </p>
 
             <p className="mt-1 text-[10px] leading-4 text-muted-foreground">
-              Meaningful pages and Store experiences will appear here as you move around AJ Logik.
+              Meaningful pages and Store experiences will appear here as you move around Shelsea.
             </p>
           </div>
         )}

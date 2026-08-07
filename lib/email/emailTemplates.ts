@@ -77,20 +77,20 @@ export function buildEmailVerificationTemplate({
   actionUrl
 }: AuthEmailTemplateInput): TransactionalEmailTemplate {
   const greeting = name?.trim() ? `Hello ${escapeHtml(name.trim())},` : 'Hello,';
-  const subject = 'Verify your AJ Logik email';
+  const subject = 'Verify your Shelsea Commerce email';
 
   return {
     subject,
     html: renderEmailShell({
-      preheader: 'Confirm your email address to activate your AJ Logik account.',
-      eyebrow: 'AJ Logik Membership',
+      preheader: 'Confirm your email address to activate your Shelsea Commerce account.',
+      eyebrow: 'Shelsea Commerce Membership',
       title: 'Verify your email address',
-      body: `<p style="margin:0 0 12px;">${greeting}</p><p style="margin:0;">Confirm this email address to protect your account and continue your AJ Logik experience.</p>`,
+      body: `<p style="margin:0 0 12px;">${greeting}</p><p style="margin:0;">Confirm this email address to protect your account and continue your Shelsea Commerce experience.</p>`,
       actionLabel: 'Verify email',
       actionUrl,
-      footer: 'This verification link expires in one hour. If you did not create an AJ Logik account, you can ignore this email.'
+      footer: 'This verification link expires in one hour. If you did not create an Shelsea Commerce account, you can ignore this email.'
     }),
-    text: `${name?.trim() ? `Hello ${name.trim()},` : 'Hello,'}\n\nVerify your AJ Logik email address:\n${actionUrl}\n\nThis link expires in one hour. If you did not create an AJ Logik account, ignore this email.`
+    text: `${name?.trim() ? `Hello ${name.trim()},` : 'Hello,'}\n\nVerify your Shelsea Commerce email address:\n${actionUrl}\n\nThis link expires in one hour. If you did not create an Shelsea Commerce account, ignore this email.`
   };
 }
 
@@ -99,19 +99,19 @@ export function buildPasswordResetTemplate({
   actionUrl
 }: AuthEmailTemplateInput): TransactionalEmailTemplate {
   const greeting = name?.trim() ? `Hello ${escapeHtml(name.trim())},` : 'Hello,';
-  const subject = 'Reset your AJ Logik password';
+  const subject = 'Reset your Shelsea Commerce password';
 
   return {
     subject,
     html: renderEmailShell({
-      preheader: 'Use this secure link to reset your AJ Logik password.',
+      preheader: 'Use this secure link to reset your Shelsea Commerce password.',
       eyebrow: 'Account Security',
       title: 'Reset your password',
-      body: `<p style="margin:0 0 12px;">${greeting}</p><p style="margin:0;">A password reset was requested for your AJ Logik account. Use the secure button below to choose a new password.</p>`,
+      body: `<p style="margin:0 0 12px;">${greeting}</p><p style="margin:0;">A password reset was requested for your Shelsea Commerce account. Use the secure button below to choose a new password.</p>`,
       actionLabel: 'Reset password',
       actionUrl,
       footer: 'This reset link expires in one hour and can only be used once. If you did not request it, your password remains unchanged.'
     }),
-    text: `${name?.trim() ? `Hello ${name.trim()},` : 'Hello,'}\n\nReset your AJ Logik password:\n${actionUrl}\n\nThis link expires in one hour and can only be used once. If you did not request it, your password remains unchanged.`
+    text: `${name?.trim() ? `Hello ${name.trim()},` : 'Hello,'}\n\nReset your Shelsea Commerce password:\n${actionUrl}\n\nThis link expires in one hour and can only be used once. If you did not request it, your password remains unchanged.`
   };
 }

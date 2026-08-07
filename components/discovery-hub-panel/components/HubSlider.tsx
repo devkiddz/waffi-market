@@ -305,8 +305,7 @@ export default function HubSlider({
     activeItem
   ) {
     const {
-      product:
-        activeProduct,
+      product: activeProduct,
       selectedVariant
     } = getCommerceState(
       activeItem
@@ -327,231 +326,186 @@ export default function HubSlider({
       );
 
     return (
-      <div>
-        <div
+      <div className="min-w-0">
+        <article
           className="
             group relative
-            overflow-hidden
-            rounded-3xl border
-            border-primary/10
+            h-[31rem] min-h-[31rem]
+            w-full overflow-hidden
+            rounded-[1.9rem]
             bg-background
-            shadow-[0_24px_70px_rgba(0,0,0,0.38)]
-          ">
-          <div className="grid min-h-66 grid-cols-5">
+          "
+        >
+          <button
+            type="button"
+            onClick={() =>
+              openItem(
+                activeItem
+              )
+            }
+            aria-label={`Explore ${activeTitle}`}
+            className="
+              absolute inset-0
+              block size-full
+              overflow-hidden text-left
+            "
+          >
+            <Image
+              key={`${activeItem.id}:${activeImage}`}
+              src={activeImage}
+              alt={activeTitle}
+              fill
+              sizes="(max-width: 1024px) 100vw, 430px"
+              className="
+                object-cover object-center
+                transition duration-700
+                group-hover:scale-[1.025]
+              "
+            />
+
             <div
               className="
-                relative col-span-3
-                flex min-w-0
-                flex-col justify-between
-                overflow-hidden
-                p-5 md:p-6
-              ">
-              <div
-                className="
-                  absolute inset-0
-                  bg-gradient-to-br
-                  from-card
-                  via-background
-                  to-background
-                "
-              />
+                absolute inset-0
+                bg-gradient-to-t
+                from-black/16
+                via-transparent
+                to-black/5
+              "
+            />
+          </button>
 
-              <div
+          <div
+            className="
+              pointer-events-none
+              absolute inset-x-0 top-0 z-10
+              flex items-start
+              justify-between gap-3
+              p-4
+            "
+          >
+            <span
+              className="
+                rounded-full
+                bg-black/30
+                px-3.5 py-2
+                text-[9px] font-bold
+                uppercase tracking-[0.16em]
+                text-white
+                shadow-[0_6px_16px_rgba(0,0,0,0.25)]
+                backdrop-blur-xl
+              "
+            >
+              Shelsea Spotlight
+            </span>
+
+            {activeItem.badge ? (
+              <span
                 className="
-                  absolute -left-20
-                  -top-20 size-52
                   rounded-full
-                  bg-primary/5
-                  blur-3xl
+                  bg-black/30
+                  px-3.5 py-2
+                  text-[9px] font-bold
+                  uppercase tracking-[0.14em]
+                  text-white
+                  shadow-[0_6px_16px_rgba(0,0,0,0.25)]
+                  backdrop-blur-xl
                 "
-              />
+              >
+                {activeItem.badge}
+              </span>
+            ) : null}
+          </div>
 
-              <div className="relative">
-                <div className="flex items-center gap-2">
-                  <span className="h-px w-7 bg-primary/30" />
+          <section
+            className="
+              absolute inset-x-3 bottom-3 z-20
+              rounded-[1.35rem]
+              border border-white/12
+              bg-[rgba(18,29,52,0.94)]
+              px-4 py-4
+              shadow-[0_18px_44px_rgba(0,0,0,0.38)]
+              backdrop-blur-xl
+            "
+          >
+            <div
+              className="
+                absolute inset-x-0 top-0
+                h-px overflow-hidden
+                rounded-t-[1.35rem]
+                bg-gradient-to-r
+                from-secondary/80
+                via-accent/90
+                to-primary/80
+              "
+            />
 
-                  <p
-                    className="
-                      text-[10px]
-                      font-semibold uppercase
-                      tracking-[0.24em]
-                      text-primary/45
-                    ">
-                    Featured promotion
-                  </p>
-                </div>
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0 flex-1">
+                <p
+                  className="
+                    text-[9px] font-semibold
+                    uppercase tracking-[0.15em]
+                    text-white/42
+                  "
+                >
+                  Featured promotion
+                </p>
 
                 <h4
                   className="
-                    mt-5 text-xl
-                    font-bold leading-tight
-                    tracking-tight
-                    text-primary
-                  ">
+                    mt-1 line-clamp-2
+                    text-[15px] font-bold
+                    leading-5 tracking-tight
+                    text-white
+                  "
+                >
                   {activeTitle}
                 </h4>
 
                 {activeItem.subtitle ? (
                   <p
                     className="
-                      mt-3 line-clamp-3
-                      text-sm leading-6
-                      text-primary/55
-                    ">
-                    {
-                      activeItem.subtitle
-                    }
+                      mt-1.5 truncate
+                      text-[10px]
+                      text-white/58
+                    "
+                  >
+                    {activeItem.subtitle}
                   </p>
                 ) : null}
-
-                {activePrice ? (
-                  <div className="mt-5">
-                    <p
-                      className="
-                        text-[10px]
-                        font-semibold uppercase
-                        tracking-[0.18em]
-                        text-primary/35
-                      ">
-                      Promotional price
-                    </p>
-
-                    <p className="mt-1 text-lg font-bold text-primary">
-                      {
-                        activePrice
-                      }
-                    </p>
-                  </div>
-                ) : null}
               </div>
 
-              <div className="relative mt-6">
-                <div className="flex flex-wrap items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      openItem(
-                        activeItem
-                      )
-                    }
+              {activePrice ? (
+                <div className="shrink-0 text-right">
+                  <p
                     className="
-                      inline-flex items-center
-                      gap-2 rounded-full
-                      bg-primary px-5 py-2.5
-                      text-xs font-semibold
-                      text-background transition
-                      hover:opacity-90
-                    ">
-                    {activeProduct
-                      ? 'View product'
-                      : 'Explore promotion'}
+                      text-[9px] font-semibold
+                      uppercase tracking-[0.15em]
+                      text-white/42
+                    "
+                  >
+                    Price
+                  </p>
 
-                    <ArrowRight className="size-4" />
-                  </button>
-
-                  {activeProduct &&
-                  selectedVariant ? (
-                    <ProductActionTray
-                      product={
-                        activeProduct
-                      }
-                      variant={
-                        selectedVariant
-                      }
-                      presentation="inline"
-                      showLabels
-                      className="
-                        border-primary/12
-                        bg-background/55
-                      "
-                    />
-                  ) : null}
+                  <p
+                    className="
+                      mt-1 text-sm
+                      font-bold text-accent
+                    "
+                  >
+                    {activePrice}
+                  </p>
                 </div>
-
-                {safeItems.length >
-                1 ? (
-                  <div
-                    className="
-                      mt-5 flex
-                      items-center
-                      justify-between
-                      gap-3
-                    ">
-                    <div className="flex gap-1.5">
-                      {safeItems.map(
-                        (
-                          item,
-                          index
-                        ) => (
-                          <button
-                            key={
-                              item.id
-                            }
-                            type="button"
-                            title={`Show ${item.title}`}
-                            aria-label={`Show ${item.title}`}
-                            aria-current={
-                              index ===
-                              currentActiveIndex
-                                ? 'true'
-                                : undefined
-                            }
-                            onClick={() =>
-                              setActiveIndex(
-                                index
-                              )
-                            }
-                            className={cn(
-                              `
-                                h-1.5 rounded-full
-                                transition-all
-                                duration-300
-                              `,
-                              index ===
-                                currentActiveIndex
-                                ? 'w-7 bg-primary'
-                                : 'w-1.5 bg-primary/20 hover:bg-primary/40'
-                            )}
-                          />
-                        )
-                      )}
-                    </div>
-
-                    <span
-                      className="
-                        shrink-0
-                        text-[10px]
-                        font-medium
-                        text-primary/35
-                      ">
-                      {String(
-                        currentActiveIndex +
-                          1
-                      ).padStart(
-                        2,
-                        '0'
-                      )}{' '}
-                      /{' '}
-                      {String(
-                        safeItems.length
-                      ).padStart(
-                        2,
-                        '0'
-                      )}
-                    </span>
-                  </div>
-                ) : null}
-              </div>
+              ) : null}
             </div>
 
             <div
               className="
-                relative col-span-2
-                min-h-66 overflow-hidden
-                border-l
-                border-primary/10
-                bg-card
-              ">
+                mt-4 flex
+                items-center
+                justify-between gap-3
+              "
+            >
               <button
                 type="button"
                 onClick={() =>
@@ -559,118 +513,112 @@ export default function HubSlider({
                     activeItem
                   )
                 }
-                aria-label={`Explore ${activeTitle}`}
                 className="
-                  absolute inset-0
-                  block size-full
-                  overflow-hidden
-                  text-left
-                ">
-                <Image
-                  src={
-                    activeImage
-                  }
-                  alt={
-                    activeTitle
-                  }
-                  fill
-                  sizes="(max-width: 1024px) 40vw, 280px"
-                  className="
-                    object-cover object-center
-                    transition duration-700
-                    group-hover:scale-105
-                  "
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-transparent" />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/5" />
+                  inline-flex h-9
+                  items-center gap-2
+                  rounded-full
+                  bg-white
+                  px-4
+                  text-[11px] font-semibold
+                  text-slate-900
+                  transition
+                  hover:bg-white/90
+                "
+              >
+                Explore
+                <ArrowRight className="size-3.5" />
               </button>
 
-              {activeItem.badge ? (
-                <span
-                  className="
-                    pointer-events-none
-                    absolute right-3 top-3
-                    rounded-full border
-                    border-white/15
-                    bg-black/40
-                    px-2.5 py-1
-                    text-[9px] font-semibold
-                    uppercase tracking-[0.14em]
-                    text-white backdrop-blur-xl
-                  ">
-                  {
-                    activeItem.badge
-                  }
-                </span>
-              ) : null}
-
-              <span
-                className="
-                  pointer-events-none
-                  absolute bottom-4 left-3
-                  rounded-full border
-                  border-white/10
-                  bg-black/40
-                  px-2.5 py-1
-                  text-[9px] font-medium
-                  text-white/75
-                  backdrop-blur-xl
-                ">
-                AJ Logik
-              </span>
-
-              {safeItems.length >
-              1 ? (
-                <div className="absolute bottom-4 right-3 flex gap-2">
+              {safeItems.length > 1 ? (
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={
-                      showPrevious
-                    }
+                    onClick={showPrevious}
                     aria-label="Previous promotion"
                     className="
-                      grid size-8
-                      place-items-center
-                      rounded-full border
-                      border-white/10
-                      bg-black/45
-                      text-white
-                      backdrop-blur
+                      grid size-8 place-items-center
+                      rounded-full
+                      border border-white/12
+                      bg-white/7
+                      text-white/85
                       transition
-                      hover:bg-black/70
-                    ">
+                      hover:bg-white/12
+                    "
+                  >
                     <ChevronLeft className="size-4" />
                   </button>
 
+                  <span
+                    className="
+                      min-w-8 text-center
+                      text-[10px] font-semibold
+                      text-white/52
+                    "
+                  >
+                    {currentActiveIndex + 1}/{safeItems.length}
+                  </span>
+
                   <button
                     type="button"
-                    onClick={
-                      showNext
-                    }
+                    onClick={showNext}
                     aria-label="Next promotion"
                     className="
-                      grid size-8
-                      place-items-center
-                      rounded-full border
-                      border-white/10
-                      bg-black/45
-                      text-white
-                      backdrop-blur
+                      grid size-8 place-items-center
+                      rounded-full
+                      border border-white/12
+                      bg-white/7
+                      text-white/85
                       transition
-                      hover:bg-black/70
-                    ">
+                      hover:bg-white/12
+                    "
+                  >
                     <ChevronRight className="size-4" />
                   </button>
                 </div>
               ) : null}
             </div>
-          </div>
-        </div>
+
+            {safeItems.length > 1 ? (
+              <div className="mt-3 flex gap-1.5">
+                {safeItems.map(
+                  (
+                    item,
+                    index
+                  ) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      title={`Show ${item.title}`}
+                      aria-label={`Show ${item.title}`}
+                      onClick={() =>
+                        setActiveIndex(
+                          index
+                        )
+                      }
+                      className={cn(
+                        'h-1 rounded-full transition-all duration-300',
+                        index === currentActiveIndex
+                          ? 'w-8 bg-accent'
+                          : 'w-2 bg-white/20 hover:bg-white/35'
+                      )}
+                    />
+                  )
+                )}
+              </div>
+            ) : null}
+          </section>
+        </article>
       </div>
     );
   }
+
+
+
+
+
+
+
+
 
   if (
     variant === 'grid' ||

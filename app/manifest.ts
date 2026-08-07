@@ -8,10 +8,10 @@ export default function manifest(): MetadataRoute.Manifest {
       '/',
 
     name:
-      'AJ Logik — Premium Commerce Experience',
+      'Shelsea — Premium Commerce Experience',
 
     short_name:
-      'AJ Logik',
+      'Shelsea',
 
     description:
       'A discovery-led shopping workspace for products, food, drinks and premium experiences.',
@@ -91,7 +91,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Store',
 
         description:
-          'Continue shopping in AJ Logik.',
+          'Continue shopping in Shelsea.',
 
         url:
           '/store',
@@ -117,7 +117,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Cart',
 
         description:
-          'Review the active AJ Logik cart.',
+          'Review the active Shelsea cart.',
 
         url:
           '/cart',
@@ -169,7 +169,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Account',
 
         description:
-          'Open the AJ Logik customer dashboard.',
+          'Open the Shelsea customer dashboard.',
 
         url:
           '/account',

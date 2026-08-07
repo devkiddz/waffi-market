@@ -126,7 +126,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         source: 'user-action',
         route: '/',
         surface: 'home',
-        title: 'AJ Logik home',
+        title: 'Shelsea home',
         createdAt
       };
 

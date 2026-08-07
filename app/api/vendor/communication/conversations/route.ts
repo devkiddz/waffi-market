@@ -87,7 +87,7 @@ export async function GET(
     return response(
       {
         error:
-          'AJ Logik could not load the vendor Inbox.'
+          'Shelsea could not load the vendor Inbox.'
       },
       500
     );

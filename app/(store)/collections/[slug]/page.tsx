@@ -10,7 +10,7 @@ type CollectionPageProps = {
 
 export const metadata: Metadata = {
   title: 'Collection',
-  description: 'Explore products in this AJ Logik collection.'
+  description: 'Explore products in this Shelsea collection.'
 };
 
 export default async function CollectionPage({ params }: CollectionPageProps) {

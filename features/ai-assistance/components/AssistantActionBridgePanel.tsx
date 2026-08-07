@@ -80,7 +80,7 @@ async function readJson<T>(
   if (!response.ok) {
     throw new Error(
       payload.error ??
-      'AJ Logik could not complete this action.'
+      'Shelsea could not complete this action.'
     );
   }
 
@@ -112,7 +112,7 @@ function defaultTitle(
       'Campaign title'
     ) ??
     message.payload?.headline ??
-    'AJ Logik Draft'
+    'Shelsea Draft'
   ).slice(
     0,
     180
@@ -324,7 +324,7 @@ export function AssistantActionBridgePanel({
   ] =
     useState(
       payload
-        ? `Review the AJ Logik suggestions for ${payload.headline}.`
+        ? `Review the Shelsea suggestions for ${payload.headline}.`
         : ''
     );
 
@@ -617,7 +617,7 @@ export function AssistantActionBridgePanel({
         cause instanceof
         Error
           ? cause.message
-          : 'AJ Logik could not complete this action.'
+          : 'Shelsea could not complete this action.'
       );
     } finally {
       setSubmitting(
@@ -660,13 +660,13 @@ export function AssistantActionBridgePanel({
             </p>
 
             <h4 className="mt-1 text-sm font-black">
-              Choose what AJ Logik
+              Choose what Shelsea
               should prepare
             </h4>
 
             <p className="mt-1 max-w-2xl text-xs leading-5 text-muted-foreground">
               Review the details first.
-              AJ Logik will verify your
+              Shelsea will verify your
               access and continue through
               the normal workflow.
             </p>
@@ -1131,7 +1131,7 @@ export function AssistantActionBridgePanel({
             <p className="max-w-2xl text-xs leading-5 text-muted-foreground">
               Your access, ownership and
               approval rules still
-              apply. AJ Logik will not
+              apply. Shelsea will not
               publish, place an Order or
               change stock automatically.
             </p>

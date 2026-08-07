@@ -121,7 +121,7 @@ export function StoreReelDetailExperience({
 
             <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-5 pt-20 sm:p-7 sm:pt-24 lg:hidden">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-300/80">
-                {reel.vendorName ?? 'AJ Logik Store Reel'}
+                {reel.vendorName ?? 'Shelsea Store Reel'}
               </p>
 
               <h1 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
@@ -133,7 +133,7 @@ export function StoreReelDetailExperience({
           <aside className="min-h-0 overflow-y-auto border-t border-white/10 bg-zinc-950 p-5 sm:p-7 lg:border-l lg:border-t-0">
             <div className="hidden lg:block">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-300/80">
-                {reel.vendorName ?? 'AJ Logik Store Reel'}
+                {reel.vendorName ?? 'Shelsea Store Reel'}
               </p>
 
               <h1 className="mt-3 text-3xl font-black tracking-tight">
@@ -263,7 +263,7 @@ export function StoreReelDetailExperience({
             ) : null}
 
             <div className="mt-7 rounded-3xl border border-white/10 bg-white/[0.03] p-4 text-[10px] leading-5 text-white/40">
-              This Reel is a Store Studio commerce experience. Product availability and pricing are resolved from the live AJ Logik catalog.
+              This Reel is a Store Studio commerce experience. Product availability and pricing are resolved from the live Shelsea catalog.
             </div>
           </aside>
         </section>

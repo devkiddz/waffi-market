@@ -23,7 +23,7 @@ export async function seedScenarios(prisma: PrismaClient) {
     },
     {
       slug: 'aj-logik-demo',
-      name: 'AJ Logik Demo',
+      name: 'Shelsea Commerce Demo',
       type: 'SUPERMARKET',
       description:
         'Complete supermarket experience populated with demo customers, products and paper transactions.'

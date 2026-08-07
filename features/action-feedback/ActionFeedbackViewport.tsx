@@ -152,9 +152,12 @@ export function ActionFeedbackViewport({ messages, onDismiss }: ActionFeedbackVi
       aria-relevant="additions removals"
       className="
         pointer-events-none fixed
-        inset-x-3 top-3 z-50
+        inset-x-3
+        top-[calc(var(--app-navbar-height)+0.75rem)]
+        z-[200]
         flex flex-col items-end gap-3
-        sm:left-auto sm:right-5 sm:top-5
+        sm:left-auto sm:right-5
+        sm:top-[calc(var(--app-navbar-height)+1rem)]
         sm:w-full sm:max-w-md
       ">
       <AnimatePresence initial={false}>
@@ -165,7 +168,7 @@ export function ActionFeedbackViewport({ messages, onDismiss }: ActionFeedbackVi
 
           const Icon = cartPreview ? ShoppingBag : configuration.icon;
 
-          const bannerLabel = message.banner?.label ?? 'AJ Logik';
+          const bannerLabel = message.banner?.label ?? 'Shelsea';
 
           const bannerDetail =
             message.banner?.detail ?? (cartPreview ? 'Your shopping cart' : 'Experience notification');
@@ -238,7 +241,7 @@ export function ActionFeedbackViewport({ messages, onDismiss }: ActionFeedbackVi
                       text-primary-foreground
                       shadow-sm
                     ">
-                    AJ
+                    S
                   </div>
 
                   <div className="min-w-0 flex-1">

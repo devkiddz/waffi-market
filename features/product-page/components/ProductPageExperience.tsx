@@ -393,7 +393,7 @@ export function ProductPageExperience({
 
           <ProductRelationshipSection
             title="Continue Discovering"
-            subtitle="Keep exploring strong selections across the active AJ Logik catalog."
+            subtitle="Keep exploring strong selections across the active Shelsea catalog."
             products={
               data.relationships.continueDiscovery
             }

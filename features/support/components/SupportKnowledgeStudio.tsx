@@ -249,7 +249,7 @@ export function SupportKnowledgeStudio({
       throw new Error(
         await readFailure(
           response,
-          'AJ Logik could not refresh the Knowledge Studio.'
+          'Shelsea could not refresh the Knowledge Studio.'
         )
       );
     }
@@ -267,7 +267,7 @@ export function SupportKnowledgeStudio({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not refresh the Knowledge Studio.'
+            : 'Shelsea could not refresh the Knowledge Studio.'
         );
       }
     });
@@ -316,7 +316,7 @@ export function SupportKnowledgeStudio({
 
         if (!response.ok) {
           throw new Error(
-            await readFailure(response, 'AJ Logik could not save Support Knowledge.')
+            await readFailure(response, 'Shelsea could not save Support Knowledge.')
           );
         }
 
@@ -333,7 +333,7 @@ export function SupportKnowledgeStudio({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not save Support Knowledge.'
+            : 'Shelsea could not save Support Knowledge.'
         );
       }
     });

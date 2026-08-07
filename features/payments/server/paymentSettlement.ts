@@ -39,7 +39,7 @@ export async function settleVerifiedPayment(reference: string, transaction: Pays
   });
 
   if (!payment) {
-    throw new Error('The payment reference is not attached to an AJ Logik order.');
+    throw new Error('The payment reference is not attached to an Shelsea order.');
   }
 
   const expectedAmountKobo = Math.round(Number(payment.amount) * 100);

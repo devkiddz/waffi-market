@@ -91,7 +91,7 @@ function FeedExperienceWorkspaceContent({
       if (!addedItem) {
         error({
           title: 'Unable to add product',
-          description: 'AJ Logik could not add this product to your cart. Please try again.'
+          description: 'Shelsea could not add this product to your cart. Please try again.'
         });
 
         return;
@@ -423,7 +423,7 @@ function FeedExperienceWorkspaceContent({
         <div className="flex flex-col items-center gap-3">
           <LoaderCircle className="size-6 animate-spin text-primary" />
 
-          <p className="text-sm font-medium text-muted-foreground">Loading AJ Logik</p>
+          <p className="text-sm font-medium text-muted-foreground">Loading Shelsea</p>
         </div>
       </div>
     );
@@ -433,7 +433,7 @@ function FeedExperienceWorkspaceContent({
     return (
       <div className="grid min-h-[50vh] place-items-center px-6 text-center">
         <div>
-          <p className="font-semibold">AJ Logik is temporarily unavailable</p>
+          <p className="font-semibold">Shelsea is temporarily unavailable</p>
 
           <p className="mt-2 text-sm text-muted-foreground">{workspaceError ?? catalogError}</p>
         </div>
@@ -444,7 +444,7 @@ function FeedExperienceWorkspaceContent({
   if (!activeWorkspace) {
     return (
       <div className="grid min-h-[50vh] place-items-center px-6 text-center">
-        <p className="text-sm text-muted-foreground">AJ Logik could not prepare your shopping experience.</p>
+        <p className="text-sm text-muted-foreground">Shelsea could not prepare your shopping experience.</p>
       </div>
     );
   }

@@ -148,7 +148,7 @@ export function DashboardAssistant() {
         </span>
 
         <span className="hidden sm:inline">
-          Ask AJ
+          Ask Shelsea
         </span>
       </button>
     </>

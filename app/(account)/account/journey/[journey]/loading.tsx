@@ -27,7 +27,7 @@ export default function CustomerJourneyLoading() {
             mt-1 text-xs
             text-muted-foreground
           ">
-          AJ Logik is resolving the complete
+          Shelsea is resolving the complete
           workspace record.
         </p>
       </div>

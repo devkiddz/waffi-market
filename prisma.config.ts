@@ -2,29 +2,24 @@ import 'dotenv/config';
 
 import { defineConfig } from 'prisma/config';
 
-const connectionCandidates = [
-  process.env.AJLOJIK_DB_POSTGRES_URL,
-  process.env.AJLOJIK_DB_DATABASE_URL,
-  process.env.DIRECT_URL,
-  process.env.DATABASE_URL,
-  process.env.POSTGRES_URL
-].filter((value): value is string => Boolean(value));
-
-const tcpConnectionStrings =
-  connectionCandidates.filter(
-    value =>
-      value.startsWith('postgres://') ||
-      value.startsWith('postgresql://')
-  );
-
+// SHELSEA_PRODUCTION_AUTHORITY_CLEANUP_V1
 const migrationConnectionString =
-  tcpConnectionStrings.find(value =>
-    value.includes('@db.prisma.io')
-  ) ?? tcpConnectionStrings[0];
+  process.env.DIRECT_URL?.trim() ||
+  process.env.DATABASE_URL?.trim();
+
+if (
+  migrationConnectionString &&
+  !migrationConnectionString.startsWith('postgres://') &&
+  !migrationConnectionString.startsWith('postgresql://')
+) {
+  throw new Error(
+    'Shelsea migration database URL must be a PostgreSQL TCP connection string.'
+  );
+}
 
 if (!migrationConnectionString) {
   throw new Error(
-    'A PostgreSQL migration connection URL is missing.'
+    'Shelsea migration database URL is missing. Set DIRECT_URL (preferred) or DATABASE_URL.'
   );
 }
 

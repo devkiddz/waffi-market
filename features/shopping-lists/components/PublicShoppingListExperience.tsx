@@ -312,7 +312,7 @@ export function PublicShoppingListExperience({
             error instanceof
             Error
               ? error.message
-              : 'AJ Logik could not add the available products to your cart.',
+              : 'Shelsea could not add the available products to your cart.',
 
           groupKey:
             `public-list:${list.id}:cart`
@@ -393,7 +393,7 @@ export function PublicShoppingListExperience({
           !createdList
         ) {
           throw new Error(
-            'AJ Logik created no destination list.'
+            'Shelsea created no destination list.'
           );
         }
 
@@ -450,7 +450,7 @@ export function PublicShoppingListExperience({
             error instanceof
             Error
               ? error.message
-              : 'AJ Logik could not create a private copy.',
+              : 'Shelsea could not create a private copy.',
 
           groupKey:
             `public-list:${list.id}:copy`
@@ -489,7 +489,7 @@ export function PublicShoppingListExperience({
 
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
               {list.description ??
-                'A customer-curated shopping plan shared with the AJ Logik community.'}
+                'A customer-curated shopping plan shared with the Shelsea community.'}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-muted-foreground">

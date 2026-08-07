@@ -1,5 +1,7 @@
 'use client';
 
+/* SHELSEA_PRODUCT_STUDIO_COLOR_AUTHORITY_V1 */
+
 import { ArrowDown, ArrowUp, ImagePlus, PackagePlus, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
@@ -22,6 +24,8 @@ export type ProductStudioMedia = Pick<
 export type ProductStudioVariant = {
   id?: string;
   label: string;
+  color: string;
+  colorHex: string;
   sku: string;
   price: number;
   compareAtPrice: number | null;
@@ -35,6 +39,8 @@ export type ProductStudioVariant = {
 function newVariant(): ProductStudioVariant {
   return {
     label: 'Standard',
+    color: '',
+    colorHex: '',
     sku: '',
     price: 0,
     compareAtPrice: null,
@@ -44,6 +50,14 @@ function newVariant(): ProductStudioVariant {
     reorderLevel: 5,
     active: true
   };
+}
+
+function pickerHex(value: string): string {
+  const normalized = value.trim();
+
+  return /^#[0-9a-f]{6}$/i.test(normalized)
+    ? normalized
+    : '#f43f5e';
 }
 
 export function ProductStudioFields({
@@ -195,7 +209,7 @@ export function ProductStudioFields({
             <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary"><PackagePlus className="size-4" /></span>
             <div>
               <h2 className="font-bold">Variants and inventory</h2>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">Manage prices, SKU, variant media and stock from the same Product Studio.</p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">Manage option/size, colour, SKU, variant media, pricing and stock from the same Product Studio.</p>
             </div>
           </div>
           <button type="button" onClick={() => setVariants(current => [...current, newVariant()])} className="shrink-0 rounded-full bg-foreground px-3 py-2 text-[9px] font-bold text-background">Add variant</button>
@@ -209,7 +223,63 @@ export function ProductStudioFields({
                 <button type="button" onClick={() => setVariants(current => current.length === 1 ? current : current.filter((_, itemIndex) => itemIndex !== index))} disabled={variants.length === 1} className="grid size-8 place-items-center rounded-xl bg-rose-500/10 text-rose-600 disabled:opacity-30"><Trash2 className="size-3.5" /></button>
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <Field label="Label"><input value={variant.label} onChange={event => updateVariant(index, 'label', event.target.value)} className={fieldClass} /></Field>
+                <Field label="Option / size">
+                  <input
+                    value={variant.label}
+                    onChange={event =>
+                      updateVariant(
+                        index,
+                        'label',
+                        event.target.value
+                      )
+                    }
+                    placeholder="M, 50ml, 18in, Size 39…"
+                    className={fieldClass}
+                  />
+                </Field>
+                <Field label="Colour name (optional)">
+                  <input
+                    value={variant.color}
+                    onChange={event =>
+                      updateVariant(
+                        index,
+                        'color',
+                        event.target.value
+                      )
+                    }
+                    placeholder="Black, Rose, Navy…"
+                    className={fieldClass}
+                  />
+                </Field>
+                <Field label="Colour code">
+                  <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-2">
+                    <input
+                      type="color"
+                      aria-label={`Pick colour for variant ${index + 1}`}
+                      value={pickerHex(variant.colorHex)}
+                      onChange={event =>
+                        updateVariant(
+                          index,
+                          'colorHex',
+                          event.target.value.toUpperCase()
+                        )
+                      }
+                      className="h-10 w-11 cursor-pointer rounded-xl border border-border/70 bg-background p-1"
+                    />
+                    <input
+                      value={variant.colorHex}
+                      onChange={event =>
+                        updateVariant(
+                          index,
+                          'colorHex',
+                          event.target.value
+                        )
+                      }
+                      placeholder="#111111"
+                      className={fieldClass}
+                    />
+                  </div>
+                </Field>
                 <Field label="SKU"><input value={variant.sku} onChange={event => updateVariant(index, 'sku', event.target.value)} className={fieldClass} /></Field>
                 <Field label="Price"><input type="number" min="0" step="0.01" value={variant.price} onChange={event => updateVariant(index, 'price', Number(event.target.value))} className={fieldClass} /></Field>
                 <Field label="Compare at"><input type="number" min="0" step="0.01" value={variant.compareAtPrice ?? ''} onChange={event => updateVariant(index, 'compareAtPrice', event.target.value ? Number(event.target.value) : null)} className={fieldClass} /></Field>

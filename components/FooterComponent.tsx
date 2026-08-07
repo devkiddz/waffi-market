@@ -30,7 +30,7 @@ export default function FooterComponent({
       <div className="mx-auto w-full max-w-[112rem] px-[var(--app-page-gutter)] py-10 sm:py-12">
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-[1.25fr_0.75fr_0.75fr_1fr]">
           <section>
-            <Link href="/" className="inline-flex items-center gap-2" aria-label="AJ Logik home">
+            <Link href="/" className="inline-flex items-center gap-2" aria-label="Shelsea home">
               <span className="relative grid size-9 place-items-center rounded-2xl bg-foreground text-background">
                 <Aperture className="size-4 motion-safe:animate-pulse" />
               </span>
@@ -44,7 +44,7 @@ export default function FooterComponent({
               A pinch of excellence in every choice.
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-6 text-muted-foreground">
-              A connected commerce experience for premium drinks, meals, confectioneries, kitchen essentials and memorable celebrations.
+              A curated destination for clothing, accessories, hair, fragrances and everyday style.
             </p>
 
             <div className="mt-5">
@@ -75,7 +75,7 @@ export default function FooterComponent({
             <div className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
               <p className="flex items-start gap-2">
                 <MapPin className="mt-1 size-4 shrink-0 text-primary" />
-                Serving customers from Nigeria through the AJ Logik digital Store.
+                Serving customers from Nigeria through the Shelsea digital store.
               </p>
               <p className="flex items-start gap-2">
                 <Clock3 className="mt-1 size-4 shrink-0 text-primary" />

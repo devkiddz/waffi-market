@@ -46,7 +46,7 @@ export function SupportLiveStatusBadge({
         : state ===
             'offline'
           ? 'Live updates are unavailable. Saved messages remain available.'
-          : 'AJ Logik is restoring the live Support connection.'
+          : 'Shelsea is restoring the live Support connection.'
     );
 
   return (

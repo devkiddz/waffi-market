@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     }
 
     return response(
-      { error: 'AJ Logik could not create Support Knowledge.' },
+      { error: 'Shelsea could not create Support Knowledge.' },
       500
     );
   }

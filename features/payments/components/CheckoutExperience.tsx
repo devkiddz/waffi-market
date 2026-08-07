@@ -161,7 +161,7 @@ export default function CheckoutExperience() {
         <section className="w-full max-w-lg rounded-[2rem] border border-border/60 bg-card p-7 text-center shadow-xl sm:p-10">
           <LockKeyhole className="mx-auto size-9 text-primary" />
           <h1 className="mt-5 text-3xl font-black">Sign in to checkout</h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">Payment, delivery tracking and receipts are securely attached to your AJ Logik account.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Payment, delivery tracking and receipts are securely attached to your Shelsea account.</p>
           <Link href="/sign-in?next=/payments" className="mt-7 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-black text-background">Continue to sign in <ChevronRight className="size-4" /></Link>
         </section>
       </main>
@@ -276,7 +276,7 @@ export default function CheckoutExperience() {
               {deliveryMethod !== 'STORE_PICKUP' ? <label className="mt-4 flex cursor-pointer items-center gap-3 text-xs text-muted-foreground"><input type="checkbox" checked={saveAddress} onChange={event => setSaveAddress(event.target.checked)} className="size-4 accent-primary" /> Save these delivery details to my account</label> : null}
             </CheckoutSection>
 
-            <CheckoutSection number="03" title="Payment" description={isLive ? 'Paystack hosts the sensitive payment fields; AJ Logik never receives your card number.' : 'Demo and Practice use safe paper money and never publish a live transaction.'}>
+            <CheckoutSection number="03" title="Payment" description={isLive ? 'Paystack hosts the sensitive payment fields; Shelsea never receives your card number.' : 'Demo and Practice use safe paper money and never publish a live transaction.'}>
               <div className="flex items-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
                 <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-emerald-500 text-white">{isLive ? <CreditCard className="size-6" /> : <Banknote className="size-6" />}</span>
                 <div className="min-w-0 flex-1"><p className="text-sm font-black">{isLive ? 'Pay securely with Paystack' : `${activeWorkspace?.mode} paper wallet`}</p><p className="mt-1 text-xs leading-5 text-muted-foreground">{isLive ? 'Card, bank, USSD and bank transfer are offered in Paystack test mode.' : `${activeWorkspace?.wallet ? currency.format(activeWorkspace.wallet.balance) : 'Paper balance'} available in this experience.`}</p></div>

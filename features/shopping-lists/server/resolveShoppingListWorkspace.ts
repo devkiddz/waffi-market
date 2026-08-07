@@ -17,7 +17,7 @@ export async function resolveShoppingListWorkspace(returnTo: string) {
   const runtime = await getUserWorkspaces(session.user.id, preferredWorkspaceId);
 
   if (!runtime.activeWorkspace) {
-    throw new Error('AJ Logik could not resolve an active workspace for Shopping Lists.');
+    throw new Error('Shelsea could not resolve an active workspace for Shopping Lists.');
   }
 
   return {

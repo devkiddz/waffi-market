@@ -1,24 +1,28 @@
 'use client';
 
+/* SHELSEA_LOGO_SYNTAX_FIX_V1 */
+
+import Image from 'next/image';
+import Link from 'next/link';
+
 import {
   motion,
   useReducedMotion
 } from 'framer-motion';
 
-import Link from 'next/link';
-
 export default function LogoComponent({
-  brandName,
-  brandSlug
+  brandName = 'Shelsea',
+  brandSlug = ''
 }: {
-  brandName: string;
-  brandSlug: string;
+  brandName?: string;
+  brandSlug?: string;
 }) {
   const reducedMotion =
     useReducedMotion();
 
   const accessibleName =
-    `${brandName} ${brandSlug}`.trim();
+    `${brandName} ${brandSlug}`.trim() ||
+    'Shelsea';
 
   return (
     <motion.div
@@ -38,18 +42,49 @@ export default function LogoComponent({
         href="/"
         aria-label={`${accessibleName} home`}
         title={accessibleName}
-        className="group relative flex min-w-0 shrink-0 items-center rounded-xl px-1 py-2 leading-none outline-none transition focus-visible:ring-2 focus-visible:ring-ring/60">
-        <span className="pointer-events-none absolute inset-x-1 -bottom-0.5 h-px origin-left scale-x-0 bg-gradient-to-r from-secondary via-accent to-transparent transition-transform duration-300 group-hover:scale-x-100" />
+        className="
+          group relative
+          inline-flex shrink-0
+          items-center
+          rounded-xl
+          py-1.5
+          outline-none
+          transition
+          focus-visible:ring-2
+          focus-visible:ring-rose-400/60
+        ">
+        <span
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute inset-x-1
+            -bottom-0.5 h-px
+            origin-left
+            scale-x-0
+            bg-gradient-to-r
+            from-rose-500
+            via-rose-400
+            to-transparent
+            transition-transform
+            duration-300
+            group-hover:scale-x-100
+          "
+        />
 
-        <span className="flex min-w-0 items-baseline gap-1 whitespace-nowrap">
-          <strong className="text-sm font-black tracking-[-0.035em] text-secondary sm:text-[15px] lg:text-base">
-            {brandName}
-          </strong>
-
-          <span className="text-sm font-semibold tracking-[-0.035em] text-foreground sm:text-[15px] lg:text-base">
-            {brandSlug}
-          </span>
-        </span>
+        <Image
+          src="/shelsea/brand/shelsea-logo-rose-500.png"
+          alt=""
+          width={641}
+          height={220}
+          priority
+          className="
+            h-8 w-auto
+            select-none
+            object-contain
+            sm:h-9
+            lg:h-10
+          "
+        />
       </Link>
     </motion.div>
   );

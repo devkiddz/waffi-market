@@ -387,7 +387,7 @@ export function AssistantProductLibraryCard({
                 Can this product be replaced?
               </dt>
               <dd className="mt-1">
-                Yes. Ask AJ to replace it, show alternatives or rebuild the plan with a new constraint. A meaningful replacement becomes an intentional Journey refinement.
+                Yes. Ask Shelsea to replace it, show alternatives or rebuild the plan with a new constraint. A meaningful replacement becomes an intentional Journey refinement.
               </dd>
             </div>
           </dl>

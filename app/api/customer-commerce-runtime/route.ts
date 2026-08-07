@@ -89,7 +89,7 @@ export async function GET(
       return NextResponse.json(
         {
           error:
-            'AJ Logik could not resolve an active customer workspace.'
+            'Shelsea could not resolve an active customer workspace.'
         },
         {
           status:
@@ -147,7 +147,7 @@ export async function GET(
     return NextResponse.json(
       {
         error:
-          'AJ Logik could not load your current order activity.'
+          'Shelsea could not load your current order activity.'
       },
       {
         status:

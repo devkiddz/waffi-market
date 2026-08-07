@@ -28,7 +28,7 @@ export function DashboardAIControl({
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-bold">
-              Ask AJ
+              Ask Shelsea
             </h2>
             <Sparkles className="size-3.5 text-violet-500" />
           </div>

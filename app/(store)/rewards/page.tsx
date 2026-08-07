@@ -27,7 +27,7 @@ export default function RewardsPage() {
               </h1>
 
               <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">
-                AJ Logik currently stores customer membership identity, but a verified points ledger and coupon wallet are not yet active.
+                Shelsea currently stores customer membership identity, but a verified points ledger and coupon wallet are not yet active.
               </p>
             </div>
           </div>

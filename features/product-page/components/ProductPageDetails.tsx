@@ -102,7 +102,7 @@ export function ProductPageDetails({
   const merchantName =
     product.merchant?.name ??
     data.workspace.name ??
-    'AJ Logik';
+    'Shelsea';
 
   const categoryDescription =
     category.description ??
@@ -610,7 +610,7 @@ export function ProductPageDetails({
                 className={
                   styles.sectionEyebrow
                 }>
-                Verified AJ Logik merchant
+                Verified Shelsea merchant
               </p>
 
               <h2
@@ -731,7 +731,7 @@ export function ProductPageDetails({
               </h3>
 
               <p>
-                Cart, wishlist and Shopping Lists remain synchronized across AJ Logik.
+                Cart, wishlist and Shopping Lists remain synchronized across Shelsea.
               </p>
             </div>
           </article>

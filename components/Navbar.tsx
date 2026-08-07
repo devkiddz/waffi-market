@@ -7,12 +7,13 @@ import {
 
 import {
   ChevronUp,
+  Heart,
   LayoutGrid,
+  Scissors,
+  ShoppingBag,
+  Sparkles,
   Store,
-  PartyPopper,
-  TextSearch,
-  UtensilsCrossed,
-  Wine
+  TextSearch
 } from 'lucide-react';
 
 import {
@@ -49,22 +50,28 @@ const brands = [
     slug: 'all'
   },
   {
-    id: 'kitchen',
-    label: 'AJ Kitchen',
-    icon: UtensilsCrossed,
-    slug: 'kitchen'
+    id: 'clothing',
+    label: 'Clothing',
+    icon: ShoppingBag,
+    slug: 'clothing'
   },
   {
-    id: 'liqz',
-    label: 'AJ Liqz',
-    icon: Wine,
-    slug: 'wines'
+    id: 'accessories',
+    label: 'Accessories',
+    icon: Sparkles,
+    slug: 'apparel-accessories'
   },
   {
-    id: 'party',
-    label: 'Party Plans',
-    icon: PartyPopper,
-    slug: 'party-plans'
+    id: 'hair',
+    label: 'Hair',
+    icon: Scissors,
+    slug: 'hair'
+  },
+  {
+    id: 'perfumes',
+    label: 'Perfumes',
+    icon: Heart,
+    slug: 'perfumes'
   }
 ] as const;
 
@@ -114,7 +121,7 @@ export default function NavbarComponent({
     requestFreshStoreExperience();
 
     /**
-     * Route fallback keeps AJ Store usable even during the
+     * Route fallback keeps Shelsea Store usable even during the
      * brief period before the global experience runtime mounts.
      */
     router.replace(

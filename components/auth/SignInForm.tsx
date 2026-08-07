@@ -347,7 +347,7 @@ export default function SignInForm({
       </button>
 
       <p className="text-center text-sm text-muted-foreground">
-        New to AJ Logik?{' '}
+        New to Shelsea?{' '}
         <Link
           href={createAuthHref('/sign-up', returnTo)}
           className="font-semibold text-primary transition hover:opacity-80">

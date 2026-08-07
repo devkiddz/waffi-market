@@ -912,7 +912,7 @@ async function recognizeProductDraft(
         brand?.name ??
         null,
       shortDescription:
-        `${name} is a ${category.label.toLowerCase()} selection prepared as an AJ Logik Product Studio draft.`,
+        `${name} is a ${category.label.toLowerCase()} selection prepared as an Shelsea Product Studio draft.`,
       longDescription:
         `${name} has been recognised as a ${category.label.toLowerCase()} product${brand ? ` from ${brand.name}` : ''}. Complete its media, variants, price, stock and final customer-facing description in Product Studio before submission or publication.`,
       estimatedDelivery:
@@ -963,7 +963,7 @@ async function productCreationResponse({
           bullets: [
             'Include the exact Product name.',
             'Mention an existing category or subcategory.',
-            'Mention the brand when it already exists in AJ Logik.',
+            'Mention the brand when it already exists in Shelsea.',
             'Price, stock, variants and media can be completed later in Product Studio.'
           ]
         }
@@ -1295,7 +1295,7 @@ function productCard(
           type:
             'CATALOG',
           title:
-            'AJ Logik live marketplace catalogue',
+            'Shelsea live marketplace catalogue',
           verified:
             true
         }
@@ -4944,7 +4944,7 @@ async function adminResponse({
     const campaignTitle =
       contextTitleFromProducts(
         candidates,
-        'AJ Logik Live Picks'
+        'Shelsea Live Picks'
       );
 
     return response({

@@ -1478,7 +1478,7 @@ export function AssistantRuntimePage({
                 <footer className="border-b border-border/60 bg-background/75 p-4 backdrop-blur sm:p-5">
                   {/* <div className="flex items-start text-muted-foreground p-4">
                     <p className="text-xs">
-                      AJ Logik can prepare drafts and suggestions. You stay in control of publishing, stock,
+                      Shelsea can prepare drafts and suggestions. You stay in control of publishing, stock,
                       Orders and payments.
                     </p>
                   </div> */}

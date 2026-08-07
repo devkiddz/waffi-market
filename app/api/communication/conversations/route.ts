@@ -136,7 +136,7 @@ export async function GET(
     return response(
       {
         error:
-          'AJ Logik could not load the Inbox.'
+          'Shelsea could not load the Inbox.'
       },
       500
     );
@@ -213,7 +213,7 @@ export async function POST(
     return response(
       {
         error:
-          'AJ Logik could not start the conversation.'
+          'Shelsea could not start the conversation.'
       },
       500
     );

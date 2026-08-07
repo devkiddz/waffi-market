@@ -98,7 +98,7 @@ export async function notifyShoppingListPublicationSubmitted(
     title: input.revision
       ? 'Shopping List revision submitted'
       : 'Shopping List submitted',
-    message: `${input.listName} is waiting for AJ Logik review.`,
+    message: `${input.listName} is waiting for Shelsea review.`,
     href: `/account/lists/${input.listId}`,
     targetType: 'SHOPPING_LIST',
     targetId: input.listId,

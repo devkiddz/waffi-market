@@ -124,7 +124,7 @@ async function requestRuntime(
           )
         ) {
           throw new Error(
-            'AJ Logik returned an invalid customer commerce response.'
+            'Shelsea returned an invalid customer commerce response.'
           );
         }
 

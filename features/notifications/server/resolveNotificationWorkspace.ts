@@ -32,7 +32,7 @@ export async function resolveNotificationWorkspace(
 
   if (!runtime.activeWorkspace) {
     throw new Error(
-      'AJ Logik could not resolve an active workspace for notifications.'
+      'Shelsea could not resolve an active workspace for notifications.'
     );
   }
 

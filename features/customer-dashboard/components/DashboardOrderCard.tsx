@@ -91,7 +91,7 @@ export function DashboardOrderCard({
 
         <p className="mt-1.5 truncate text-sm font-semibold">
           {firstItem?.productName ??
-            'AJ Logik order'}
+            'Shelsea order'}
         </p>
 
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">

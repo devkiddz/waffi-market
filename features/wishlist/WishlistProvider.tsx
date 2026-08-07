@@ -235,8 +235,8 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
           title: currentlySaved ? `Remove ${readableName}?` : `Save ${readableName}?`,
 
           description: currentlySaved
-            ? 'This product will be removed from your AJ Logik wishlist.'
-            : 'Your saved products remain connected to your AJ Logik account.',
+            ? 'This product will be removed from your Shelsea wishlist.'
+            : 'Your saved products remain connected to your Shelsea account.',
 
           successTitle: currentlySaved ? 'Removed from wishlist' : 'Saved to wishlist',
 
@@ -249,12 +249,12 @@ export function WishlistProvider({ children }: WishlistProviderProps) {
           title: 'Sign in to save this product',
 
           description:
-            'Create an account or sign in to preserve your wishlist and continue your AJ Logik experience across devices.',
+            'Create an account or sign in to preserve your wishlist and continue your Shelsea experience across devices.',
 
           benefits: [
             'Keep products safely connected to your account.',
             'Continue your wishlist across devices.',
-            'Use your saved products in future AJ Logik recommendations.'
+            'Use your saved products in future Shelsea recommendations.'
           ]
         },
 

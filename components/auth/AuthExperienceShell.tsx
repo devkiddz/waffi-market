@@ -43,7 +43,7 @@ export default function AuthExperienceShell({ children }: { children: ReactNode 
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
                 <Sparkles className="size-3.5" />
-                AJ Logik Experience
+                Shelsea Experience
               </div>
 
               <div className="mt-10 max-w-xl">
@@ -54,7 +54,7 @@ export default function AuthExperienceShell({ children }: { children: ReactNode 
                 </h2>
 
                 <p className="mt-5 max-w-lg text-base leading-7 text-muted-foreground">
-                  Sign in to continue your purchases, interests, reviews and personal AJ Logik experience
+                  Sign in to continue your purchases, interests, reviews and personal Shelsea experience
                   without starting again.
                 </p>
               </div>
@@ -82,7 +82,7 @@ export default function AuthExperienceShell({ children }: { children: ReactNode 
             </div>
 
             <p className="text-xs text-muted-foreground">
-              AJ Logik · Powered by the RCENTZ Experience Framework
+              Shelsea · Powered by the RCENTZ Experience Framework
             </p>
           </section>
 

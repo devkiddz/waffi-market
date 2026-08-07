@@ -21,18 +21,18 @@ export async function seedWorkspaces(prisma: PrismaClient) {
 
   const live = await prisma.workspace.upsert({
     where: {
-      slug: 'aj-logik-live'
+      slug: 'shelsea-commerce-live'
     },
     update: {
-      name: 'AJ Logik Live',
+      name: 'Shelsea Commerce Live',
       mode: 'LIVE',
       active: true,
       resettable: false,
       expiresAt: null
     },
     create: {
-      slug: 'aj-logik-live',
-      name: 'AJ Logik Live',
+      slug: 'shelsea-commerce-live',
+      name: 'Shelsea Commerce Live',
       mode: 'LIVE',
       active: true,
       resettable: false
@@ -47,18 +47,18 @@ export async function seedWorkspaces(prisma: PrismaClient) {
 
   const demo = await prisma.workspace.upsert({
     where: {
-      slug: 'aj-logik-demo'
+      slug: 'shelsea-commerce-demo'
     },
     update: {
-      name: 'AJ Logik Demo',
+      name: 'Shelsea Commerce Demo',
       mode: 'DEMO',
       active: true,
       resettable: true,
       expiresAt: null
     },
     create: {
-      slug: 'aj-logik-demo',
-      name: 'AJ Logik Demo',
+      slug: 'shelsea-commerce-demo',
+      name: 'Shelsea Commerce Demo',
       mode: 'DEMO',
       active: true,
       resettable: true
@@ -73,18 +73,18 @@ export async function seedWorkspaces(prisma: PrismaClient) {
 
   const practice = await prisma.workspace.upsert({
     where: {
-      slug: 'aj-logik-practice'
+      slug: 'shelsea-commerce-practice'
     },
     update: {
-      name: 'AJ Logik Practice',
+      name: 'Shelsea Commerce Practice',
       mode: 'PRACTICE',
       active: true,
       resettable: true,
       expiresAt: null
     },
     create: {
-      slug: 'aj-logik-practice',
-      name: 'AJ Logik Practice',
+      slug: 'shelsea-commerce-practice',
+      name: 'Shelsea Commerce Practice',
       mode: 'PRACTICE',
       active: true,
       resettable: true

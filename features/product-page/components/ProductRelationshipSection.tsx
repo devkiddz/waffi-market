@@ -30,6 +30,11 @@ import {
   previewProductInHub
 } from '@/features/product-experience-state/hubProductPreviewBridge';
 
+import {
+  ListingViewAllLink,
+  buildStoreListingHref
+} from '@/features/store-listings';
+
 import type {
   ProductType
 } from '@/types/types';
@@ -61,11 +66,140 @@ function resolveEyebrow(
   }
 }
 
+/* SHELSEA_PRODUCT_PAGE_HUB_AWARE_CAROUSEL_V1_1 */
+
+function useRenderedDiscoveryHubOpen(): boolean {
+  const [
+    hubOpen,
+    setHubOpen
+  ] = useState(false);
+
+  useEffect(() => {
+    const resolveHubOpen =
+      (): boolean => {
+        const hub =
+          document.querySelector<HTMLElement>(
+            '[data-discovery-hub-panel]'
+          );
+
+        if (!hub) {
+          return false;
+        }
+
+        const style =
+          window.getComputedStyle(
+            hub
+          );
+
+        const bounds =
+          hub.getBoundingClientRect();
+
+        return (
+          !hub.hidden &&
+          hub.getAttribute(
+            'aria-hidden'
+          ) !==
+            'true' &&
+          style.display !==
+            'none' &&
+          style.visibility !==
+            'hidden' &&
+          Number(
+            style.opacity ||
+              '1'
+          ) >
+            0 &&
+          bounds.width >
+            40 &&
+          bounds.height >
+            40
+        );
+      };
+
+    const sync =
+      (): void => {
+        setHubOpen(
+          resolveHubOpen()
+        );
+      };
+
+    const frameId =
+      window.requestAnimationFrame(
+        sync
+      );
+
+    const mutationObserver =
+      new MutationObserver(
+        sync
+      );
+
+    mutationObserver.observe(
+      document.body,
+      {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: [
+          'class',
+          'style',
+          'hidden',
+          'aria-hidden',
+          'data-state'
+        ]
+      }
+    );
+
+    const resizeObserver =
+      new ResizeObserver(
+        sync
+      );
+
+    resizeObserver.observe(
+      document.body
+    );
+
+    const hub =
+      document.querySelector<HTMLElement>(
+        '[data-discovery-hub-panel]'
+      );
+
+    if (hub) {
+      resizeObserver.observe(
+        hub
+      );
+    }
+
+    window.addEventListener(
+      'resize',
+      sync
+    );
+
+    return () => {
+      window.cancelAnimationFrame(
+        frameId
+      );
+
+      mutationObserver.disconnect();
+      resizeObserver.disconnect();
+
+      window.removeEventListener(
+        'resize',
+        sync
+      );
+    };
+  }, []);
+
+  return hubOpen;
+}
+
 export function ProductRelationshipSection({
   title,
   subtitle,
   products
 }: ProductRelationshipSectionProps) {
+
+  const hubOpen =
+    useRenderedDiscoveryHubOpen();
 
   const railRef =
     useRef<HTMLDivElement | null>(
@@ -170,6 +304,19 @@ export function ProductRelationshipSection({
   ) {
     return null;
   }
+
+  const viewAllHref =
+    buildStoreListingHref({
+      title,
+      subtitle,
+      source:
+        'similar',
+      productIds:
+        products.map(
+          product =>
+            product.id
+        )
+    });
 
   const previewProductFromPage =
     (
@@ -355,6 +502,11 @@ export function ProductRelationshipSection({
       <div
         ref={
           railRef
+        }
+        data-hub-open={
+          hubOpen
+            ? 'true'
+            : 'false'
         }
         className={
           styles.rail

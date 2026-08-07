@@ -60,7 +60,7 @@ function normalizedQuestion(
 
   if (!normalized) {
     throw new Error(
-      'Ask AJ Support Intelligence a question.'
+      'Ask Shelsea Support Intelligence a question.'
     );
   }
 
@@ -329,9 +329,9 @@ function noMatchResponse():
     intent:
       'UNKNOWN',
     answer:
-      'I could not confirm a trustworthy AJ Logik answer from the approved Support Knowledge yet.',
+      'I could not confirm a trustworthy Shelsea answer from the approved Support Knowledge yet.',
     followUp:
-      'Could you tell me whether this is about shopping, payment, an order, delivery, your account, a product, or using AJ Logik?',
+      'Could you tell me whether this is about shopping, payment, an order, delivery, your account, a product, or using Shelsea?',
     confidence:
       'LOW',
     confidenceScore:
@@ -359,7 +359,7 @@ function noMatchResponse():
         kind:
           'FOLLOW_UP',
         prompt:
-          'How do I buy on AJ Logik?'
+          'How do I buy on Shelsea?'
       },
       {
         id:
@@ -653,7 +653,7 @@ export async function resolveSupportGuideQuestion(
             best.entry.intent
           ),
         answer:
-          'I found more than one possible AJ Logik Support topic and do not want to give you the wrong answer.',
+          'I found more than one possible Shelsea Support topic and do not want to give you the wrong answer.',
         followUp:
           runnerUp
             ? `Is this about ${best.entry.title} or ${runnerUp.entry.title}?`

@@ -11,7 +11,7 @@ const profiles: Record<
     audience:
       'admin',
     eyebrow:
-      'AJ Logik · Admin Assistant',
+      'Shelsea · Admin Assistant',
     title:
       'Admin Assistant',
     description:
@@ -73,9 +73,9 @@ const profiles: Record<
       }
     ],
     authorityRules: [
-      'You review every suggestion before AJ Logik creates anything.',
+      'You review every suggestion before Shelsea creates anything.',
       'Product drafts are inactive and cannot appear in the Store until Product Studio is completed and the normal publication process succeeds.',
-      'AJ Logik cannot approve its own work, publish content, change prices or alter stock automatically.',
+      'Shelsea cannot approve its own work, publish content, change prices or alter stock automatically.',
       'Every accepted action stays within the store and permissions you are currently using.'
     ],
     preparationSteps: [
@@ -90,7 +90,7 @@ const profiles: Record<
     audience:
       'vendor',
     eyebrow:
-      'AJ Logik · Vendor Assistant',
+      'Shelsea · Vendor Assistant',
     title:
       'Vendor Assistant',
     description:
@@ -169,7 +169,7 @@ const profiles: Record<
     audience:
       'customer',
     eyebrow:
-      'AJ Logik · Living Intelligence',
+      'Shelsea · Living Intelligence',
     title:
       'AJ Intelligence',
     description:

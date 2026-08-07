@@ -8,7 +8,7 @@ export default function SignInPage() {
     <AuthExperienceShell>
       <AuthCard
         eyebrow="Welcome Back"
-        title="Sign in to AJ Logik"
+        title="Sign in to Shelsea"
         description="Continue your shopping journey, saved products, active orders and personal recommendations.">
         <SignInForm googleEnabled={googleEnabled} />
       </AuthCard>

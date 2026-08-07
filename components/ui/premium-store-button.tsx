@@ -32,14 +32,14 @@ export default function PremiumStoreButton({ active = false, onClick }: PremiumS
         <span
           className={cn('premium-store-content relative z-20 flex items-center gap-2', active && 'active')}>
           <Landmark className="premium-store-icon h-4 w-4" />
-          <span>AJ Store</span>
+          <span>Store</span>
         </span>
       </Button>
 
       <style jsx global>{`
         .premium-store-btn {
           isolation: isolate;
-          border: 1px solid rgba(201, 162, 39, 0.45);
+          border: 1px solid rgba(244, 63, 94, 0.45);
           background: transparent;
         }
 
@@ -50,8 +50,8 @@ export default function PremiumStoreButton({ active = false, onClick }: PremiumS
           border-radius: inherit;
           background: radial-gradient(
             circle,
-            rgba(201, 162, 39, 0.28) 0%,
-            rgba(201, 162, 39, 0.1) 55%,
+            rgba(244, 63, 94, 0.24) 0%,
+            rgba(244, 63, 94, 0.08) 55%,
             transparent 100%
           );
           filter: blur(8px);
@@ -93,12 +93,12 @@ export default function PremiumStoreButton({ active = false, onClick }: PremiumS
         }
 
         .premium-store-icon {
-          color: #f2c94c;
+          color: #fb7185;
           animation: storeFloat 2.5s ease-in-out infinite;
         }
 
         .premium-store-btn:hover {
-          border-color: rgba(240, 207, 103, 0.9);
+          border-color: rgba(251, 113, 133, 0.92);
           transform: translateY(-1px);
           transition: all 0.3s ease;
         }

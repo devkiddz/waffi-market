@@ -42,12 +42,12 @@ export async function GET() {
   try {
     const result = await sendTransactionalEmail({
       to: recipient,
-      subject: 'AJ Logik email transport test',
+      subject: 'Shelsea email transport test',
       html: `
-        <h1>AJ Logik email test</h1>
+        <h1>Shelsea email test</h1>
         <p>The transactional email transport is working.</p>
       `,
-      text: 'AJ Logik transactional email transport is working.',
+      text: 'Shelsea transactional email transport is working.',
       category: 'email_verification',
       idempotencyKey: `dev-email-test-${Date.now()}`
     });

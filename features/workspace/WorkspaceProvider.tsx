@@ -36,7 +36,7 @@ const defaultRuntime: WorkspaceRuntime = {
 const guestWorkspace: Workspace = {
   id: 'guest-live',
   slug: 'aj-logik-guest',
-  name: 'AJ Logik',
+  name: 'Shelsea',
 
   mode: 'LIVE',
   commerceMode: 'SINGLE_MERCHANT',
@@ -112,7 +112,7 @@ export function WorkspaceProvider({ children }: WorkspaceProviderProps) {
 
       setRuntime(serverRuntime);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to load AJ Logik.';
+      const message = error instanceof Error ? error.message : 'Unable to load Shelsea.';
 
       setRuntime(current => ({
         ...current,

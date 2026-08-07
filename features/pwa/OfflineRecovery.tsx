@@ -68,7 +68,7 @@ export function OfflineRecovery() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-muted-foreground">
-          AJ Logik keeps the offline shell available, but live prices, stock, Cart, orders, payments and personalized commerce data are never treated as offline truth.
+          Shelsea keeps the offline shell available, but live prices, stock, Cart, orders, payments and personalized commerce data are never treated as offline truth.
         </p>
 
         <div className="mt-6 grid gap-2 sm:grid-cols-2">

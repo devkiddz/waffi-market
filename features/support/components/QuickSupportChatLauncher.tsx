@@ -91,7 +91,7 @@ export function QuickSupportChatLauncher() {
       eyebrow: (
         <span className="inline-flex items-center gap-2">
           <Headphones className="size-3.5" />
-          AJ Logik Support
+          Shelsea Support
         </span>
       ),
 
@@ -191,12 +191,12 @@ export function QuickSupportChatLauncher() {
 
   const accessibleLabel =
     unreadCount > 0
-      ? `${unreadCount} unread Support ${unreadCount === 1 ? 'message' : 'messages'}. Open AJ Logik Support.`
+      ? `${unreadCount} unread Support ${unreadCount === 1 ? 'message' : 'messages'}. Open Shelsea Support.`
       : hasActiveCase
-        ? `Continue AJ Logik Support Case ${summary?.activeCase?.caseNumber ?? ''}`
+        ? `Continue Shelsea Support Case ${summary?.activeCase?.caseNumber ?? ''}`
         : hasRestorableCase
-          ? 'Continue AJ Logik Support conversations'
-          : 'Chat with AJ Logik Support';
+          ? 'Continue Shelsea Support conversations'
+          : 'Chat with Shelsea Support';
 
   const badgeLabel = unreadCount > 99 ? '99+' : String(unreadCount);
 
@@ -225,7 +225,7 @@ export function QuickSupportChatLauncher() {
               </p>
 
               <p className="mt-1 truncate text-xs font-black">
-                {summary.latestAgentReply.sender?.name ?? 'AJ Logik Support'}
+                {summary.latestAgentReply.sender?.name ?? 'Shelsea Support'}
               </p>
 
               <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-muted-foreground">
@@ -288,7 +288,7 @@ export function QuickSupportChatLauncher() {
               <Sparkles className="absolute right-1.5 top-1.5 size-2.5 text-accent" />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-xs font-black text-foreground">Ask AJ</span>
+              <span className="block text-xs font-black text-foreground">Ask Shelsea</span>
               <span className="mt-0.5 block text-[10px] leading-4 text-muted-foreground">
                 Open AJ Intelligence for shopping and workspace guidance.
               </span>

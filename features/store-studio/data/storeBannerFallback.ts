@@ -16,10 +16,10 @@ export const fallbackStoreBannerSlides:
         '/store-studio/banners/aj-logik-store-showcase.png',
       mobileMediaUrl: null,
       posterUrl: null,
-      eyebrow: 'AJ Logik Store',
-      title: 'Everything you need, beautifully curated.',
+      eyebrow: 'Shelsea Store',
+      title: 'Style, beauty and everyday confidence — beautifully curated.',
       description:
-        'Discover wines, confectioneries, kitchen favourites, and party essentials selected for every moment.',
+        'Discover clothing, accessories, hair and fragrances selected for every style and moment.',
       primaryAction: {
         label: 'Shop the store',
         href: '/store'

@@ -126,7 +126,7 @@ export default async function CustomerJourneyRoute({
 
   if (!activeWorkspace) {
     throw new Error(
-      'AJ Logik could not resolve an active workspace for this customer journey.'
+      'Shelsea could not resolve an active workspace for this customer journey.'
     );
   }
 

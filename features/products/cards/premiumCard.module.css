@@ -78,3 +78,80 @@
     transform: none;
   }
 }
+
+
+/* SHELSEA_CARD_HOVER_HIGHLIGHT_V1 */
+
+/*
+ * Shelsea hover language:
+ * illuminate + enrich rather than darken.
+ */
+.glow {
+  background:
+    radial-gradient(
+      calc(var(--premium-card-glow-size) * 0.8)
+        circle
+        at
+        var(--premium-card-pointer-x)
+        var(--premium-card-pointer-y),
+      rgb(255 255 255 / 0.20),
+      rgb(243 226 186 / 0.15) 24%,
+      rgb(200 164 93 / 0.10) 42%,
+      rgb(178 75 114 / 0.055) 58%,
+      transparent 74%
+    );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface:hover {
+    transform: translateY(-0.2rem);
+
+    border-color:
+      color-mix(
+        in oklab,
+        #c8a45d 42%,
+        var(--border)
+      );
+
+    box-shadow:
+      0 1rem 2.5rem
+        rgb(22 59 115 / 0.10),
+      0 0.45rem 1.25rem
+        rgb(200 164 93 / 0.08),
+      inset 0 1px 0
+        rgb(255 255 255 / 0.34);
+  }
+
+  .surface:hover .glow,
+  .surface:focus-within .glow {
+    opacity: 1;
+  }
+}
+
+:global(.dark) .glow {
+  background:
+    radial-gradient(
+      calc(var(--premium-card-glow-size) * 0.8)
+        circle
+        at
+        var(--premium-card-pointer-x)
+        var(--premium-card-pointer-y),
+      rgb(255 255 255 / 0.10),
+      rgb(243 226 186 / 0.12) 28%,
+      rgb(200 164 93 / 0.08) 46%,
+      rgb(178 75 114 / 0.05) 62%,
+      transparent 76%
+    );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global(.dark) .surface:hover {
+    box-shadow:
+      0 1rem 2.6rem
+        rgb(0 0 0 / 0.16),
+      0 0.5rem 1.5rem
+        rgb(200 164 93 / 0.08),
+      inset 0 1px 0
+        rgb(255 255 255 / 0.10);
+  }
+}

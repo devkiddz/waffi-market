@@ -19,9 +19,9 @@ type HubCardProps = {
 
 const statusStyles = {
   idle: 'bg-background/12 text-primary',
-  active: 'bg-violet-500/15 text-violet-300',
-  warning: 'bg-accent/20 text-accent',
-  success: 'bg-emerald-500/15 text-emerald-300'
+  active: 'bg-primary/10 text-primary',
+  warning: 'bg-accent/15 text-accent',
+  success: 'bg-secondary/12 text-secondary'
 };
 
 const layoutStyles: Record<NonNullable<HubWidget['layout']>, string> = {
@@ -180,23 +180,17 @@ export default function HubCard({ widget }: HubCardProps) {
 
   if (layout === 'hero') {
     return (
-      <article
-        data-layout={layout}
-        className={cn(
-          `
-            overflow-hidden rounded-3xl
-            border border-primary/12
-            bg-card/40 p-3
-            shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_60px_rgba(0,0,0,0.25)]
-          `,
-          widget.accent && `bg-gradient-to-br ${widget.accent}`
-        )}>
+      <div className="w-full min-w-0">
         {widget.slides?.length ? (
-          <HubSlider items={widget.slides} autoSlide={widget.autoSlide} variant="hero" />
+          <HubSlider
+            items={widget.slides}
+            autoSlide={widget.autoSlide ?? true}
+            variant="hero"
+          />
         ) : null}
 
-        {renderWidgetActions('px-2 pb-2')}
-      </article>
+        {renderWidgetActions('px-1')}
+      </div>
     );
   }
 
@@ -255,7 +249,7 @@ export default function HubCard({ widget }: HubCardProps) {
         <div className="mt-4 rounded-2xl border border-amber-300/15 bg-background/45 p-4">
           <div className="text-center">
             <p className="text-[12px] font-semibold uppercase tracking-[0.25em] text-amber-300/80">
-              AJ LOGIK
+              SHELSEA
             </p>
 
             <h4 className="mt-3 text-lg font-bold text-primary">Gold Member</h4>

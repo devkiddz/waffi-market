@@ -14,7 +14,7 @@ import { seedAdminAccounts } from './seeds/admin.seed';
 
 async function main() {
   console.log('================================');
-  console.log(' RCENTZ Demo Seed Engine');
+  console.log(' SHELSEA Commerce Seed Engine');
   console.log('================================');
 
   const workspaces =

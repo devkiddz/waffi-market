@@ -1747,7 +1747,7 @@ function OrdersJourneyDetails({
     return (
       <EmptyJourneyState
         title="No order history yet"
-        description="Orders completed or prepared through AJ Logik will appear here with their complete commerce record."
+        description="Orders completed or prepared through Shelsea will appear here with their complete commerce record."
       />
     );
   }

@@ -70,7 +70,7 @@ const preferenceRows: Array<{
   {
     key: 'systemUpdates',
     title: 'Important system updates',
-    description: 'Account or commerce information that AJ Logik must surface.'
+    description: 'Account or commerce information that Shelsea must surface.'
   },
   {
     key: 'promotionUpdates',
@@ -164,7 +164,7 @@ export function NotificationSettingsPanel({
               </h1>
 
               <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">
-                AJ Logik now persists operational notifications. Browser push permission and background delivery are intentionally not represented as active.
+                Shelsea now persists operational notifications. Browser push permission and background delivery are intentionally not represented as active.
               </p>
             </div>
           </div>

@@ -98,7 +98,7 @@ export default function AdminProductEditor({
               </div>
               {multivendorEnabled ? (
                 <Field label="Vendor owner">
-                  <StudioSelectField name="vendorProfileId" defaultValue={product?.vendorProfileId ?? ''} options={[{ value: '', label: 'AJ Logik workspace product' }, ...taxonomy.vendors.map(vendor => ({ value: vendor.id, label: vendor.name }))]} />
+                  <StudioSelectField name="vendorProfileId" defaultValue={product?.vendorProfileId ?? ''} options={[{ value: '', label: 'Shelsea workspace product' }, ...taxonomy.vendors.map(vendor => ({ value: vendor.id, label: vendor.name }))]} />
                 </Field>
               ) : null}
               <Field label="Short description"><input name="shortDescription" defaultValue={product?.shortDescription ?? ''} className={inputClass} /></Field>

@@ -204,7 +204,7 @@ export function useSupportLiveCase({
 
         if (!response.ok) {
           throw new Error(
-            'AJ Logik could not update live Support activity.'
+            'Shelsea could not update live Support activity.'
           );
         }
       },
@@ -531,7 +531,7 @@ export function useSupportLiveCase({
 
           if (!payload) {
             setError(
-              'AJ Logik received an unreadable live Support event.'
+              'Shelsea received an unreadable live Support event.'
             );
 
             return;
@@ -562,7 +562,7 @@ export function useSupportLiveCase({
               setError(
                 cause instanceof Error
                   ? cause.message
-                  : 'AJ Logik could not apply a live Support update.'
+                  : 'Shelsea could not apply a live Support update.'
               );
             }
           );

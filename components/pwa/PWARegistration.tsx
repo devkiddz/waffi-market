@@ -30,7 +30,7 @@ export default function PWARegistration() {
           updateViaCache: 'none'
         });
       } catch (error) {
-        console.warn('AJ Logik PWA registration failed.', error);
+        console.warn('Shelsea PWA registration failed.', error);
       }
     };
 

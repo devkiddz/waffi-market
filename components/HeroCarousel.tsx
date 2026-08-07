@@ -1,95 +1,129 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import image1 from '@/public/assets/image-8.jpg';
-import image2 from '@/public/assets/image-9.jpg';
-import image3 from '@/public/assets/image-10.jpg';
-import image4 from '@/public/assets/image-11.jpg';
+import Image from 'next/image';
+
+import {
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 
 const slides = [
   {
     id: 1,
-    image: image1,
-    badge: 'AJ Liqz',
-    title: 'Premium Wines Collection',
-    description: 'Discover exclusive wines and beverages.'
+    image:
+      'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=85&w=1800&auto=format&fit=crop',
+    badge: 'Shelsea Clothing',
+    title: 'Dress With Intention',
+    description:
+      'Discover polished clothing selected for work, weekends and memorable occasions.'
   },
   {
     id: 2,
-    image: image2,
-    badge: 'AJ Kitchen',
-    title: 'Kitchen Essentials',
-    description: 'Everything you need for your kitchen.'
+    image:
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=85&w=1800&auto=format&fit=crop',
+    badge: 'Apparel & Accessories',
+    title: 'Complete the Look',
+    description:
+      'Explore bags, shoes, jewelry, watches and finishing pieces that elevate every outfit.'
   },
   {
     id: 3,
-    image: image3,
-    badge: 'Party Plans',
-    title: 'Celebrate Without Stress',
-    description: 'Packages and solutions for every event.'
+    image:
+      'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?q=85&w=1800&auto=format&fit=crop',
+    badge: 'Shelsea Hair',
+    title: 'Your Crown, Your Signature',
+    description:
+      'Shop premium wigs, extensions and hair essentials for confident everyday styling.'
   },
   {
     id: 4,
-    image: image4,
-    badge: 'AJ Store',
-    title: 'Featured Deals',
-    description: 'Explore trending products and discounts.'
+    image:
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?q=85&w=1800&auto=format&fit=crop',
+    badge: 'Signature Scents',
+    title: 'Leave a Lasting Impression',
+    description:
+      'Discover elegant women, men and unisex fragrances for every mood and occasion.'
   }
 ];
 
 export default function HeroCarousel() {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] =
+    useState(0);
 
   const nextSlide = () => {
-    setCurrent(prev => (prev + 1) % slides.length);
+    setCurrent(previous =>
+      (previous + 1) % slides.length
+    );
   };
 
   const prevSlide = () => {
-    setCurrent(prev => (prev + 1) % slides.length);
+    setCurrent(previous =>
+      (previous - 1 + slides.length) %
+      slides.length
+    );
   };
 
   useEffect(() => {
-    const timer = setTimeout(nextSlide, 5000);
-    return () => clearTimeout(timer);
+    const timer = window.setTimeout(
+      nextSlide,
+      5000
+    );
+
+    return () => {
+      window.clearTimeout(timer);
+    };
   }, [current]);
 
   return (
     <section className="relative overflow-hidden rounded-md">
       <div className="relative aspect-16/8">
-        {/* Slides */}
         <div
           className="flex h-full transition-transform duration-700 ease-in-out"
           style={{
             transform: `translateX(-${current * 100}%)`
           }}>
           {slides.map(slide => (
-            <div key={slide.id} className="relative min-w-full">
-              <Image src={slide.image} alt={slide.title} fill className="object-cover scale-105" />
+            <div
+              key={slide.id}
+              className="relative min-w-full">
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                sizes="100vw"
+                className="object-cover scale-105"
+                priority={slide.id === 1}
+              />
 
-              {/* <div className="absolute inset-0 bg-black/45" /> */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" />
 
-              <div className="absolute -top-3 md:top-0 inset-0 flex items-center">
-                <div className="max-w-xl px-8 md:px-16 text-white">
-                  <span className="rounded-full bg-secondary/15 px-3 py-1 text-xs md:text-xs backdrop-blur-3xl">
+              <div className="absolute inset-0 flex items-center">
+                <div className="max-w-xl px-8 text-white md:px-16">
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-xs backdrop-blur-3xl">
                     {slide.badge}
                   </span>
 
-                  <h1 className="mt-1 md:mt-4 text-lg font-bold md:text-5xl shadow-2xl text-white">
+                  <h1 className="mt-2 text-2xl font-bold text-white drop-shadow-lg md:mt-4 md:text-5xl">
                     {slide.title}
                   </h1>
 
-                  <p className="text-sm md:text-base md:mt-2 text-white font-bold">{slide.description}</p>
+                  <p className="mt-2 max-w-lg text-sm font-medium text-white/90 md:text-base">
+                    {slide.description}
+                  </p>
 
-                  <div className="relative top-1 md:top-4 flex gap-3">
-                    <button className="rounded-full bg-secondary px-5 py-2 text-xs md:text-sm text-white cursor-pointer">
+                  <div className="mt-4 flex gap-3">
+                    <button
+                      type="button"
+                      className="cursor-pointer rounded-full bg-secondary px-5 py-2 text-xs text-white md:text-sm">
                       Shop Now
                     </button>
 
-                    <button className="rounded-full border border-white/30 px-5 py-2 text-sm bg-card/20 backdrop-blur-3xl transition-all cursor-pointer hover:bg-card/50">
-                      View Deals
+                    <button
+                      type="button"
+                      className="cursor-pointer rounded-full border border-white/30 bg-black/15 px-5 py-2 text-xs text-white backdrop-blur-3xl transition-all hover:bg-black/30 md:text-sm">
+                      Explore
                     </button>
                   </div>
                 </div>
@@ -98,42 +132,40 @@ export default function HeroCarousel() {
           ))}
         </div>
 
-        {/* Bootstrap-style Controls */}
-        <div className="hover:flex relative bottom-40 md:bottom-80 w-100">
-          <button
-            aria-label="slide left"
-            type="button"
-            onClick={prevSlide}
-            className="absolute left-0 top-0 z-20 flex h-full w-10 md:w-16 items-center justify-center bg-gradient-to-r from-black/30 to-transparent">
-            <ChevronLeft className="h-8 w-8 text-white cursor-pointer" />
-          </button>
+        <button
+          aria-label="Previous slide"
+          type="button"
+          onClick={prevSlide}
+          className="absolute left-0 top-0 z-20 flex h-full w-10 cursor-pointer items-center justify-center bg-gradient-to-r from-black/35 to-transparent md:w-16">
+          <ChevronLeft className="h-8 w-8 text-white" />
+        </button>
 
-          <button
-            aria-label="slide right"
-            type="button"
-            onClick={nextSlide}
-            className="absolute -right-25 md:-right-215 top-0 z-20 flex h-full w-16 items-center justify-center bg-gradient-to-l from-black to-transparent">
-            <ChevronRight className="h-8 w-8 text-white cursor-pointer" />
-          </button>
-        </div>
-        {/* Indicators */}
-        <div className="absolute left-1/3 bottom-5 md:left-1/2 z-20 flex -translate-x-1/2 gap-2">
-          {slides.map((_, index) => (
+        <button
+          aria-label="Next slide"
+          type="button"
+          onClick={nextSlide}
+          className="absolute right-0 top-0 z-20 flex h-full w-10 cursor-pointer items-center justify-center bg-gradient-to-l from-black/35 to-transparent md:w-16">
+          <ChevronRight className="h-8 w-8 text-white" />
+        </button>
+
+        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+          {slides.map((slide, index) => (
             <button
-              aria-label="slider index"
+              aria-label={`Go to slide ${index + 1}`}
               type="button"
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`h-2 rounded-full transition-all ${
-                current === index ? 'w-3 bg-white' : 'w-2 bg-white/50'
+              key={slide.id}
+              onClick={() =>
+                setCurrent(index)
+              }
+              className={`h-2 cursor-pointer rounded-full transition-all ${
+                current === index
+                  ? 'w-4 bg-white'
+                  : 'w-2 bg-white/50'
               }`}
             />
           ))}
         </div>
       </div>
-      {/* <div className="absolute inset-0 bg-black/20" /> */}
-
-      {/* <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background/20" /> */}
     </section>
   );
 }

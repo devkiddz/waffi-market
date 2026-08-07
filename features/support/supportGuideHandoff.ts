@@ -56,7 +56,7 @@ const INTENT_LABEL:
     HOW_TO_BUY:
       'Shopping help',
     HOW_TO_USE_APP:
-      'Using AJ Logik',
+      'Using Shelsea',
     MULTIVENDOR_AVAILABILITY:
       'Vendor marketplace help',
     CART_AND_CHECKOUT:

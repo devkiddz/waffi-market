@@ -1,10 +1,10 @@
 import {
   BadgePercent,
-  CakeSlice,
-  Logs,
-  PartyPopper,
-  UtensilsCrossed,
-  Wine
+  LayoutGrid,
+  Scissors,
+  Shirt,
+  ShoppingBag,
+  Sparkles
 } from 'lucide-react';
 
 export const categories = [
@@ -12,230 +12,147 @@ export const categories = [
     id: 'all',
     slug: 'all',
     label: 'All Products',
-    icon: Logs,
-    accentColor: '#64748b',
-
-    image: '/assets/Image-1.png',
-
+    icon: LayoutGrid,
+    accentColor: '#173D7A',
+    image:
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/assets/Image-2.png',
-      '/assets/Image-3.png',
-      '/assets/Image-4.jpg'
+      'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Everything you need in one place.',
-
+      'Discover the complete Shelsea fashion, hair and fragrance collection.',
     description:
-      'Browse our complete collection of products, from groceries and beverages to party supplies and premium selections.',
-
+      'Shop clothing, intimates, statement accessories, premium hair pieces and memorable fragrances curated for modern style.',
     subcategories: [
-      {
-        label: 'New Arrivals',
-        slug: 'new-arrivals'
-      },
-      {
-        label: 'Best Sellers',
-        slug: 'best-sellers'
-      },
-      {
-        label: 'Trending Now',
-        slug: 'trending'
-      }
+      { label: 'New Arrivals', slug: 'new-arrivals' },
+      { label: 'Best Sellers', slug: 'best-sellers' },
+      { label: 'Trending Now', slug: 'trending' }
     ]
   },
-
   {
     id: 'deals',
     slug: 'deals',
     label: 'Deals',
     icon: BadgePercent,
-    accentColor: '#ef4444',
-
+    accentColor: '#B64E78',
     image:
-      '/assets/promos/weekend-discount.png',
-
+      'https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/assets/promos/on-sale-now.png',
-      '/assets/promos/hot-picks.png',
-      '/assets/promos/best-sellers.png'
+      'https://images.unsplash.com/photo-1607082349566-187342175e2f?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1607083206173-0a9e9c51427d?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Save more on everyday purchases.',
-
+      'Selected Shelsea pieces at special prices.',
     description:
-      'Discover flash sales, exclusive discounts and limited-time offers across multiple categories.',
-
+      'Explore limited-time offers across clothing, intimates, accessories, hair and fragrances.',
     subcategories: [
-      {
-        label: 'Flash Sales',
-        slug: 'flash-sales'
-      },
-      {
-        label: 'Clearance',
-        slug: 'clearance'
-      },
-      {
-        label: 'Buy 1 Get 1',
-        slug: 'bogo'
-      }
+      { label: 'Flash Sales', slug: 'flash-sales' },
+      { label: 'Clearance', slug: 'clearance' },
+      { label: 'Bundle Offers', slug: 'bundle-offers' }
     ]
   },
-
   {
-    id: 'wines',
-    slug: 'wines',
-    label: 'Wines & Liquors',
-    icon: Wine,
-    accentColor: '#7c3aed',
-
+    id: 'clothing',
+    slug: 'clothing',
+    label: 'Clothing',
+    icon: Shirt,
+    accentColor: '#173D7A',
     image:
-      '/assets/collections/tonights-pour-banner.png',
-
+      'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/products/moet-chandon-imperial_lg.jpg',
-      '/products/hennessy_lg.jpg',
-      '/products/martellblue_lg.jpg'
+      'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Premium wines, spirits and celebratory drinks.',
-
+      'Women, men, kids, nightwear and intimate essentials styled for real life.',
     description:
-      'Browse carefully selected wines, champagnes, whiskies and premium liquors for every occasion.',
-
+      'Shop polished women, men and kids clothing alongside elegant nightwear, lingerie, underwear and everyday wardrobe basics.',
     subcategories: [
-      {
-        label: 'Red Wine',
-        slug: 'red-wine'
-      },
-      {
-        label: 'White Wine',
-        slug: 'white-wine'
-      },
-      {
-        label: 'Champagne',
-        slug: 'champagne'
-      },
-      {
-        label: 'Spirits & Whiskey',
-        slug: 'spirits'
-      }
+      { label: 'Women', slug: 'women' },
+      { label: 'Men', slug: 'men' },
+      { label: 'Kids', slug: 'kids' },
+      { label: 'Unisex', slug: 'unisex' },
+      { label: 'Lingerie', slug: 'lingerie' },
+      { label: 'Nightwear', slug: 'nightwear' },
+      { label: 'Underwear & Basics', slug: 'underwear-basics' },
+      { label: 'Socks & Hosiery', slug: 'socks-hosiery' }
     ]
   },
-
   {
-    id: 'kitchen',
-    slug: 'kitchen',
-    label: 'Kitchen & Meals',
-    icon: UtensilsCrossed,
-    accentColor: '#22c55e',
-
+    id: 'apparel-accessories',
+    slug: 'apparel-accessories',
+    label: 'Apparel & Accessories',
+    icon: ShoppingBag,
+    accentColor: '#C7A45D',
     image:
-      '/products/Digital_Air_Fryer.jpg',
-
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/products/KitchenAid_Artisan_Stand_Mixer.jpg',
-      '/products/Nespresso_Vertuo_Coffee_Machine.jpg',
-      '/assets/collections/weekend-indulgence-banner.png'
+      'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Freshly prepared meals and kitchen delights.',
-
+      'Finishing pieces that make an outfit complete.',
     description:
-      'From platters and salads to ready-to-eat meals, enjoy delicious food crafted with quality ingredients.',
-
+      'Discover bags, shoes, jewelry, watches and versatile fashion accessories selected to elevate every look.',
     subcategories: [
-      {
-        label: 'Hot Platters',
-        slug: 'hot-platters'
-      },
-      {
-        label: 'Finger Foods',
-        slug: 'finger-foods'
-      },
-      {
-        label: 'Salads',
-        slug: 'salads'
-      }
+      { label: 'Bags', slug: 'bags' },
+      { label: 'Shoes', slug: 'shoes' },
+      { label: 'Jewelry', slug: 'jewelry' },
+      { label: 'Watches', slug: 'watches' },
+      { label: 'Fashion Accessories', slug: 'fashion-accessories' }
     ]
   },
-
   {
-    id: 'confectioneries',
-    slug: 'confectioneries',
-    label: 'Confectioneries',
-    icon: CakeSlice,
-    accentColor: '#e11d48',
-
+    id: 'hair',
+    slug: 'hair',
+    label: 'Hair',
+    icon: Scissors,
+    accentColor: '#B64E78',
     image:
-      '/products/Chocolate_Fudge_Cake.jpg',
-
+      'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/products/Chocolate_Fudge_Cake.jpg',
-      '/products/red_velvet_celebration_cake.jpg',
-      '/assets/collections/sweet-moments-banner.png'
+      'https://images.unsplash.com/photo-1562322140-8baeececf3df?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Fresh cakes, desserts and celebration treats.',
-
+      'Premium hair pieces, extensions and care essentials.',
     description:
-      'Discover premium cakes, cupcakes, pastries and desserts prepared for birthdays, gatherings and everyday indulgence.',
-
+      'Explore wigs, hair extensions, braiding options and everyday hair-care essentials for confident, polished looks.',
     subcategories: [
-      {
-        label: 'Cakes',
-        slug: 'cakes'
-      },
-      {
-        label: 'Cupcakes',
-        slug: 'cupcakes'
-      },
-      {
-        label: 'Desserts',
-        slug: 'desserts'
-      }
+      { label: 'Wigs', slug: 'wigs' },
+      { label: 'Hair Extensions', slug: 'hair-extensions' },
+      { label: 'Braids', slug: 'braids' },
+      { label: 'Hair Care', slug: 'hair-care' },
+      { label: 'Hair Accessories', slug: 'hair-accessories' }
     ]
   },
-
   {
-    id: 'party-plans',
-    slug: 'party-plans',
-    label: 'Party Plans',
-    icon: PartyPopper,
-    accentColor: '#ec4899',
-
+    id: 'perfumes',
+    slug: 'perfumes',
+    label: 'Perfumes',
+    icon: Sparkles,
+    accentColor: '#C7A45D',
     image:
-      '/products/Birthday_Party_Package.jpg',
-
+      'https://images.unsplash.com/photo-1541643600914-78b084683601?q=85&w=1200&auto=format&fit=crop',
     coverImages: [
-      '/products/Birthday_Party_Package.jpg',
-      '/products/Premium_Backyard_BBQ_Package.jpg',
-      '/assets/collections/weekend-indulgence-banner.png'
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=85&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=85&w=1200&auto=format&fit=crop'
     ],
-
     shortDescription:
-      'Everything you need for unforgettable celebrations.',
-
+      'Signature fragrances chosen to leave a lasting impression.',
     description:
-      'Explore curated party packs, catering options and event essentials for birthdays, weddings and corporate events.',
-
+      'Discover refined scents for women, men and unisex wear, from fresh daytime notes to deep evening fragrances.',
     subcategories: [
-      {
-        label: 'Birthday Packs',
-        slug: 'birthday-packs'
-      },
-      {
-        label: 'Corporate Platters',
-        slug: 'corporate'
-      },
-      {
-        label: 'Custom Event Catering',
-        slug: 'custom-catering'
-      }
+      { label: "Women's Fragrances", slug: 'women-fragrances' },
+      { label: "Men's Fragrances", slug: 'men-fragrances' },
+      { label: 'Unisex Fragrances', slug: 'unisex-fragrances' },
+      { label: 'Perfume Oils', slug: 'perfume-oils' }
     ]
   }
 ];

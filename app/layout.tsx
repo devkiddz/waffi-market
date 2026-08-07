@@ -34,15 +34,15 @@ import SearchProvider from '@/providers/SearchProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 
 export const metadata: Metadata = {
-  applicationName: 'AJ Logik',
+  applicationName: 'Shelsea',
 
   title: {
-    default: 'AJ Logik — Premium Commerce Experience',
+    default: 'Shelsea — Fashion, Beauty & Lifestyle',
 
-    template: '%s · AJ Logik'
+    template: '%s · Shelsea'
   },
 
-  description: 'Your personalized, discovery-led shopping workspace.',
+  description: 'Discover clothing, accessories, hair, fragrances and curated style at Shelsea.',
 
   manifest: '/manifest.webmanifest',
 
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
     statusBarStyle: 'black-translucent',
 
-    title: 'AJ Logik'
+    title: 'Shelsea'
   },
 
   icons: {

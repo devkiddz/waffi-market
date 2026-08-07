@@ -63,7 +63,7 @@ export default function VendorStorefrontExperience({
         showError({
           title: 'Unable to add product',
           description:
-            'AJ Logik could not add this product to your cart. Please try again.'
+            'Shelsea could not add this product to your cart. Please try again.'
         });
       }
     },
@@ -166,7 +166,7 @@ export default function VendorStorefrontExperience({
           <div className="min-w-0 flex-1">
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-emerald-600">
               <BadgeCheck className="size-3.5" />
-              Verified AJ Logik merchant
+              Verified Shelsea merchant
             </span>
 
             <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
@@ -175,7 +175,7 @@ export default function VendorStorefrontExperience({
 
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">
               {storefront.description ??
-                'Explore this merchant through the connected AJ Logik Store experience.'}
+                'Explore this merchant through the connected Shelsea Store experience.'}
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -290,7 +290,7 @@ export default function VendorStorefrontExperience({
                   <h3 className="mt-3 text-lg font-black">{promotion.title}</h3>
                   <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted-foreground">
                     {promotion.description ??
-                      'A published offer from this AJ Logik merchant.'}
+                      'A published offer from this Shelsea merchant.'}
                   </p>
                   <p className="mt-4 text-xs font-semibold text-muted-foreground">
                     {promotion.productCount}{' '}

@@ -179,7 +179,7 @@ export async function resolveApprovalInspection(
         },
         {
           label: 'Vendor',
-          value: product.vendorProfile?.name ?? 'AJ Logik workspace'
+          value: product.vendorProfile?.name ?? 'Shelsea workspace'
         },
         {
           label: 'Active',
@@ -302,7 +302,7 @@ export async function resolveApprovalInspection(
       title: promotion.title,
       subtitle:
         promotion.vendorProfile?.name ??
-        'AJ Logik workspace promotion',
+        'Shelsea workspace promotion',
       status: promotion.status,
       href: `/admin/promotions?edit=${promotion.id}`,
       images: promotion.bannerMediaAsset
@@ -435,7 +435,7 @@ export async function resolveApprovalInspection(
       title: collection.title,
       subtitle:
         collection.vendorProfile?.name ??
-        'AJ Logik workspace collection',
+        'Shelsea workspace collection',
       status: collection.status,
       href: `/admin/collections?edit=${collection.id}`,
       images: collection.coverMediaAsset
@@ -577,7 +577,7 @@ export async function resolveApprovalInspection(
       ...fallback,
       title: campaign.title,
       subtitle: `${text(campaign.type)} · ${
-        campaign.vendorProfile?.name ?? 'AJ Logik workspace'
+        campaign.vendorProfile?.name ?? 'Shelsea workspace'
       }`,
       status: campaign.status,
       href: `/admin/store-studio?campaign=${campaign.id}`,
@@ -606,7 +606,7 @@ export async function resolveApprovalInspection(
         },
         {
           label: 'Vendor',
-          value: campaign.vendorProfile?.name ?? 'AJ Logik workspace'
+          value: campaign.vendorProfile?.name ?? 'Shelsea workspace'
         }
       ],
       metrics: [

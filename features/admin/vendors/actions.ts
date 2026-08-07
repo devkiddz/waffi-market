@@ -50,7 +50,7 @@ export async function createVendor(formData: FormData): Promise<void> {
     prisma.user.findUnique({ where: { email: ownerEmail }, select: { id: true, name: true, isGhostDeveloper: true, accountState: true } }),
     prisma.vendorProfile.findFirst({ where: { workspaceId: access.membership.workspaceId, slug }, select: { id: true } })
   ]);
-  if (!owner || owner.isGhostDeveloper || owner.accountState !== 'ACTIVE') throw new Error('The vendor owner must have an active normal AJ Logik account.');
+  if (!owner || owner.isGhostDeveloper || owner.accountState !== 'ACTIVE') throw new Error('The vendor owner must have an active normal Shelsea account.');
   if (conflict) throw new Error('A vendor with this slug already exists.');
 
   const canApprove = access.permissions.has('vendor:approve');
@@ -123,7 +123,7 @@ export async function adminAddVendorMember(vendorId: string, formData: FormData)
   const requested = text(formData, 'role');
   const role = (['MANAGER', 'EDITOR', 'ANALYST'].includes(requested) ? requested : 'EDITOR') as 'MANAGER' | 'EDITOR' | 'ANALYST';
   const user = await prisma.user.findUnique({ where: { email }, select: { id: true, name: true, accountState: true, isGhostDeveloper: true } });
-  if (!user || user.accountState !== 'ACTIVE' || user.isGhostDeveloper) throw new Error('The team member must have an active normal AJ Logik account.');
+  if (!user || user.accountState !== 'ACTIVE' || user.isGhostDeveloper) throw new Error('The team member must have an active normal Shelsea account.');
   await prisma.vendorMembership.upsert({ where: { vendorId_userId: { vendorId, userId: user.id } }, update: { role, active: true }, create: { vendorId, userId: user.id, role, active: true } });
   await prisma.adminAuditEvent.create({ data: { workspaceId: access.membership.workspaceId, actorId: access.session.user.id, action: 'VENDOR_TEAM_MEMBER_ADDED', targetType: 'VENDOR', targetId: vendorId, summary: `${user.name} joined ${vendor.name} as ${role}.` } });
   revalidatePath(`/admin/vendors/${vendorId}`);

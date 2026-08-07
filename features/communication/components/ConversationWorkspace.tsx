@@ -94,7 +94,7 @@ export function ConversationWorkspace({
         throw new Error(
           'error' in next && next.error
             ? next.error
-            : 'AJ Logik could not update the conversation.'
+            : 'Shelsea could not update the conversation.'
         );
       }
 
@@ -117,7 +117,7 @@ export function ConversationWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not refresh the conversation.'
+            : 'Shelsea could not refresh the conversation.'
         );
       }
     });
@@ -168,7 +168,7 @@ export function ConversationWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not send the message.'
+            : 'Shelsea could not send the message.'
         );
       }
     });
@@ -199,12 +199,12 @@ export function ConversationWorkspace({
               <h1 className="mt-1 truncate text-xl font-black sm:text-2xl">
                 {conversation.subject ??
                   conversation.vendor?.name ??
-                  'AJ Logik conversation'}
+                  'Shelsea conversation'}
               </h1>
               <p className="mt-1 text-xs text-muted-foreground">
                 {conversation.vendor?.name
                   ? `Marketplace conversation with ${conversation.vendor.name}`
-                  : 'Protected AJ Logik communication'}
+                  : 'Protected Shelsea communication'}
               </p>
             </div>
 

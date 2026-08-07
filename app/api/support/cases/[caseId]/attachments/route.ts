@@ -185,7 +185,7 @@ export async function POST(
     return response(
       {
         error:
-          'AJ Logik could not upload this attachment.'
+          'Shelsea could not upload this attachment.'
       },
       500
     );

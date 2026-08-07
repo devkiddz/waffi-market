@@ -27,7 +27,7 @@ async function readWishlistResponse<T>(
         ErrorResponse;
   } catch {
     throw new Error(
-      'AJ Logik received an invalid wishlist response.'
+      'Shelsea received an invalid wishlist response.'
     );
   }
 

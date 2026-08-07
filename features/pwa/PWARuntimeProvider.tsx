@@ -217,7 +217,7 @@ export function PWARuntimeProvider({
 
         /*
          * Keep browser-owned automatic prompts from interrupting
-         * AJ Logik. The environment-controlled install UI decides
+         * Shelsea. The environment-controlled install UI decides
          * whether the captured prompt is exposed.
          */
         installEvent.preventDefault();
@@ -253,7 +253,7 @@ export function PWARuntimeProvider({
           'standalone';
 
         announce(
-          'AJ Logik is installed and ready.'
+          'Shelsea is installed and ready.'
         );
       };
 
@@ -522,7 +522,7 @@ export function PWARuntimeProvider({
           error
         ) {
           console.warn(
-            'AJ Logik PWA registration failed.',
+            'Shelsea PWA registration failed.',
             error
           );
         }
@@ -618,7 +618,7 @@ export function PWARuntimeProvider({
           isStandalone
         ) {
           announce(
-            'AJ Logik is already installed.'
+            'Shelsea is already installed.'
           );
 
           return 'installed';
@@ -646,7 +646,7 @@ export function PWARuntimeProvider({
             'accepted'
           ) {
             announce(
-              'Installation accepted. AJ Logik will open as an app.'
+              'Installation accepted. Shelsea will open as an app.'
             );
 
             return 'accepted';
@@ -686,10 +686,10 @@ export function PWARuntimeProvider({
         const shareData = {
           title:
             document.title ||
-            'AJ Logik',
+            'Shelsea',
 
           text:
-            'Explore this AJ Logik experience.',
+            'Explore this Shelsea experience.',
 
           url:
             window.location.href
@@ -705,7 +705,7 @@ export function PWARuntimeProvider({
             );
 
             announce(
-              'AJ Logik experience shared.'
+              'Shelsea experience shared.'
             );
 
             return 'shared';
@@ -774,7 +774,7 @@ export function PWARuntimeProvider({
             !currentRegistration.waiting
           ) {
             announce(
-              'AJ Logik is already up to date.'
+              'Shelsea is already up to date.'
             );
 
             return;
@@ -785,7 +785,7 @@ export function PWARuntimeProvider({
           true;
 
         announce(
-          'Applying the AJ Logik update…'
+          'Applying the Shelsea update…'
         );
 
         currentRegistration.waiting?.postMessage({

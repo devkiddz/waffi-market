@@ -20,7 +20,7 @@ type WorkspaceSwitcherProps = {
 const workspaceDescriptions: Record<WorkspaceMode, string> = {
   LIVE: 'Use real products, orders and payments.',
 
-  DEMO: 'Explore AJ Logik with prepared sample commerce data.',
+  DEMO: 'Explore Shelsea with prepared sample commerce data.',
 
   PRACTICE: 'Practise shopping safely using paper money.',
 
@@ -213,7 +213,7 @@ export function WorkspaceSwitcher({ variant = 'compact', className }: WorkspaceS
               <p className="text-base font-semibold">Choose experience</p>
 
               <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                Select how you want to use AJ Logik.
+                Select how you want to use Shelsea.
               </p>
             </div>
 

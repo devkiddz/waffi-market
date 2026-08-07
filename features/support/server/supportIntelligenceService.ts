@@ -306,7 +306,7 @@ export async function getSupportIntelligenceSnapshot(
     recommendedActions:
       actionSuggestions,
     draftReply:
-      `Hello ${firstName(supportCase.customer.name)}, thank you for contacting AJ Logik about “${supportCase.subject}”. ${replyDetails || 'We are reviewing the verified details attached to your Support Case.'} We will keep this case updated with confirmed information and will not apply any irreversible action without the required approval.`,
+      `Hello ${firstName(supportCase.customer.name)}, thank you for contacting Shelsea about “${supportCase.subject}”. ${replyDetails || 'We are reviewing the verified details attached to your Support Case.'} We will keep this case updated with confirmed information and will not apply any irreversible action without the required approval.`,
     guardrails: [
       'This assistance uses only the current workspace and case context.',
       'The draft must be reviewed by an authorised agent before sending.',

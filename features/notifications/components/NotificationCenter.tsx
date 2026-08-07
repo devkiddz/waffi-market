@@ -95,7 +95,7 @@ export function NotificationCenter({
     );
 
     if (!response.ok) {
-      throw new Error('AJ Logik could not update the notification centre.');
+      throw new Error('Shelsea could not update the notification centre.');
     }
 
     return (await response.json()) as NotificationCenterSnapshot;
@@ -161,7 +161,7 @@ export function NotificationCenter({
                 </p>
 
                 <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
-                  Verified updates from your AJ Logik activity.
+                  Verified updates from your Shelsea activity.
                 </h1>
 
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">

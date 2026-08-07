@@ -21,22 +21,22 @@ export const EXPERIENCE_PRODUCT_RAIL_CLASS = `
  * product text or actions cramped.
  */
 export const EXPERIENCE_PRODUCT_ITEM_CLASS = `
-  w-[calc(40%_-_0.4rem)]
-  min-w-[calc(40%_-_0.4rem)]
-  max-w-[calc(40%_-_0.4rem)]
+  w-[calc(45%_-_0.35rem)]
+  min-w-[calc(45%_-_0.35rem)]
+  max-w-[calc(45%_-_0.35rem)]
   flex-none snap-start
 
-  sm:w-44
-  sm:min-w-44
-  sm:max-w-44
+  sm:w-48
+  sm:min-w-48
+  sm:max-w-48
 
-  md:w-48
-  md:min-w-48
-  md:max-w-48
+  md:w-52
+  md:min-w-52
+  md:max-w-52
 
-  xl:w-52
-  xl:min-w-52
-  xl:max-w-52
+  xl:w-56
+  xl:min-w-56
+  xl:max-w-56
 `;
 
 const FALLBACK_PRODUCT_ITEM_WIDTH = 192;

@@ -4,7 +4,7 @@ import CollectionsDirectoryExperience from '@/features/collection/pages/Collecti
 
 export const metadata: Metadata = {
   title: 'Collections',
-  description: 'Browse AJ Logik curated product collections.'
+  description: 'Browse Shelsea curated product collections.'
 };
 
 export default function CollectionsPage() {

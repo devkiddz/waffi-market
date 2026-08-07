@@ -9,7 +9,7 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Shops',
-  description: 'Browse verified merchants operating through AJ Logik.'
+  description: 'Browse verified merchants operating through Shelsea.'
 };
 
 export default async function ShopsPage() {

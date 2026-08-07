@@ -4,27 +4,24 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import { PrismaClient } from '../../lib/generated/prisma/client';
 
-const connectionCandidates = [
-  process.env.AJLOJIK_DB_DATABASE_URL,
-  process.env.AJLOJIK_DB_POSTGRES_URL,
-  process.env.DATABASE_URL,
-  process.env.POSTGRES_URL
-].filter((value): value is string => Boolean(value));
-
-const tcpConnectionStrings = connectionCandidates.filter(
-  value =>
-    value.startsWith('postgres://') ||
-    value.startsWith('postgresql://')
-);
-
+// SHELSEA_SEED_AUTHORITY_CLEANUP_V1
 const connectionString =
-  tcpConnectionStrings.find(value =>
-    value.includes('@db.prisma.io')
-  ) ?? tcpConnectionStrings[0];
+  process.env.DIRECT_URL?.trim() ||
+  process.env.DATABASE_URL?.trim();
+
+if (
+  connectionString &&
+  !connectionString.startsWith('postgres://') &&
+  !connectionString.startsWith('postgresql://')
+) {
+  throw new Error(
+    'Shelsea seed database URL must be a PostgreSQL TCP connection string.'
+  );
+}
 
 if (!connectionString) {
   throw new Error(
-    'A PostgreSQL TCP connection URL is required to run the seed engine.'
+    'Shelsea seed database URL is missing. Set DIRECT_URL (preferred) or DATABASE_URL.'
   );
 }
 
@@ -36,5 +33,10 @@ const adapter = new PrismaPg({
 });
 
 export const prisma = new PrismaClient({
-  adapter
+  adapter,
+
+  transactionOptions: {
+    maxWait: 20_000,
+    timeout: 120_000
+  }
 });

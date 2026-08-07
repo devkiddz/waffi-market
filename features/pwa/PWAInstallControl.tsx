@@ -35,17 +35,17 @@ export function PWAInstallControl({ presentation = 'navbar' }: PWAInstallControl
   const Icon = updateReady ? RefreshCcw : isStandalone ? Share2 : Download;
 
   const label = updateReady
-    ? 'Update AJ Logik'
+    ? 'Update Shelsea'
     : isStandalone
       ? 'Share experience'
       : installMode === 'beta'
-        ? 'Install AJ Logik Beta'
-        : 'Install AJ Logik';
+        ? 'Install Shelsea Beta'
+        : 'Install Shelsea';
 
   const title = updateReady
-    ? 'Apply the latest AJ Logik update'
+    ? 'Apply the latest Shelsea update'
     : isStandalone
-      ? 'Share this AJ Logik experience'
+      ? 'Share this Shelsea experience'
       : label;
 
   const expanded = presentation !== 'navbar';

@@ -259,7 +259,7 @@ export async function createProductReels(
       placementTier: 'STANDARD',
       title: campaignTitle,
       description:
-        'Product-linked Reels created from the AJ Logik storefront.',
+        'Product-linked Reels created from the Shelsea storefront.',
       startsAt: new Date(),
       requestedPriority: 0,
       adminWeight: 0,

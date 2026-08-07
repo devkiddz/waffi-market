@@ -46,7 +46,7 @@ export default function SettingsPage() {
       setSaved(true);
       success({
         title: 'Experience saved',
-        description: 'Your AJ Logik preferences are now up to date.',
+        description: 'Your Shelsea preferences are now up to date.',
         groupKey: 'account:experience-settings'
       });
     } catch (saveError) {
@@ -68,7 +68,7 @@ export default function SettingsPage() {
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
       <Link href="/account" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground"><ArrowLeft className="size-4" /> Account dashboard</Link>
-      <header className="mt-5 rounded-[2rem] border border-border/60 bg-card p-6 shadow-xl sm:p-9"><div className="grid size-13 place-items-center rounded-2xl bg-primary/10 text-primary"><Settings2 className="size-6" /></div><p className="mt-5 text-xs font-black uppercase tracking-[.18em] text-primary">Personal experience</p><h1 className="mt-2 text-3xl font-black sm:text-5xl">Make AJ Logik yours</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Control your identity, recommendation behavior, discovery rhythm, and playlist-style shopping collections.</p></header>
+      <header className="mt-5 rounded-[2rem] border border-border/60 bg-card p-6 shadow-xl sm:p-9"><div className="grid size-13 place-items-center rounded-2xl bg-primary/10 text-primary"><Settings2 className="size-6" /></div><p className="mt-5 text-xs font-black uppercase tracking-[.18em] text-primary">Personal experience</p><h1 className="mt-2 text-3xl font-black sm:text-5xl">Make Shelsea yours</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Control your identity, recommendation behavior, discovery rhythm, and playlist-style shopping collections.</p></header>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[.8fr_1.2fr]">
         <div className="space-y-5">

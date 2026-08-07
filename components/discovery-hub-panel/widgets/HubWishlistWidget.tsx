@@ -56,7 +56,7 @@ export default function HubWishlistWidget() {
           <p className="text-xs font-semibold">Some saved products are currently unavailable.</p>
 
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            Your wishlist still remembers them, but they are not available in the current AJ Logik catalogue.
+            Your wishlist still remembers them, but they are not available in the current Shelsea catalogue.
           </p>
         </div>
       ) : (

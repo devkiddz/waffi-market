@@ -107,7 +107,7 @@ export function CustomerSupportCaseWorkspace({
         throw new Error(
           'error' in next && next.error
             ? next.error
-            : 'AJ Logik could not update the Support Case.'
+            : 'Shelsea could not update the Support Case.'
         );
       }
 
@@ -172,7 +172,7 @@ export function CustomerSupportCaseWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not refresh the Support Case.'
+            : 'Shelsea could not refresh the Support Case.'
         );
       }
     });
@@ -228,7 +228,7 @@ export function CustomerSupportCaseWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not send the message.'
+            : 'Shelsea could not send the message.'
         );
       }
     });
@@ -248,7 +248,7 @@ export function CustomerSupportCaseWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not update the resolution.'
+            : 'Shelsea could not update the resolution.'
         );
       }
     });

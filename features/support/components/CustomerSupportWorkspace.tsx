@@ -116,7 +116,7 @@ export function CustomerSupportWorkspace({
 
         if (!response.ok) {
           throw new Error(
-            'AJ Logik could not refresh Support.'
+            'Shelsea could not refresh Support.'
           );
         }
 
@@ -133,7 +133,7 @@ export function CustomerSupportWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not refresh Support.'
+            : 'Shelsea could not refresh Support.'
         );
       }
     });
@@ -190,7 +190,7 @@ export function CustomerSupportWorkspace({
           throw new Error(
             'error' in payload && payload.error
               ? payload.error
-              : 'AJ Logik could not create the Support Case.'
+              : 'Shelsea could not create the Support Case.'
           );
         }
 
@@ -213,7 +213,7 @@ export function CustomerSupportWorkspace({
         setError(
           cause instanceof Error
             ? cause.message
-            : 'AJ Logik could not create the Support Case.'
+            : 'Shelsea could not create the Support Case.'
         );
       }
     });
@@ -231,7 +231,7 @@ export function CustomerSupportWorkspace({
 
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-sky-200">
-                  AJ Logik Support
+                  Shelsea Support
                 </p>
                 <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
                   Help that keeps its context.

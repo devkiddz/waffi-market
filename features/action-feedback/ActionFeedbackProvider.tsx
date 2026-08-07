@@ -461,7 +461,7 @@ export function ActionFeedbackProvider({ children }: ActionFeedbackProviderProps
         success({
           title: action.successTitle ?? 'Action completed',
 
-          description: action.successDescription ?? 'Your AJ Logik experience has been updated.'
+          description: action.successDescription ?? 'Your Shelsea experience has been updated.'
         });
 
         return true;
@@ -471,7 +471,7 @@ export function ActionFeedbackProvider({ children }: ActionFeedbackProviderProps
 
           description: getErrorMessage(
             actionError,
-            'AJ Logik could not complete that action. Please try again.'
+            'Shelsea could not complete that action. Please try again.'
           )
         });
 
@@ -487,7 +487,7 @@ export function ActionFeedbackProvider({ children }: ActionFeedbackProviderProps
         info({
           title: 'Checking your account',
 
-          description: 'Please wait a moment while AJ Logik confirms your session.'
+          description: 'Please wait a moment while Shelsea confirms your session.'
         });
 
         return false;

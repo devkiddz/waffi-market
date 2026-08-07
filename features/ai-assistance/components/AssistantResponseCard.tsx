@@ -377,7 +377,7 @@ export function AssistantResponseCard({
 
       <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border/55 bg-muted/20 px-5 py-3 sm:px-6">
         <p className="text-xs text-muted-foreground">
-          {message.provider === 'RCENTZ_LOCAL_V1' ? 'AJ Logik local assistant' : message.provider}
+          {message.provider === 'RCENTZ_LOCAL_V1' ? 'Shelsea local assistant' : message.provider}
           {' · '}
           {new Date(message.createdAt).toLocaleString('en-NG')}
         </p>

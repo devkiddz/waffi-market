@@ -1,34 +1,41 @@
-import { Suspense } from 'react';
+import {
+  Suspense
+} from 'react';
 
-import React from 'react';
-import ImageLight from '@/public/assets/Image-1.png';
-import ImageDark from '@/public/assets/Image-2.png';
 import MainSectionGrid from './MainSectionGrid';
+
+const LIGHT_BACKGROUND =
+  'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=85&w=2000&auto=format&fit=crop';
+
+const DARK_BACKGROUND =
+  'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=85&w=2000&auto=format&fit=crop';
 
 export default function HeroComponent() {
   return (
-    <section className="relative w-full flex">
-      {/* BACKGROUND LAYER */}
+    <section className="relative flex w-full overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-500 dark:opacity-0"
         style={{
-          backgroundImage: `url(${ImageLight.src})`
+          backgroundImage:
+            `url("${LIGHT_BACKGROUND}")`
         }}
       />
 
       <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-500 opacity-0 dark:opacity-100"
+        className="absolute inset-0 bg-cover bg-center opacity-0 transition-all duration-500 dark:opacity-100"
         style={{
-          backgroundImage: `url(${ImageDark.src})`
+          backgroundImage:
+            `url("${DARK_BACKGROUND}")`
         }}
       />
 
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/30 dark:bg-black/60" />
+      <div className="absolute inset-0 bg-black/35 dark:bg-black/60" />
 
-      {/* CONTENT */}
-      <div className="relative w-full flex flex-col items-center justify-center">
-        <Suspense fallback={<div>Loading...</div>}>
+      <div className="relative flex w-full flex-col items-center justify-center">
+        <Suspense
+          fallback={
+            <div>Loading...</div>
+          }>
           <MainSectionGrid />
         </Suspense>
       </div>

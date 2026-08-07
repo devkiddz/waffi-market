@@ -39,7 +39,7 @@ export default function VendorDirectoryExperience({
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-            Discover approved merchants through the same AJ Logik Store,
+            Discover approved merchants through the same Shelsea Store,
             product experience and customer action system.
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function VendorDirectoryExperience({
                   </h2>
                   <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted-foreground">
                     {vendor.description ??
-                      'A verified merchant operating inside the AJ Logik commerce experience.'}
+                      'A verified merchant operating inside the Shelsea commerce experience.'}
                   </p>
                 </div>
               </div>

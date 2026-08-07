@@ -1201,7 +1201,7 @@ export async function resolveSupportCustomerContext(
       true;
 
     followUp =
-      'A human agent must confirm eligibility before AJ Logik promises alcohol delivery.';
+      'A human agent must confirm eligibility before Shelsea promises alcohol delivery.';
   }
 
   for (

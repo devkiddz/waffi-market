@@ -1,5 +1,7 @@
 'use server';
 
+/* SHELSEA_VENDOR_PRODUCT_COLOR_AUTHORITY_V1 */
+
 import { randomUUID } from 'node:crypto';
 
 import { revalidatePath } from 'next/cache';
@@ -47,6 +49,15 @@ function parseVariants(formData: FormData): ProductStudioVariant[] {
   const variants = parsed.map((value, index) => {
     const variant = value as Partial<ProductStudioVariant>;
     const label = String(variant.label ?? '').trim();
+    const color = String(variant.color ?? '').trim();
+    const rawColorHex = String(variant.colorHex ?? '').trim();
+    const colorHex = rawColorHex ? rawColorHex.toUpperCase() : '';
+
+    if (colorHex && !/^#[0-9A-F]{6}$/.test(colorHex)) {
+      throw new Error(
+        `Variant ${index + 1} colour code must use #RRGGBB format.`
+      );
+    }
     const sku = String(variant.sku ?? '').trim().toUpperCase();
     const price = Number(variant.price);
     const rawCompareAtPrice = variant.compareAtPrice as unknown;
@@ -75,6 +86,8 @@ function parseVariants(formData: FormData): ProductStudioVariant[] {
     return {
       id: variant.id ? String(variant.id) : undefined,
       label,
+      color,
+      colorHex,
       sku,
       price,
       compareAtPrice,
@@ -355,6 +368,8 @@ async function writeRelations(
       where: { id: variant.resolvedId },
       update: {
         label: variant.label,
+        color: variant.color || null,
+        colorHex: variant.colorHex || null,
         sku: variant.sku || null,
         price: variant.price,
         compareAtPrice: variant.compareAtPrice,
@@ -367,6 +382,8 @@ async function writeRelations(
         id: variant.resolvedId,
         productId,
         label: variant.label,
+        color: variant.color || null,
+        colorHex: variant.colorHex || null,
         sku: variant.sku || null,
         price: variant.price,
         compareAtPrice: variant.compareAtPrice,

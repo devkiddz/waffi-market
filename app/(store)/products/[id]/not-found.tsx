@@ -13,7 +13,7 @@ export default function ProductPageNotFound() {
         </h1>
 
         <p className="mt-3 text-sm leading-7 text-muted-foreground">
-          It may have been unpublished, moved or removed from the active AJ Logik catalog.
+          It may have been unpublished, moved or removed from the active Shelsea catalog.
         </p>
 
         <Link

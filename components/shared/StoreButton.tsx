@@ -96,7 +96,7 @@ export default function StoreButton({ active = false, onClick, className }: Stor
           text-white
         ">
         <Landmark className="size-4 animate-store-float" />
-        AJ Store
+        Shelsea Store
       </span>
     </Button>
   );

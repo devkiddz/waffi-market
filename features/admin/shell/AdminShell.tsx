@@ -191,7 +191,7 @@ export function AdminShell({ children, operator, permissions }: AdminShellProps)
             <Store className="size-5" />
           </span>
           <span className="min-w-0">
-            <strong className="block truncate text-sm">AJ Logik Admin</strong>
+            <strong className="block truncate text-sm">Shelsea Admin</strong>
             <span className="block truncate text-xs text-muted-foreground">Rcentz control plane</span>
           </span>
         </Link>

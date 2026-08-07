@@ -47,15 +47,15 @@ import {
 
 const quickQuestions = [
   'How do I buy?',
-  'How do I use AJ Logik?',
-  'Is AJ Logik multivendor?',
+  'How do I use Shelsea?',
+  'Is Shelsea multivendor?',
   'Track my order',
   'Payment help',
   'Talk to a human agent'
 ] as const;
 
 const SUPPORT_INTELLIGENCE_WELCOME =
-  `Hi 👋 I’m AJ Support Intelligence. I’m active 24/7 to help you shop, use AJ Logik, understand vendors, track orders, resolve payment or delivery questions, and connect you to a human Support agent when needed.
+  `Hi 👋 I’m AJ Support Intelligence. I’m active 24/7 to help you shop, use Shelsea, understand vendors, track orders, resolve payment or delivery questions, and connect you to a human Support agent when needed.
 
 What can I help you with today?`;
 
@@ -681,7 +681,7 @@ export function SupportGuidePanel({
             throw new Error(
               await readFailure(
                 response,
-                'AJ Logik could not record this feedback.'
+                'Shelsea could not record this feedback.'
               )
             );
           }
@@ -697,7 +697,7 @@ export function SupportGuidePanel({
           setError(
             cause instanceof Error
               ? cause.message
-              : 'AJ Logik could not record this feedback.'
+              : 'Shelsea could not record this feedback.'
           );
         } finally {
           setFeedbackBusy(
@@ -792,7 +792,7 @@ export function SupportGuidePanel({
             throw new Error(
               await readFailure(
                 response,
-                'AJ Logik could not connect this conversation to a human agent.'
+                'Shelsea could not connect this conversation to a human agent.'
               )
             );
           }
@@ -807,7 +807,7 @@ export function SupportGuidePanel({
           setError(
             cause instanceof Error
               ? cause.message
-              : 'AJ Logik could not connect this conversation to a human agent.'
+              : 'Shelsea could not connect this conversation to a human agent.'
           );
         } finally {
           setHandoffBusy(
@@ -1233,8 +1233,8 @@ export function SupportGuidePanel({
                   }
                 }
               }
-              placeholder="Ask AJ Support Intelligence…"
-              aria-label="Ask AJ Support Intelligence"
+              placeholder="Ask Shelsea Support Intelligence…"
+              aria-label="Ask Shelsea Support Intelligence"
               className="min-h-11 max-h-28 min-w-0 flex-1 resize-none bg-transparent px-3 py-2.5 text-sm leading-5 outline-none"
             />
 

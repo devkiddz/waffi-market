@@ -90,7 +90,7 @@ export async function GET(
     return NextResponse.json(
       {
         error:
-          'AJ Logik could not load the current customer commerce experience.'
+          'Shelsea could not load the current customer commerce experience.'
       },
       {
         status: 500

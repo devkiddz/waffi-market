@@ -397,7 +397,7 @@ function resolvePriorityExperience(
       title: `Continue exploring ${recentProduct.name}.`,
 
       description:
-        'Your recent activity is shaping a more personal AJ Logik experience around you.',
+        'Your recent activity is shaping a more personal Shelsea experience around you.',
 
       actionLabel: 'Return to product',
       href: `/store?product=${encodeURIComponent(recentProduct.id)}`,
@@ -422,7 +422,7 @@ function resolvePriorityExperience(
     title: 'Let us shape something beautiful around you.',
 
     description:
-      'Explore the store, save what catches your attention, and AJ Logik will begin assembling a personal experience around your activity.',
+      'Explore the store, save what catches your attention, and Shelsea will begin assembling a personal experience around your activity.',
 
     actionLabel: 'Enter the store',
     href: '/store',
@@ -1486,7 +1486,7 @@ function resolveMixes(
         data.profile
           .personalizationEnabled
           ? 'Personalized from your commerce signals'
-          : 'Premium selections from across AJ Logik',
+          : 'Premium selections from across Shelsea',
 
       products:
         rankedProducts.slice(0, 10),

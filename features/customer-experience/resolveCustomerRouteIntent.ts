@@ -33,7 +33,7 @@ function routeTitle(
 ): string {
   switch (surface) {
     case 'home':
-      return 'AJ Logik home';
+      return 'Shelsea home';
 
     case 'auth':
       return 'Account access';
@@ -90,7 +90,7 @@ function routeTitle(
       return 'Reel experience';
 
     default:
-      return 'AJ Logik experience';
+      return 'Shelsea experience';
   }
 }
 

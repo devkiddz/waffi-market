@@ -70,7 +70,7 @@ export default function SearchBar() {
         className="flex h-11 items-center rounded-full bg-background shadow-sm transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
         <button
           type="submit"
-          aria-label="Search AJ Logik products"
+          aria-label="Search Shelsea products"
           className="ml-2 grid size-8 shrink-0 place-items-center rounded-full text-muted-foreground transition hover:bg-muted hover:text-foreground">
           <Search className="h-4 w-4" />
         </button>
@@ -83,7 +83,7 @@ export default function SearchBar() {
             setActiveIndex(0);
           }}
           onChange={e => setQuery(e.target.value)}
-          placeholder="Search products, wines, kitchen..."
+          placeholder="Search clothing, hair, perfumes..."
           className="flex-1 bg-transparent px-3 text-sm outline-none border-0"
         />
 

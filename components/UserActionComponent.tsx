@@ -164,7 +164,7 @@ function UserTrigger() {
         <span className="max-w-32 truncate text-[11px] capitalize text-muted-foreground">
           {isAuthenticated
             ? `${user?.tier ?? 'member'} member`
-            : 'Explore AJ Logik'}
+            : 'Explore Shelsea'}
         </span>
       </div>
     </div>
@@ -260,7 +260,7 @@ export default function UserActionComponent() {
           <SheetHeader className="sticky top-0 z-30 border-b border-border/70 bg-background/82 px-5 pb-5 pt-5 pr-16 text-left shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
             <SheetTitle className="text-base">
               {isAuthenticated
-                ? 'My AJ Logik'
+                ? 'My Shelsea'
                 : 'Guest Experience'}
             </SheetTitle>
 

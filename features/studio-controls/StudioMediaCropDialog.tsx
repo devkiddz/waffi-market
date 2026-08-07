@@ -147,7 +147,7 @@ export function StudioMediaCropDialog({
         <DialogHeader className="border-b border-border/60 p-5 pr-14">
           <DialogTitle>Non-destructive media crop</DialogTitle>
           <DialogDescription>
-            The original asset remains untouched. AJ Logik stores a reusable crop recipe for the selected Studio surface.
+            The original asset remains untouched. Shelsea stores a reusable crop recipe for the selected Studio surface.
           </DialogDescription>
         </DialogHeader>
 
