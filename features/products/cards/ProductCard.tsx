@@ -3,97 +3,44 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  Truck
-} from 'lucide-react';
+import { Truck } from 'lucide-react';
 
-import {
-  cn
-} from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
-import type {
-  BaseProductCardProps
-} from './productCardTypes';
+import type { BaseProductCardProps } from './productCardTypes';
 
-import {
-  openProductExperience
-} from './productCardPresentation';
+import { openProductExperience } from './productCardPresentation';
 
-import {
-  PremiumCardSurface
-} from './PremiumCardSurface';
+import { PremiumCardSurface } from './PremiumCardSurface';
 
-import {
-  ProductActionTray
-} from './ProductActionTray';
+import { ProductActionTray } from './ProductActionTray';
 
-import {
-  useProductVariant
-} from './useProductVariant';
+import { useProductVariant } from './useProductVariant';
 
-const priceFormatter =
-  new Intl.NumberFormat(
-    'en-NG',
-    {
-      style: 'currency',
-      currency: 'NGN',
-      maximumFractionDigits: 0
-    }
-  );
+const priceFormatter = new Intl.NumberFormat('en-NG', {
+  style: 'currency',
+  currency: 'NGN',
+  maximumFractionDigits: 0
+});
 
-function resolveOriginalPrice(
-  currentPrice: number,
-  discountPercentage: number
-): number | null {
-  if (
-    discountPercentage <= 0 ||
-    discountPercentage >= 100
-  ) {
+function resolveOriginalPrice(currentPrice: number, discountPercentage: number): number | null {
+  if (discountPercentage <= 0 || discountPercentage >= 100) {
     return null;
   }
 
-  return (
-    currentPrice /
-    (
-      1 -
-      discountPercentage /
-        100
-    )
-  );
+  return currentPrice / (1 - discountPercentage / 100);
 }
 
-function formatCompactCount(
-  value: number
-): string {
-  if (
-    value >= 1_000_000
-  ) {
-    return `${(
-      value /
-      1_000_000
-    ).toFixed(
-      value >= 10_000_000
-        ? 0
-        : 1
-    )}M`;
+function formatCompactCount(value: number): string {
+  if (value >= 1_000_000) {
+    return `${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}M`;
   }
 
-  if (
-    value >= 1_000
-  ) {
-    return `${(
-      value /
-      1_000
-    ).toFixed(
-      value >= 10_000
-        ? 0
-        : 1
-    )}K`;
+  if (value >= 1_000) {
+    return `${(value / 1_000).toFixed(value >= 10_000 ? 0 : 1)}K`;
   }
 
-  return String(
-    value
-  );
+  return String(value);
 }
 
 /* SHELSEA_PRODUCT_CARD_MATURE_V3_1 */
@@ -108,34 +55,17 @@ export function ProductCard({
   onAddToCart,
   onAskAI
 }: BaseProductCardProps) {
-  const {
-    selectedVariant
-  } =
-    useProductVariant(
-      product
-    );
+  const { selectedVariant } = useProductVariant(product);
 
   if (!selectedVariant) {
     return null;
   }
 
-  const featured =
-    presentation === 'featured';
+  const featured = presentation === 'featured';
 
-  const originalPrice =
-    resolveOriginalPrice(
-      selectedVariant.price,
-      product.discountPercentage
-    );
+  const originalPrice = resolveOriginalPrice(selectedVariant.price, product.discountPercentage);
 
-  const savedAmount =
-    originalPrice
-      ? Math.max(
-          0,
-          originalPrice -
-            selectedVariant.price
-        )
-      : 0;
+  const savedAmount = originalPrice ? Math.max(0, originalPrice - selectedVariant.price) : 0;
 
   const commerceLabel =
     product.soldCount >= 250
@@ -146,22 +76,17 @@ export function ProductCard({
           ? 'Shelsea pick'
           : null;
 
-  const openExperience =
-    (): void => {
-      openProductExperience({
-        product,
-        onOpenExperience,
-        onPreview
-      });
-    };
+  const openExperience = (): void => {
+    openProductExperience({
+      product,
+      onOpenExperience,
+      onPreview
+    });
+  };
 
   return (
     <PremiumCardSurface
-      glowSize={
-        featured
-          ? 250
-          : 190
-      }
+      glowSize={featured ? 250 : 190}
       className={cn(
         `
           group relative flex
@@ -179,17 +104,12 @@ export function ProductCard({
           hover:border-[#C8A45D]/35
           hover:shadow-[0_18px_42px_rgba(22,59,115,0.13)]
         `,
-        featured && [
-          'border-[#C8A45D]/35',
-          'shadow-[0_18px_44px_rgba(22,59,115,0.13)]'
-        ],
+        featured && ['border-[#C8A45D]/35', 'shadow-[0_18px_44px_rgba(22,59,115,0.13)]'],
         className
       )}>
       <button
         type="button"
-        onClick={
-          openExperience
-        }
+        onClick={openExperience}
         aria-label={`Open ${product.name}`}
         className="
           relative block
@@ -202,9 +122,7 @@ export function ProductCard({
           focus-visible:ring-[#C8A45D]/60
         ">
         <Image
-          src={
-            selectedVariant.image
-          }
+          src={selectedVariant.image}
           alt=""
           fill
           sizes="
@@ -221,12 +139,8 @@ export function ProductCard({
         />
 
         <Image
-          src={
-            selectedVariant.image
-          }
-          alt={
-            product.name
-          }
+          src={selectedVariant.image}
+          alt={product.name}
           fill
           sizes="
             (max-width: 640px) 45vw,
@@ -308,18 +222,14 @@ export function ProductCard({
         ">
         <button
           type="button"
-          onClick={
-            openExperience
-          }
+          onClick={openExperience}
           className="
             block min-w-0
             max-w-full
             text-left
           ">
           <h3
-            title={
-              product.name
-            }
+            title={product.name}
             className="
               line-clamp-2
               min-h-[2.3rem]
@@ -347,9 +257,7 @@ export function ProductCard({
               tracking-[-0.025em]
               text-foreground
             ">
-            {priceFormatter.format(
-              selectedVariant.price
-            )}
+            {priceFormatter.format(selectedVariant.price)}
           </span>
 
           {originalPrice ? (
@@ -362,9 +270,7 @@ export function ProductCard({
                 line-through
                 decoration-[#F43F5E]/65
               ">
-              {priceFormatter.format(
-                originalPrice
-              )}
+              {priceFormatter.format(originalPrice)}
             </span>
           ) : null}
 
@@ -378,10 +284,7 @@ export function ProductCard({
                 text-[#E11D48]
                 dark:text-[#FB7185]
               ">
-              Save{' '}
-              {priceFormatter.format(
-                savedAmount
-              )}
+              Save {priceFormatter.format(savedAmount)}
             </span>
           ) : null}
         </div>
@@ -420,15 +323,11 @@ export function ProductCard({
                 items-center gap-1
                 text-foreground/82
               ">
-              <span
-                aria-hidden="true"
-                className="text-[#C8A45D]">
+              <span aria-hidden="true" className="text-[#C8A45D]">
                 ★
               </span>
 
-              {product.rating.toFixed(
-                1
-              )}
+              {product.rating.toFixed(1)}
             </span>
 
             {product.reviews > 0 ? (
@@ -443,12 +342,7 @@ export function ProductCard({
                 />
 
                 <span>
-                  {formatCompactCount(
-                    product.reviews
-                  )}{' '}
-                  {product.reviews === 1
-                    ? 'review'
-                    : 'reviews'}
+                  {formatCompactCount(product.reviews)} {product.reviews === 1 ? 'review' : 'reviews'}
                 </span>
               </>
             ) : null}
@@ -456,7 +350,8 @@ export function ProductCard({
 
           <span
             className="
-              inline-flex shrink-0
+              hidden
+              md:inline-flex shrink-0
               items-center gap-1
               text-[0.62rem]
               font-medium
@@ -476,10 +371,7 @@ export function ProductCard({
         {product.merchant ? (
           <Link
             href={`/shops/${encodeURIComponent(product.merchant.slug)}`}
-            onClick={
-              event =>
-                event.stopPropagation()
-            }
+            onClick={event => event.stopPropagation()}
             className="
               mt-1.5 block
               truncate
@@ -489,26 +381,15 @@ export function ProductCard({
               transition
               hover:text-[#E11D48]
             ">
-            Sold by{' '}
-            <span className="font-semibold text-foreground/80">
-              {product.merchant.name}
-            </span>
+            Sold by <span className="font-semibold text-foreground/80">{product.merchant.name}</span>
           </Link>
         ) : null}
 
         <ProductActionTray
-          product={
-            product
-          }
-          variant={
-            selectedVariant
-          }
-          onAddToCart={
-            onAddToCart
-          }
-          onAskAI={
-            onAskAI
-          }
+          product={product}
+          variant={selectedVariant}
+          onAddToCart={onAddToCart}
+          onAskAI={onAskAI}
           presentation="inline"
           compact
           compactCart
