@@ -11,10 +11,15 @@ import { seedExperienceEvents } from './seeds/experience.seed';
 import { seedCommerce } from './seeds/commerce.seed';
 import { seedHistorySettings } from './seeds/history-settings.seed';
 import { seedAdminAccounts } from './seeds/admin.seed';
+import {
+  assignShelseaShowcaseCatalog,
+  seedMarketplaceVendors
+} from './seeds/vendor.seed';
 
 async function main() {
   console.log('================================');
-  console.log(' SHELSEA Commerce Seed Engine');
+  console.log(' Waffi Market Seed Engine');
+  console.log(' Powered by RCENTZ');
   console.log('================================');
 
   const workspaces =
@@ -29,6 +34,12 @@ async function main() {
     prisma,
     workspaces
   );
+
+  const vendors =
+    await seedMarketplaceVendors(
+      prisma,
+      workspaces
+    );
 
   await seedWallets(
     prisma,
@@ -50,6 +61,14 @@ async function main() {
   await seedCatalog(
     prisma,
     workspaces.live.id
+  );
+
+  await assignShelseaShowcaseCatalog(
+    prisma,
+    {
+      workspaceId: workspaces.live.id,
+      shelseaVendorId: vendors.shelsea.id
+    }
   );
 
   await seedCommerce(

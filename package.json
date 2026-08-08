@@ -1,5 +1,5 @@
 {
-  "name": "shelsea-commerce",
+  "name": "waffi-market",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -19,6 +19,7 @@
     "verify:support-quick-history": "node scripts/verify-quick-support-case-history.mjs",
     "verify:support-quick-production": "node scripts/verify-quick-support-production.mjs",
     "seed": "tsx prisma/seed.ts",
+    "seed:marketplace": "tsx prisma/seed.ts",
     "seed:admins": "tsx prisma/seed-admins.ts",
     "provision:super-admins": "tsx prisma/provision-super-admins.ts",
     "seed:production": "node --env-file=.vercel/.env.production.local ./node_modules/tsx/dist/cli.mjs prisma/seed.ts",

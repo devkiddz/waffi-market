@@ -4,7 +4,6 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 import { PrismaClient } from '../../lib/generated/prisma/client';
 
-// SHELSEA_SEED_AUTHORITY_CLEANUP_V1
 const connectionString =
   process.env.DIRECT_URL?.trim() ||
   process.env.DATABASE_URL?.trim();
@@ -15,13 +14,13 @@ if (
   !connectionString.startsWith('postgresql://')
 ) {
   throw new Error(
-    'Shelsea seed database URL must be a PostgreSQL TCP connection string.'
+    'Waffi Market seed database URL must be a PostgreSQL TCP connection string.'
   );
 }
 
 if (!connectionString) {
   throw new Error(
-    'Shelsea seed database URL is missing. Set DIRECT_URL (preferred) or DATABASE_URL.'
+    'Waffi Market seed database URL is missing. Set DIRECT_URL (preferred) or DATABASE_URL.'
   );
 }
 

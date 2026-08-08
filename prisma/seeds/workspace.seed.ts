@@ -17,23 +17,31 @@ export type SeededWorkspaces = {
 };
 
 export async function seedWorkspaces(prisma: PrismaClient) {
-  console.log('Seeding RCENTZ workspaces...');
+  console.log('Seeding Waffi Market workspaces...');
 
   const live = await prisma.workspace.upsert({
     where: {
-      slug: 'shelsea-commerce-live'
+      slug: 'waffi-market-live'
     },
     update: {
-      name: 'Shelsea Commerce Live',
+      name: 'Waffi Market Live',
       mode: 'LIVE',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: false,
       expiresAt: null
     },
     create: {
-      slug: 'shelsea-commerce-live',
-      name: 'Shelsea Commerce Live',
+      slug: 'waffi-market-live',
+      name: 'Waffi Market Live',
       mode: 'LIVE',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: false
     },
@@ -47,19 +55,27 @@ export async function seedWorkspaces(prisma: PrismaClient) {
 
   const demo = await prisma.workspace.upsert({
     where: {
-      slug: 'shelsea-commerce-demo'
+      slug: 'waffi-market-demo'
     },
     update: {
-      name: 'Shelsea Commerce Demo',
+      name: 'Waffi Market Demo',
       mode: 'DEMO',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: true,
       expiresAt: null
     },
     create: {
-      slug: 'shelsea-commerce-demo',
-      name: 'Shelsea Commerce Demo',
+      slug: 'waffi-market-demo',
+      name: 'Waffi Market Demo',
       mode: 'DEMO',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: true
     },
@@ -73,19 +89,27 @@ export async function seedWorkspaces(prisma: PrismaClient) {
 
   const practice = await prisma.workspace.upsert({
     where: {
-      slug: 'shelsea-commerce-practice'
+      slug: 'waffi-market-practice'
     },
     update: {
-      name: 'Shelsea Commerce Practice',
+      name: 'Waffi Market Practice',
       mode: 'PRACTICE',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: true,
       expiresAt: null
     },
     create: {
-      slug: 'shelsea-commerce-practice',
-      name: 'Shelsea Commerce Practice',
+      slug: 'waffi-market-practice',
+      name: 'Waffi Market Practice',
       mode: 'PRACTICE',
+      commerceMode: 'MULTI_VENDOR',
+      vendorApplicationsOpen: true,
+      currency: 'NGN',
+      timezone: 'Africa/Lagos',
       active: true,
       resettable: true
     },
@@ -97,7 +121,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
     }
   });
 
-  console.log('RCENTZ workspaces ready.');
+  console.log('Waffi Market workspaces ready.');
 
   return {
     live,
