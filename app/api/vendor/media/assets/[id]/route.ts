@@ -54,6 +54,13 @@ export async function PATCH(
     );
   }
 
+  if (!access.studio.capabilities.media) {
+    return NextResponse.json(
+      { error: 'Media Studio is not available on this Vendor Studio tier.' },
+      { status: 403 }
+    );
+  }
+
   const { id } = await params;
   const asset = await resolveVendorAsset(
     id,
@@ -92,7 +99,10 @@ export async function PATCH(
         targetType: 'MEDIA',
         targetId: asset.id,
         summary: `${access.vendor.name} updated ${displayName ?? asset.publicId}.`,
-        metadata: { vendorProfileId: access.vendor.id }
+        metadata: {
+          vendorProfileId: access.vendor.id,
+          vendorStudioTier: access.studio.tier
+        }
       }
     });
 
@@ -172,7 +182,10 @@ export async function DELETE(
         targetType: 'MEDIA',
         targetId: id,
         summary: `${access.vendor.name} removed ${asset.displayName ?? asset.publicId}.`,
-        metadata: { vendorProfileId: access.vendor.id }
+        metadata: {
+          vendorProfileId: access.vendor.id,
+          vendorStudioTier: access.studio.tier
+        }
       }
     })
   ]);

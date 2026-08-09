@@ -11,8 +11,10 @@ export default async function VendorLayout({ children }: { children: ReactNode }
   return (
     <VendorShell
       vendor={access.vendor.name}
+      vendorSlug={access.vendor.slug}
       role={access.membership.role}
-      permissions={Array.from(access.permissions)}>
+      permissions={Array.from(access.permissions)}
+      studioCapabilities={access.studio.capabilities}>
       {children}
     </VendorShell>
   );

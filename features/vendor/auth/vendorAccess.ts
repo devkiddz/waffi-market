@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { resolveCommerceCapabilities } from '@/features/commerce-mode';
+import { resolveVendorStudioEntitlements } from '@/features/vendor/entitlements';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -36,7 +37,7 @@ async function resolveVendorAccess(requestHeaders: Headers) {
   const session = await auth.api.getSession({ headers: requestHeaders }).catch(() => null);
   if (!session) return null;
 
-  const membership = await prisma.vendorMembership.findFirst({
+  const memberships = await prisma.vendorMembership.findMany({
     where: {
       userId: session.user.id,
       active: true,
@@ -47,9 +48,19 @@ async function resolveVendorAccess(requestHeaders: Headers) {
       }
     },
     include: { vendor: { include: { workspace: true } } },
-    orderBy: { createdAt: 'asc' }
+    orderBy: { createdAt: 'asc' },
+    take: 2
   });
-  if (!membership) return null;
+
+  if (memberships.length !== 1) {
+    return null;
+  }
+
+  const membership = memberships[0];
+
+  if (!membership) {
+    return null;
+  }
 
   const capabilities = resolveCommerceCapabilities(
     membership.vendor.workspace.commerceMode,
@@ -63,12 +74,21 @@ async function resolveVendorAccess(requestHeaders: Headers) {
     return null;
   }
 
+  const studio = await resolveVendorStudioEntitlements(
+    membership.vendor.id
+  );
+
+  if (!studio.active) {
+    return null;
+  }
+
   return {
     session,
     membership,
     vendor: membership.vendor,
     workspace: membership.vendor.workspace,
     capabilities,
+    studio,
     permissions: new Set<VendorPermission>(permissionsByRole[membership.role])
   };
 }

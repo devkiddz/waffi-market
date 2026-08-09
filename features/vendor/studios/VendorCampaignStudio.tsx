@@ -42,6 +42,18 @@ export async function VendorCampaignStudio({
     throw new Error('Campaign access is required.');
   }
 
+  const campaignCapability = type === 'REEL' ? 'reels' : 'stories';
+
+  if (!access.studio.capabilities[campaignCapability]) {
+    throw new Error(
+      `${type === 'REEL' ? 'Reels' : 'Stories'} are not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
+  if (type === 'REEL' && !access.studio.capabilities.video) {
+    throw new Error('Video publishing is not available for this vendor.');
+  }
+
   const [campaigns, media, products, promotions, collections, editing] =
     await Promise.all([
       prisma.storeStudioCampaign.findMany({
@@ -71,7 +83,9 @@ export async function VendorCampaignStudio({
           resourceType:
             type === 'REEL'
               ? 'VIDEO'
-              : { in: ['IMAGE', 'VIDEO'] }
+              : access.studio.capabilities.video
+                ? { in: ['IMAGE', 'VIDEO'] }
+                : 'IMAGE'
         },
         orderBy: { createdAt: 'desc' },
         take: 150
@@ -169,9 +183,9 @@ export async function VendorCampaignStudio({
     <AdminPage>
       <div className="mx-auto max-w-[96rem] space-y-5">
         <AdminPageHeader
-          eyebrow="Independent campaign system"
+          eyebrow={`${access.vendor.name} · ${access.studio.tier} Studio`}
           title={`Vendor ${plural}`}
-          description={`${plural} use your Media Studio gallery and remain independent. Every public campaign passes through workspace approval.`}
+          description={`${plural} use your private Media Studio gallery. Marketplace publication remains subject to Waffi Market approval and distribution authority.`}
         />
 
         <section className="grid gap-3 sm:grid-cols-3">
@@ -259,23 +273,27 @@ export async function VendorCampaignStudio({
                 />
               </Field>
 
-              <Field label="Starts" optional>
-                <input
-                  name="startsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeValue(editing?.startsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+              {access.studio.capabilities.scheduling ? (
+                <>
+                  <Field label="Starts" optional>
+                    <input
+                      name="startsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeValue(editing?.startsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
 
-              <Field label="Ends" optional>
-                <input
-                  name="endsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeValue(editing?.endsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+                  <Field label="Ends" optional>
+                    <input
+                      name="endsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeValue(editing?.endsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
+                </>
+              ) : null}
 
               <Field label="Description" className="lg:col-span-3" optional>
                 <textarea
@@ -301,9 +319,19 @@ export async function VendorCampaignStudio({
                   }
                   apiBasePath="/api/vendor/media"
                   purpose={type === 'REEL' ? 'reels' : 'stories'}
-                  uploadAccept={type === 'REEL' ? 'video' : 'image-and-video'}
+                  uploadAccept={
+                    type === 'REEL'
+                      ? 'video'
+                      : access.studio.capabilities.video
+                        ? 'image-and-video'
+                        : 'image'
+                  }
                   acceptedResourceTypes={
-                    type === 'REEL' ? ['VIDEO'] : ['IMAGE', 'VIDEO']
+                    type === 'REEL'
+                      ? ['VIDEO']
+                      : access.studio.capabilities.video
+                        ? ['IMAGE', 'VIDEO']
+                        : ['IMAGE']
                   }
                 />
               </fieldset>

@@ -59,7 +59,8 @@ const globalForPrisma = globalThis as unknown as {
   prismaSchemaVersion?: string;
 };
 
-const PRISMA_SCHEMA_VERSION = '20260803124500-support-knowledge-resolution';
+const PRISMA_SCHEMA_VERSION =
+  '20260808223254-vendor-studio-entitlements-v2-configured';
 
 function supportsCurrentSchema(
   client: PrismaClient | undefined,
@@ -86,6 +87,7 @@ function supportsCurrentSchema(
     'storeStudioAsset',
     'mediaAsset',
     'vendorProfile',
+    'vendorStudioEntitlement',
     'storeCollection',
     'supportKnowledgeBucket',
     'supportKnowledgeEntry',

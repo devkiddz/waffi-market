@@ -1,13 +1,127 @@
 import Link from 'next/link';
 import { Boxes, Clock3, PackagePlus, ShieldCheck } from 'lucide-react';
 
-import { AdminMetric, AdminPage, AdminPageHeader, AdminEmptyState } from '@/features/admin/components';
+import {
+  AdminEmptyState,
+  AdminMetric,
+  AdminPage,
+  AdminPageHeader
+} from '@/features/admin/components';
 import { getVendorAccess } from '@/features/vendor/auth/vendorAccess';
 import { prisma } from '@/lib/prisma';
 
+function quotaValue(current: number, limit: number | null): string {
+  return limit === null ? `${current} · Unlimited` : `${current} / ${limit}`;
+}
+
 export default async function VendorProductsPage() {
   const access = await getVendorAccess();
-  if (!access.permissions.has('product:view')) throw new Error('Product access is required.');
-  const products = await prisma.product.findMany({ where: { workspaceId: access.workspace.id, vendorProfileId: access.vendor.id, status: { not: 'ARCHIVED' } }, include: { images: { orderBy: { position: 'asc' }, take: 1 }, _count: { select: { variants: true } } }, orderBy: { updatedAt: 'desc' } });
-  return <AdminPage><div className="mx-auto max-w-[96rem] space-y-5"><AdminPageHeader eyebrow="Vendor catalog" title="Products" description="Build product galleries, variants and inventory, then submit them to Shelsea for publication." action={access.permissions.has('product:manage') ? <Link href="/vendor/products/new" className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-xs font-bold text-background"><PackagePlus className="size-4" /> New product</Link> : null}/><section className="grid gap-3 sm:grid-cols-3"><AdminMetric icon={Boxes} label="Products" value={products.length}/><AdminMetric icon={Clock3} label="Awaiting review" value={products.filter(item=>item.status==='PENDING_REVIEW').length}/><AdminMetric icon={ShieldCheck} label="Published" value={products.filter(item=>item.status==='PUBLISHED').length}/></section>{products.length?<section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{products.map(product=><Link key={product.id} href={`/vendor/products/${product.id}`} className="overflow-hidden rounded-[2rem] border border-border/60 bg-card/75 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"><div className="aspect-[16/10] bg-muted">{product.images[0]?.url?/* eslint-disable-next-line @next/next/no-img-element */<img src={product.images[0].url} alt="" className="size-full object-cover"/>:<div className="grid size-full place-items-center"><Boxes className="size-8 text-muted-foreground"/></div>}</div><div className="p-5"><span className="rounded-full bg-muted px-2 py-1 text-[8px] font-black">{product.status.replaceAll('_',' ')}</span><h2 className="mt-3 text-lg font-black">{product.name}</h2><p className="mt-1 text-xs text-muted-foreground">{product._count.variants} variant{product._count.variants===1?'':'s'}</p></div></Link>)}</section>:<AdminEmptyState icon={Boxes} title="No vendor products yet" description="Create your first product draft and submit it for workspace approval."/>}</div></AdminPage>;
+
+  if (!access.permissions.has('product:view')) {
+    throw new Error('Product access is required.');
+  }
+
+  if (!access.studio.capabilities.products) {
+    throw new Error(
+      `Product Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
+  const products = await prisma.product.findMany({
+    where: {
+      workspaceId: access.workspace.id,
+      vendorProfileId: access.vendor.id,
+      status: { not: 'ARCHIVED' }
+    },
+    include: {
+      images: { orderBy: { position: 'asc' }, take: 1 },
+      _count: { select: { variants: true } }
+    },
+    orderBy: { updatedAt: 'desc' }
+  });
+
+  const limit = access.studio.limits.products;
+  const hasCapacity = limit === null || products.length < limit;
+
+  return (
+    <AdminPage>
+      <div className="mx-auto max-w-[96rem] space-y-5">
+        <AdminPageHeader
+          eyebrow={`${access.vendor.name} · ${access.studio.tier} Studio`}
+          title="Products"
+          description="Build your vendor-owned catalogue, then submit products to Waffi Market for approval."
+          action={
+            access.permissions.has('product:manage') && hasCapacity ? (
+              <Link
+                href="/vendor/products/new"
+                className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-5 text-xs font-bold text-background">
+                <PackagePlus className="size-4" />
+                New product
+              </Link>
+            ) : null
+          }
+        />
+
+        <section className="grid gap-3 sm:grid-cols-3">
+          <AdminMetric
+            icon={Boxes}
+            label="Products"
+            value={quotaValue(products.length, limit)}
+          />
+          <AdminMetric
+            icon={Clock3}
+            label="Awaiting review"
+            value={products.filter(item => item.status === 'PENDING_REVIEW').length}
+          />
+          <AdminMetric
+            icon={ShieldCheck}
+            label="Published"
+            value={products.filter(item => item.status === 'PUBLISHED').length}
+          />
+        </section>
+
+        {products.length ? (
+          <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {products.map(product => (
+              <Link
+                key={product.id}
+                href={`/vendor/products/${product.id}`}
+                className="overflow-hidden rounded-[2rem] border border-border/60 bg-card/75 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                <div className="aspect-[16/10] bg-muted">
+                  {product.images[0]?.url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={product.images[0].url}
+                      alt=""
+                      className="size-full object-cover"
+                    />
+                  ) : (
+                    <div className="grid size-full place-items-center">
+                      <Boxes className="size-8 text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <span className="rounded-full bg-muted px-2 py-1 text-[8px] font-black">
+                    {product.status.replaceAll('_', ' ')}
+                  </span>
+                  <h2 className="mt-3 text-lg font-black">{product.name}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {product._count.variants} variant
+                    {product._count.variants === 1 ? '' : 's'}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </section>
+        ) : (
+          <AdminEmptyState
+            icon={Boxes}
+            title="No vendor products yet"
+            description="Create your first product draft and submit it for Waffi Market approval."
+          />
+        )}
+      </div>
+    </AdminPage>
+  );
 }

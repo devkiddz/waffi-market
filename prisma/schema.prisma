@@ -2657,6 +2657,47 @@ enum VendorRole {
   ANALYST
 }
 
+enum VendorStudioTier {
+  BASIC
+  GROWTH
+  PREMIUM
+  ENTERPRISE
+}
+
+model VendorStudioEntitlement {
+  id String @id @default(cuid())
+
+  vendorProfileId String        @unique
+  vendorProfile   VendorProfile @relation(fields: [vendorProfileId], references: [id], onDelete: Cascade)
+
+  tier VendorStudioTier @default(BASIC)
+
+  productLimit               Int?
+  mediaAssetLimit            Int?
+  collectionLimit            Int?
+  promotionLimit             Int?
+  bannerCampaignLimit        Int?
+  storyCampaignLimit         Int?
+  reelCampaignLimit          Int?
+  storyAssetLimitPerCampaign Int?
+  reelAssetLimitPerCampaign  Int?
+  teamMemberLimit            Int?
+
+  videoAllowed               Boolean @default(false)
+  schedulingAllowed          Boolean @default(false)
+  featuredPlacementEligible  Boolean @default(false)
+  sponsoredPlacementEligible Boolean @default(false)
+
+  configured Boolean @default(false)
+  active     Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tier, active])
+  @@map("vendor_studio_entitlement")
+}
+
 model VendorProfile {
   id String @id @default(cuid())
 
@@ -2678,6 +2719,8 @@ model VendorProfile {
 
   logoMediaAssetId String?
   logoMediaAsset   MediaAsset? @relation("VendorLogoMedia", fields: [logoMediaAssetId], references: [id], onDelete: SetNull)
+
+  studioEntitlement VendorStudioEntitlement?
 
   members     VendorMembership[]
   products    Product[]

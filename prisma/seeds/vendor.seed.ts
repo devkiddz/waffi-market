@@ -11,49 +11,185 @@ const MARKETPLACE_TEST_VENDORS = [
     slug: 'aj-logik',
     name: 'AJ Logik',
     email: 'aj-logik@vendors.waffi.test',
-    description: 'Groceries, drinks, meals and lifestyle essentials.'
+    description: 'Groceries, drinks, meals and lifestyle essentials.',
+    studio: {
+      tier: 'ENTERPRISE',
+      productLimit: null,
+      mediaAssetLimit: null,
+      collectionLimit: null,
+      promotionLimit: null,
+      bannerCampaignLimit: null,
+      storyCampaignLimit: null,
+      reelCampaignLimit: null,
+      storyAssetLimitPerCampaign: null,
+      reelAssetLimitPerCampaign: null,
+      teamMemberLimit: null,
+      videoAllowed: true,
+      schedulingAllowed: true,
+      featuredPlacementEligible: true,
+      sponsoredPlacementEligible: true
+    }
   },
   {
     slug: 'shelsea',
     name: 'Shelsea',
     email: 'shelsea@vendors.waffi.test',
-    description: 'Fashion, hair, fragrance and lifestyle store.'
+    description: 'Fashion, hair, fragrance and lifestyle store.',
+    studio: {
+      tier: 'PREMIUM',
+      productLimit: 500,
+      mediaAssetLimit: 1200,
+      collectionLimit: 40,
+      promotionLimit: 40,
+      bannerCampaignLimit: 12,
+      storyCampaignLimit: 35,
+      reelCampaignLimit: 25,
+      storyAssetLimitPerCampaign: 15,
+      reelAssetLimitPerCampaign: 15,
+      teamMemberLimit: 10,
+      videoAllowed: true,
+      schedulingAllowed: true,
+      featuredPlacementEligible: true,
+      sponsoredPlacementEligible: true
+    }
   },
   {
     slug: 'kora-fashion',
     name: 'Kora Fashion',
     email: 'kora-fashion@vendors.waffi.test',
-    description: 'Fashion, shoes, bags and everyday accessories.'
+    description: 'Fashion, shoes, bags and everyday accessories.',
+    studio: {
+      tier: 'PREMIUM',
+      productLimit: 300,
+      mediaAssetLimit: 700,
+      collectionLimit: 30,
+      promotionLimit: 30,
+      bannerCampaignLimit: 10,
+      storyCampaignLimit: 30,
+      reelCampaignLimit: 20,
+      storyAssetLimitPerCampaign: 12,
+      reelAssetLimitPerCampaign: 12,
+      teamMemberLimit: 8,
+      videoAllowed: true,
+      schedulingAllowed: true,
+      featuredPlacementEligible: true,
+      sponsoredPlacementEligible: false
+    }
   },
   {
     slug: 'metro-mobile',
     name: 'Metro Mobile',
     email: 'metro-mobile@vendors.waffi.test',
-    description: 'Mobile phones, accessories and connected essentials.'
+    description: 'Mobile phones, accessories and connected essentials.',
+    studio: {
+      tier: 'PREMIUM',
+      productLimit: 300,
+      mediaAssetLimit: 700,
+      collectionLimit: 30,
+      promotionLimit: 30,
+      bannerCampaignLimit: 10,
+      storyCampaignLimit: 30,
+      reelCampaignLimit: 20,
+      storyAssetLimitPerCampaign: 12,
+      reelAssetLimitPerCampaign: 12,
+      teamMemberLimit: 8,
+      videoAllowed: true,
+      schedulingAllowed: true,
+      featuredPlacementEligible: true,
+      sponsoredPlacementEligible: false
+    }
   },
   {
     slug: 'nova-gadgets',
     name: 'Nova Gadgets',
     email: 'nova-gadgets@vendors.waffi.test',
-    description: 'Gadgets, electronics and practical tech accessories.'
+    description: 'Gadgets, electronics and practical tech accessories.',
+    studio: {
+      tier: 'GROWTH',
+      productLimit: 150,
+      mediaAssetLimit: 300,
+      collectionLimit: 15,
+      promotionLimit: 15,
+      bannerCampaignLimit: 4,
+      storyCampaignLimit: 12,
+      reelCampaignLimit: 6,
+      storyAssetLimitPerCampaign: 8,
+      reelAssetLimitPerCampaign: 6,
+      teamMemberLimit: 4,
+      videoAllowed: true,
+      schedulingAllowed: false,
+      featuredPlacementEligible: false,
+      sponsoredPlacementEligible: false
+    }
   },
   {
     slug: 'freshcart-market',
     name: 'FreshCart Market',
     email: 'freshcart-market@vendors.waffi.test',
-    description: 'Groceries, provisions and everyday household essentials.'
+    description: 'Groceries, provisions and everyday household essentials.',
+    studio: {
+      tier: 'GROWTH',
+      productLimit: 150,
+      mediaAssetLimit: 300,
+      collectionLimit: 15,
+      promotionLimit: 15,
+      bannerCampaignLimit: 4,
+      storyCampaignLimit: 12,
+      reelCampaignLimit: 6,
+      storyAssetLimitPerCampaign: 8,
+      reelAssetLimitPerCampaign: 6,
+      teamMemberLimit: 4,
+      videoAllowed: true,
+      schedulingAllowed: false,
+      featuredPlacementEligible: false,
+      sponsoredPlacementEligible: false
+    }
   },
   {
     slug: 'secondlife-closet',
     name: 'SecondLife Closet',
     email: 'secondlife-closet@vendors.waffi.test',
-    description: 'Okirika and fairly-used fashion selected for another life.'
+    description: 'Okirika and fairly-used fashion selected for another life.',
+    studio: {
+      tier: 'BASIC',
+      productLimit: 75,
+      mediaAssetLimit: 150,
+      collectionLimit: 8,
+      promotionLimit: 8,
+      bannerCampaignLimit: 2,
+      storyCampaignLimit: 6,
+      reelCampaignLimit: 0,
+      storyAssetLimitPerCampaign: 6,
+      reelAssetLimitPerCampaign: 0,
+      teamMemberLimit: 2,
+      videoAllowed: false,
+      schedulingAllowed: false,
+      featuredPlacementEligible: false,
+      sponsoredPlacementEligible: false
+    }
   },
   {
     slug: 'ankara-house',
     name: 'Ankara House',
     email: 'ankara-house@vendors.waffi.test',
-    description: 'Ankara, fabrics and clothing materials for distinctive styles.'
+    description: 'Ankara, fabrics and clothing materials for distinctive styles.',
+    studio: {
+      tier: 'BASIC',
+      productLimit: 75,
+      mediaAssetLimit: 150,
+      collectionLimit: 8,
+      promotionLimit: 8,
+      bannerCampaignLimit: 2,
+      storyCampaignLimit: 6,
+      reelCampaignLimit: 0,
+      storyAssetLimitPerCampaign: 6,
+      reelAssetLimitPerCampaign: 0,
+      teamMemberLimit: 2,
+      videoAllowed: false,
+      schedulingAllowed: false,
+      featuredPlacementEligible: false,
+      sponsoredPlacementEligible: false
+    }
   }
 ] as const;
 
@@ -81,9 +217,7 @@ async function ensureCredentialAccount(
   const accountId = `waffi-vendor-credential-${input.vendorSlug}`;
 
   await prisma.account.upsert({
-    where: {
-      id: accountId
-    },
+    where: { id: accountId },
     update: {
       accountId: input.userId,
       providerId: 'credential',
@@ -118,9 +252,7 @@ export async function seedMarketplaceVendors(
 
   for (const vendor of MARKETPLACE_TEST_VENDORS) {
     const owner = await prisma.user.upsert({
-      where: {
-        email: vendor.email
-      },
+      where: { email: vendor.email },
       update: {
         name: `${vendor.name} Vendor Owner`,
         emailVerified: false,
@@ -140,9 +272,7 @@ export async function seedMarketplaceVendors(
         isGhostDeveloper: false,
         platformRole: 'STANDARD'
       },
-      select: {
-        id: true
-      }
+      select: { id: true }
     });
 
     await ensureCredentialAccount(prisma, {
@@ -158,10 +288,7 @@ export async function seedMarketplaceVendors(
           userId: owner.id
         }
       },
-      update: {
-        role: 'MEMBER',
-        active: true
-      },
+      update: { role: 'MEMBER', active: true },
       create: {
         workspaceId: workspaces.live.id,
         userId: owner.id,
@@ -198,11 +325,7 @@ export async function seedMarketplaceVendors(
         active: true,
         approvedAt: new Date()
       },
-      select: {
-        id: true,
-        slug: true,
-        name: true
-      }
+      select: { id: true, slug: true, name: true }
     });
 
     await prisma.vendorMembership.upsert({
@@ -212,14 +335,26 @@ export async function seedMarketplaceVendors(
           userId: owner.id
         }
       },
-      update: {
-        role: 'OWNER',
-        active: true
-      },
+      update: { role: 'OWNER', active: true },
       create: {
         vendorId: profile.id,
         userId: owner.id,
         role: 'OWNER',
+        active: true
+      }
+    });
+
+    await prisma.vendorStudioEntitlement.upsert({
+      where: { vendorProfileId: profile.id },
+      update: {
+        ...vendor.studio,
+        configured: true,
+        active: true
+      },
+      create: {
+        vendorProfileId: profile.id,
+        ...vendor.studio,
+        configured: true,
         active: true
       }
     });
@@ -239,11 +374,9 @@ export async function seedMarketplaceVendors(
   }
 
   console.log(`âœ“ ${seeded.length} independent Waffi Market vendors ready.`);
+  console.log('✓ Vendor Studio entitlement matrix ready.');
 
-  return {
-    all: seeded,
-    shelsea
-  };
+  return { all: seeded, shelsea };
 }
 
 export async function assignShelseaShowcaseCatalog(
@@ -258,13 +391,9 @@ export async function assignShelseaShowcaseCatalog(
   const result = await prisma.product.updateMany({
     where: {
       workspaceId: input.workspaceId,
-      id: {
-        in: inheritedProductIds
-      }
+      id: { in: inheritedProductIds }
     },
-    data: {
-      vendorProfileId: input.shelseaVendorId
-    }
+    data: { vendorProfileId: input.shelseaVendorId }
   });
 
   console.log(

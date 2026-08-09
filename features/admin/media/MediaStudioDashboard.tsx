@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useMemo, useRef, useState, type FormEvent } from 'react';
 
+import { WAFFI_MEDIA_POLICY } from '@/features/media/mediaPolicy';
 import { cn } from '@/lib/utils';
 import {
   StudioMediaCropDialog,
@@ -24,6 +25,7 @@ import {
   type StudioCropRecipe
 } from '@/features/studio-controls';
 import {
+  type StudioMediaAccept,
   type StudioMediaPurpose,
   uploadStudioMediaFile
 } from './mediaUploadClient';
@@ -78,13 +80,15 @@ export function MediaStudioDashboard({
   canUpload,
   canDelete,
   configured,
-  apiBasePath = '/api/admin/media'
+  apiBasePath = '/api/admin/media',
+  uploadAccept = 'image-and-video'
 }: {
   assets: MediaStudioAsset[];
   canUpload: boolean;
   canDelete: boolean;
   configured: boolean;
   apiBasePath?: string;
+  uploadAccept?: StudioMediaAccept;
 }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -98,6 +102,11 @@ export function MediaStudioDashboard({
   const [savingMetadata, setSavingMetadata] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [localAssets, setLocalAssets] = useState(assets);
+
+  const availablePurposeOptions =
+    uploadAccept === 'image'
+      ? purposeOptions.filter(([value]) => value !== 'reels')
+      : purposeOptions;
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -135,7 +144,7 @@ export function MediaStudioDashboard({
           file,
           apiBasePath,
           purpose,
-          accept: 'image-and-video',
+          accept: uploadAccept,
           onProgress: progress => updateUpload(state.id, { progress })
         });
 
@@ -211,14 +220,18 @@ export function MediaStudioDashboard({
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-lg font-black">Upload to workspace gallery</h2>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">Images and videos upload directly to Cloudinary, then become reusable assets in every Studio.</p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                {uploadAccept === 'image'
+                  ? `Images upload directly to Cloudinary and become reusable across your available Studios. Maximum ${WAFFI_MEDIA_POLICY.image.hardMaxMb} MB per image/GIF.`
+                  : `Images and videos upload directly to Cloudinary, then become reusable assets in every Studio. Maximum ${WAFFI_MEDIA_POLICY.image.hardMaxMb} MB per image/GIF and ${WAFFI_MEDIA_POLICY.video.hardMaxMb} MB per video.`}
+              </p>
             </div>
             <label className="block w-full sm:w-56">
               <span className="mb-2 block text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Destination folder</span>
               <StudioSelectField
                 value={purpose}
                 onValueChange={value => setPurpose(value as StudioMediaPurpose)}
-                options={purposeOptions.map(([value, label]) => ({ value, label }))}
+                options={availablePurposeOptions.map(([value, label]) => ({ value, label }))}
                 className="text-xs"
               />
             </label>
@@ -240,10 +253,10 @@ export function MediaStudioDashboard({
             <div>
               <UploadCloud className="mx-auto size-8 text-primary" />
               <p className="mt-3 text-sm font-black">Drop a media gallery here</p>
-              <p className="mt-1 text-xs text-muted-foreground">or click to select multiple images and videos</p>
+              <p className="mt-1 text-xs text-muted-foreground">{uploadAccept === 'image' ? 'or click to select multiple images' : 'or click to select multiple images and videos'}</p>
             </div>
           </button>
-          <input ref={inputRef} type="file" multiple accept="image/*,video/*" className="hidden" onChange={event => { if (event.target.files) void processFiles(event.target.files); event.target.value = ''; }} />
+          <input ref={inputRef} type="file" multiple accept={uploadAccept === 'image' ? 'image/*' : uploadAccept === 'video' ? 'video/*' : 'image/*,video/*'} className="hidden" onChange={event => { if (event.target.files) void processFiles(event.target.files); event.target.value = ''; }} />
 
           {uploads.length ? (
             <div className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">

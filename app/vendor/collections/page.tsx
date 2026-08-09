@@ -36,6 +36,12 @@ export default async function VendorCollectionsPage({
     throw new Error('Collection access is required.');
   }
 
+  if (!access.studio.capabilities.collections) {
+    throw new Error(
+      `Collection Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
   const { edit } = await searchParams;
   const [collections, products, media, editing] = await Promise.all([
     prisma.storeCollection.findMany({
@@ -74,17 +80,25 @@ export default async function VendorCollectionsPage({
       : null
   ]);
 
+  const collectionLimit = access.studio.limits.collections;
+  const hasCollectionCapacity =
+    collectionLimit === null || collections.length < collectionLimit;
+  const collectionQuota =
+    collectionLimit === null
+      ? `${collections.length} · Unlimited`
+      : `${collections.length} / ${collectionLimit}`;
+
   return (
     <AdminPage>
       <div className="mx-auto max-w-[96rem] space-y-5">
         <AdminPageHeader
-          eyebrow="Vendor merchandising"
+          eyebrow={`${access.vendor.name} · ${access.studio.tier} Studio`}
           title="Collection Studio"
-          description="Assemble published vendor products into scheduled collections, then submit the complete collection for workspace approval."
+          description="Assemble your published products into vendor-owned collections, then submit them to Waffi Market for approval."
         />
 
         <section className="grid gap-3 sm:grid-cols-3">
-          <AdminMetric icon={FolderKanban} label="Collections" value={collections.length} />
+          <AdminMetric icon={FolderKanban} label="Collections" value={collectionQuota} />
           <AdminMetric
             icon={Layers3}
             label="Awaiting review"
@@ -97,7 +111,8 @@ export default async function VendorCollectionsPage({
           />
         </section>
 
-        {access.permissions.has('collection:manage') ? (
+        {access.permissions.has('collection:manage') &&
+        (editing || hasCollectionCapacity) ? (
           <AdminPanel
             title={editing ? `Edit ${editing.title}` : 'Create collection'}
             description="Only your active published products and your own Media Studio assets can be included.">
@@ -144,23 +159,27 @@ export default async function VendorCollectionsPage({
                 />
               </Field>
 
-              <Field label="Starts">
-                <input
-                  name="startsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeLocal(editing?.startsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+              {access.studio.capabilities.scheduling ? (
+                <>
+                  <Field label="Starts">
+                    <input
+                      name="startsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeLocal(editing?.startsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
 
-              <Field label="Ends">
-                <input
-                  name="endsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeLocal(editing?.endsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+                  <Field label="Ends">
+                    <input
+                      name="endsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeLocal(editing?.endsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
+                </>
+              ) : null}
 
               <Field label="Description" className="lg:col-span-3">
                 <textarea

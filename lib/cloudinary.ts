@@ -2,6 +2,11 @@ import 'server-only';
 
 import { createHash, timingSafeEqual } from 'node:crypto';
 
+import {
+  mediaHardLimitBytes,
+  mediaHardLimitMb
+} from '@/features/media/mediaPolicy';
+
 export type MediaUploadPurpose =
   | 'general'
   | 'products'
@@ -12,9 +17,6 @@ export type MediaUploadPurpose =
   | 'promotions';
 
 
-const MAX_IMAGE_UPLOAD_BYTES = 20 * 1024 * 1024;
-const MAX_VIDEO_UPLOAD_BYTES = 250 * 1024 * 1024;
-
 export function assertCloudinaryUploadSize(upload: Record<string, unknown>) {
   const resourceType =
     typeof upload.resource_type === 'string' ? upload.resource_type : '';
@@ -24,15 +26,12 @@ export function assertCloudinaryUploadSize(upload: Record<string, unknown>) {
     throw new Error('Cloudinary upload size is invalid.');
   }
 
-  const limit =
-    resourceType === 'video'
-      ? MAX_VIDEO_UPLOAD_BYTES
-      : MAX_IMAGE_UPLOAD_BYTES;
+  const policyResourceType = resourceType === 'video' ? 'VIDEO' : 'IMAGE';
+  const limit = mediaHardLimitBytes(policyResourceType);
 
   if (bytes > limit) {
-    const limitMb = Math.round(limit / 1024 / 1024);
     throw new Error(
-      `The uploaded ${resourceType === 'video' ? 'video' : 'image'} exceeds the ${limitMb} MB limit.`
+      `The uploaded ${resourceType === 'video' ? 'video' : 'image'} exceeds Waffi Market's ${mediaHardLimitMb(policyResourceType)} MB limit.`
     );
   }
 }
@@ -126,7 +125,7 @@ export function cloudinaryUploadFolder({
   }
 
   const parts = [
-    cleanSegment(workspaceFolderPrefix || 'aj-logik'),
+    cleanSegment(workspaceFolderPrefix || 'waffi-market'),
     'workspaces',
     cleanSegment(workspaceId),
     cleanPath(ownerPath),

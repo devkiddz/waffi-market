@@ -30,6 +30,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: false,
       expiresAt: null
@@ -42,6 +43,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: false
     },
@@ -64,6 +66,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: true,
       expiresAt: null
@@ -76,6 +79,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: true
     },
@@ -98,6 +102,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: true,
       expiresAt: null
@@ -110,6 +115,7 @@ export async function seedWorkspaces(prisma: PrismaClient) {
       vendorApplicationsOpen: true,
       currency: 'NGN',
       timezone: 'Africa/Lagos',
+      mediaFolderPrefix: 'waffi-market',
       active: true,
       resettable: true
     },

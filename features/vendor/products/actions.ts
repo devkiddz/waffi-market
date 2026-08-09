@@ -15,6 +15,10 @@ import {
   createOrResubmitApprovalRequest
 } from '@/features/admin/approvals/approvalRequestRepository';
 import { requireVendorPermission } from '@/features/vendor/auth/vendorAccess';
+import {
+  assertVendorStudioQuotaAvailable,
+  lockVendorStudioQuota
+} from '@/features/vendor/entitlements';
 import type { Prisma } from '@/lib/generated/prisma/client';
 import { prisma } from '@/lib/prisma';
 
@@ -115,6 +119,13 @@ function parseVariants(formData: FormData): ProductStudioVariant[] {
 
 async function resolveInput(formData: FormData, productId?: string) {
   const access = await requireVendorPermission('product:manage');
+
+  if (!access.studio.capabilities.products) {
+    throw new Error(
+      `Product Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
   const workspaceId = access.workspace.id;
   const vendorProfileId = access.vendor.id;
   const name = text(formData, 'name');
@@ -458,6 +469,9 @@ async function synchronizeApproval(
 
 export async function createVendorProduct(formData: FormData): Promise<void> {
   const input = await resolveInput(formData);
+
+  const productLimit = input.access.studio.limits.products;
+
   const [conflict] = await Promise.all([
     prisma.product.findFirst({
       where: {
@@ -474,6 +488,24 @@ export async function createVendorProduct(formData: FormData): Promise<void> {
   }
 
   const product = await prisma.$transaction(async transaction => {
+    if (productLimit !== null) {
+      await lockVendorStudioQuota(transaction, input.vendorProfileId);
+
+      const currentProductCount = await transaction.product.count({
+        where: {
+          workspaceId: input.workspaceId,
+          vendorProfileId: input.vendorProfileId,
+          status: { not: 'ARCHIVED' }
+        }
+      });
+
+      assertVendorStudioQuotaAvailable({
+        current: currentProductCount,
+        limit: productLimit,
+        message: `This Vendor Studio tier allows up to ${productLimit} product${productLimit === 1 ? '' : 's'}.`
+      });
+    }
+
     const created = await transaction.product.create({
       data: {
         id: randomUUID(),
@@ -498,6 +530,7 @@ export async function createVendorProduct(formData: FormData): Promise<void> {
         } ${input.data.name}.`,
         metadata: {
           vendorProfileId: input.vendorProfileId,
+          vendorStudioTier: input.access.studio.tier,
           variantCount: input.variants.length,
           imageCount: input.mediaAssetIds.length
         }
@@ -573,6 +606,7 @@ export async function updateVendorProduct(
           previousStatus: owned.status,
           nextStatus: input.data.status,
           vendorProfileId: input.vendorProfileId,
+          vendorStudioTier: input.access.studio.tier,
           variantCount: input.variants.length,
           imageCount: input.mediaAssetIds.length
         }

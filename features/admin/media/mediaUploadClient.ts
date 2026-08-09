@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  mediaHardLimitBytes,
+  mediaHardLimitMb
+} from '@/features/media/mediaPolicy';
+
 export type StudioMediaPurpose =
   | 'general'
   | 'products'
@@ -39,9 +44,6 @@ export type MediaUploadSignature = {
 
 export type StudioMediaAccept = 'image' | 'video' | 'image-and-video';
 
-const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
-const MAX_VIDEO_BYTES = 250 * 1024 * 1024;
-
 export function acceptsStudioMedia(file: File, accept: StudioMediaAccept): boolean {
   if (accept === 'image') return file.type.startsWith('image/');
   if (accept === 'video') return file.type.startsWith('video/');
@@ -57,11 +59,13 @@ export function validateStudioMediaFile(file: File, accept: StudioMediaAccept): 
         : 'Only image and video files are allowed here.';
   }
 
-  const maximum = file.type.startsWith('video/') ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES;
+  const policyResourceType = file.type.startsWith('video/')
+    ? 'VIDEO'
+    : 'IMAGE';
+  const maximum = mediaHardLimitBytes(policyResourceType);
 
   if (file.size > maximum) {
-    const limit = Math.round(maximum / 1024 / 1024);
-    return `${file.name} exceeds the ${limit} MB ${file.type.startsWith('video/') ? 'video' : 'image'} limit.`;
+    return `${file.name} exceeds Waffi Market's ${mediaHardLimitMb(policyResourceType)} MB ${file.type.startsWith('video/') ? 'video' : 'image'} limit.`;
   }
 
   return null;
@@ -69,15 +73,17 @@ export function validateStudioMediaFile(file: File, accept: StudioMediaAccept): 
 
 export async function requestMediaUploadSignature({
   apiBasePath,
-  purpose
+  purpose,
+  resourceType
 }: {
   apiBasePath: string;
   purpose: StudioMediaPurpose;
+  resourceType: 'IMAGE' | 'VIDEO';
 }): Promise<MediaUploadSignature> {
   const response = await fetch(`${apiBasePath}/signature`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ purpose })
+    body: JSON.stringify({ purpose, resourceType })
   });
 
   const result = (await response.json()) as MediaUploadSignature & { error?: string };
@@ -187,7 +193,12 @@ export async function uploadStudioMediaFile({
     throw new Error(validationError);
   }
 
-  const signature = await requestMediaUploadSignature({ apiBasePath, purpose });
+  const resourceType = file.type.startsWith('video/') ? 'VIDEO' : 'IMAGE';
+  const signature = await requestMediaUploadSignature({
+    apiBasePath,
+    purpose,
+    resourceType
+  });
   const upload = await uploadFileToCloudinary({ file, signature, onProgress });
   return registerStudioMedia({ apiBasePath, upload });
 }

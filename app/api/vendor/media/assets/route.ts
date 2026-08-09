@@ -2,9 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { getVendorApiAccess } from '@/features/vendor/auth/vendorAccess';
 import {
+  assertVendorStudioQuotaAvailable,
+  lockVendorStudioQuota,
+  VendorStudioQuotaExceededError
+} from '@/features/vendor/entitlements';
+import {
   assertCloudinaryUploadResult,
   assertCloudinaryUploadSize,
-  cloudinaryUploadFolder
+  cloudinaryUploadFolder,
+  destroyCloudinaryAsset
 } from '@/lib/cloudinary';
 import type { Prisma } from '@/lib/generated/prisma/client';
 import { prisma } from '@/lib/prisma';
@@ -23,6 +29,15 @@ type CloudinaryUploadResult = Prisma.InputJsonObject & {
   original_filename?: string;
   display_name?: string;
 };
+
+class VendorMediaOwnershipError extends Error {
+  constructor() {
+    super(
+      'This Cloudinary asset is already registered outside your vendor gallery.'
+    );
+    this.name = 'VendorMediaOwnershipError';
+  }
+}
 
 function resourceType(value: string | undefined) {
   return value === 'video' ? ('VIDEO' as const) : ('IMAGE' as const);
@@ -49,6 +64,13 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!access.studio.capabilities.media) {
+    return NextResponse.json(
+      { error: 'Media Studio is not available on this Vendor Studio tier.' },
+      { status: 403 }
+    );
+  }
+
   const body = (await request.json().catch(() => null)) as
     | { upload?: CloudinaryUploadResult; altText?: string }
     | null;
@@ -63,7 +85,18 @@ export async function POST(request: Request) {
 
   const publicId = upload.public_id;
   const secureUrl = upload.secure_url;
+  const uploadResourceType = resourceType(upload.resource_type);
   const metadata: Prisma.InputJsonObject = upload;
+
+  if (
+    uploadResourceType === 'VIDEO' &&
+    !access.studio.capabilities.video
+  ) {
+    return NextResponse.json(
+      { error: 'Video uploads are not available on this Vendor Studio tier.' },
+      { status: 403 }
+    );
+  }
 
   try {
     const vendorRoot = cloudinaryUploadFolder({
@@ -87,27 +120,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const existing = await prisma.mediaAsset.findUnique({
-    where: { publicId },
-    select: { id: true, workspaceId: true, vendorProfileId: true }
-  });
-
-  if (
-    existing &&
-    (existing.workspaceId !== access.workspace.id ||
-      existing.vendorProfileId !== access.vendor.id)
-  ) {
-    return NextResponse.json(
-      { error: 'This Cloudinary asset is already registered outside your vendor gallery.' },
-      { status: 409 }
-    );
-  }
-
   const data = {
     cloudinaryAssetId:
       typeof upload.asset_id === 'string' ? upload.asset_id : null,
     secureUrl,
-    resourceType: resourceType(upload.resource_type),
+    resourceType: uploadResourceType,
     format: typeof upload.format === 'string' ? upload.format : null,
     width: typeof upload.width === 'number' ? upload.width : null,
     height: typeof upload.height === 'number' ? upload.height : null,
@@ -129,40 +146,115 @@ export async function POST(request: Request) {
     metadata
   };
 
-  const asset = await prisma.$transaction(async transaction => {
-    const registered = existing
-      ? await transaction.mediaAsset.update({
-          where: { id: existing.id },
-          data
-        })
-      : await transaction.mediaAsset.create({
-          data: {
-            ...data,
+  const mediaLimit = access.studio.limits.mediaAssets;
+  let existingRegistration = false;
+
+  try {
+    const asset = await prisma.$transaction(async transaction => {
+      if (mediaLimit !== null) {
+        await lockVendorStudioQuota(transaction, access.vendor.id);
+      }
+
+      const existing = await transaction.mediaAsset.findUnique({
+        where: { publicId },
+        select: { id: true, workspaceId: true, vendorProfileId: true }
+      });
+
+      existingRegistration = Boolean(existing);
+
+      if (
+        existing &&
+        (existing.workspaceId !== access.workspace.id ||
+          existing.vendorProfileId !== access.vendor.id)
+      ) {
+        throw new VendorMediaOwnershipError();
+      }
+
+      if (!existing && mediaLimit !== null) {
+        const currentMediaCount = await transaction.mediaAsset.count({
+          where: {
             workspaceId: access.workspace.id,
-            uploadedById: access.session.user.id,
             vendorProfileId: access.vendor.id,
-            publicId
+            status: 'ACTIVE'
           }
         });
 
-    await transaction.adminAuditEvent.create({
-      data: {
-        workspaceId: access.workspace.id,
-        actorId: access.session.user.id,
-        action: existing ? 'VENDOR_MEDIA_UPDATED' : 'VENDOR_MEDIA_UPLOADED',
-        targetType: 'MEDIA',
-        targetId: registered.id,
-        summary: `${access.vendor.name} ${existing ? 'updated' : 'uploaded'} ${registered.displayName ?? registered.publicId}.`,
-        metadata: {
-          vendorProfileId: access.vendor.id,
-          resourceType: registered.resourceType,
-          bytes: registered.bytes
-        }
+        assertVendorStudioQuotaAvailable({
+          current: currentMediaCount,
+          limit: mediaLimit,
+          message: `This Vendor Studio tier allows up to ${mediaLimit} media assets.`
+        });
       }
+
+      const registered = existing
+        ? await transaction.mediaAsset.update({
+            where: { id: existing.id },
+            data
+          })
+        : await transaction.mediaAsset.create({
+            data: {
+              ...data,
+              workspaceId: access.workspace.id,
+              uploadedById: access.session.user.id,
+              vendorProfileId: access.vendor.id,
+              publicId
+            }
+          });
+
+      await transaction.adminAuditEvent.create({
+        data: {
+          workspaceId: access.workspace.id,
+          actorId: access.session.user.id,
+          action: existing ? 'VENDOR_MEDIA_UPDATED' : 'VENDOR_MEDIA_UPLOADED',
+          targetType: 'MEDIA',
+          targetId: registered.id,
+          summary: `${access.vendor.name} ${existing ? 'updated' : 'uploaded'} ${registered.displayName ?? registered.publicId}.`,
+          metadata: {
+            vendorProfileId: access.vendor.id,
+            vendorStudioTier: access.studio.tier,
+            resourceType: registered.resourceType,
+            bytes: registered.bytes
+          }
+        }
+      });
+
+      return registered;
     });
 
-    return registered;
-  });
+    return NextResponse.json({ asset });
+  } catch (error) {
+    if (!existingRegistration) {
+      let persistedRegistration = true;
 
-  return NextResponse.json({ asset });
+      try {
+        persistedRegistration = Boolean(
+          await prisma.mediaAsset.findUnique({
+            where: { publicId },
+            select: { id: true }
+          })
+        );
+      } catch {
+        // If the database cannot confirm absence, prefer an orphaned upload
+        // over deleting an asset that may already have been registered.
+        persistedRegistration = true;
+      }
+
+      if (!persistedRegistration) {
+        await destroyCloudinaryAsset({
+          publicId,
+          resourceType: uploadResourceType === 'VIDEO' ? 'video' : 'image'
+        }).catch(() => undefined);
+      }
+    }
+
+    if (error instanceof VendorStudioQuotaExceededError) {
+      return NextResponse.json({ error: error.message }, { status: 403 });
+    }
+
+    if (error instanceof VendorMediaOwnershipError) {
+      return NextResponse.json({ error: error.message }, { status: 409 });
+    }
+
+    throw error;
+  }
 }

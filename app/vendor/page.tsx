@@ -83,9 +83,9 @@ export default async function VendorOverviewPage() {
     <AdminPage>
       <div className="mx-auto max-w-[96rem] space-y-5">
         <AdminPageHeader
-          eyebrow="Vendor Studio"
+          eyebrow={`Vendor Studio · ${access.studio.tier}`}
           title={access.vendor.name}
-          description="Manage your catalogue and campaigns inside Shelsea. Every public change remains subject to workspace approval."
+          description="Manage your private store catalogue, media and campaigns. Marketplace-visible changes remain subject to Waffi Market approval and distribution authority."
           action={
             <Link
               href={`/shops/${encodeURIComponent(access.vendor.slug)}`}
@@ -137,18 +137,32 @@ export default async function VendorOverviewPage() {
               description="Submit controlled offers for your catalogue."
               meta={`${promotions} promotions`}
             />
-            <AdminGridLink
-              href="/vendor/stories"
-              icon={Sparkles}
-              title="Stories"
-              description="Build independent Story campaigns from uploaded media."
-            />
-            <AdminGridLink
-              href="/vendor/reels"
-              icon={Sparkles}
-              title="Reels"
-              description="Build independent portrait-video campaigns."
-            />
+            {access.studio.capabilities.stories ? (
+              <AdminGridLink
+                href="/vendor/stories"
+                icon={Sparkles}
+                title="Stories"
+                description="Build independent Story campaigns from your private media."
+                meta={
+                  access.studio.limits.stories === null
+                    ? 'Unlimited campaigns'
+                    : `${access.studio.limits.stories} campaign limit`
+                }
+              />
+            ) : null}
+            {access.studio.capabilities.reels ? (
+              <AdminGridLink
+                href="/vendor/reels"
+                icon={Sparkles}
+                title="Reels"
+                description="Build independent portrait-video campaigns."
+                meta={
+                  access.studio.limits.reels === null
+                    ? 'Unlimited campaigns'
+                    : `${access.studio.limits.reels} campaign limit`
+                }
+              />
+            ) : null}
             <AdminGridLink
               href="/vendor/analytics"
               icon={BarChart3}
@@ -167,9 +181,11 @@ export default async function VendorOverviewPage() {
 
         <div className="rounded-[2rem] border border-border/60 bg-card/70 p-5 text-xs leading-5 text-muted-foreground">
           <strong className="text-foreground">Commerce Mode:</strong>{' '}
-          {access.workspace.commerceMode.replaceAll('_', ' ')}. Your public shop
-          uses the same approved products, Collections, promotions, Stories and
-          Reels managed through these Studios.
+          {access.workspace.commerceMode.replaceAll('_', ' ')} ·{' '}
+          <strong className="text-foreground">Studio Tier:</strong>{' '}
+          {access.studio.tier}. Your public shop uses only approved vendor-owned
+          products and experiences. Marketplace placement remains controlled by
+          Waffi Market.
         </div>
       </div>
     </AdminPage>

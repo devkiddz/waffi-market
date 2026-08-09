@@ -7,6 +7,10 @@ import {
   createOrResubmitApprovalRequest
 } from '@/features/admin/approvals/approvalRequestRepository';
 import { requireVendorPermission } from '@/features/vendor/auth/vendorAccess';
+import {
+  assertVendorStudioQuotaAvailable,
+  lockVendorStudioQuota
+} from '@/features/vendor/entitlements';
 import { prisma } from '@/lib/prisma';
 
 const COLLECTION_LAYOUTS = ['FEATURED', 'CAROUSEL', 'GRID', 'SPOTLIGHT'] as const;
@@ -161,6 +165,20 @@ export async function saveVendorCollection(formData: FormData): Promise<void> {
 
   validateSchedule(startsAt, endsAt);
 
+  if (!access.studio.capabilities.collections) {
+    throw new Error(
+      `Collection Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
+  if ((startsAt || endsAt) && !access.studio.capabilities.scheduling) {
+    throw new Error(
+      'Collection scheduling is not available on this Vendor Studio tier.'
+    );
+  }
+
+  const collectionLimit = access.studio.limits.collections;
+
   if (submit && productIds.length === 0) {
     throw new Error('Select at least one published product before submitting the collection.');
   }
@@ -232,6 +250,24 @@ export async function saveVendorCollection(formData: FormData): Promise<void> {
   }
 
   const record = await prisma.$transaction(async transaction => {
+    if (!id && collectionLimit !== null) {
+      await lockVendorStudioQuota(transaction, access.vendor.id);
+
+      const currentCollectionCount = await transaction.storeCollection.count({
+        where: {
+          workspaceId: access.workspace.id,
+          vendorProfileId: access.vendor.id,
+          status: { not: 'ARCHIVED' }
+        }
+      });
+
+      assertVendorStudioQuotaAvailable({
+        current: currentCollectionCount,
+        limit: collectionLimit,
+        message: `This Vendor Studio tier allows up to ${collectionLimit} collection${collectionLimit === 1 ? '' : 's'}.`
+      });
+    }
+
     const data = {
       workspaceId: access.workspace.id,
       vendorProfileId: access.vendor.id,
@@ -286,9 +322,11 @@ export async function saveVendorCollection(formData: FormData): Promise<void> {
         summary: `${access.vendor.name} ${submit ? 'submitted' : 'saved'} ${title}.`,
         metadata: {
           vendorProfileId: access.vendor.id,
+          vendorStudioTier: access.studio.tier,
           productCount: productIds.length,
           priority,
-          layout
+          layout,
+          schedulingUsed: Boolean(startsAt || endsAt)
         }
       }
     });
@@ -352,6 +390,20 @@ export async function saveVendorPromotion(formData: FormData): Promise<void> {
   }
 
   validateSchedule(startsAt, endsAt);
+
+  if (!access.studio.capabilities.promotions) {
+    throw new Error(
+      `Promotion Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
+  if ((startsAt || endsAt) && !access.studio.capabilities.scheduling) {
+    throw new Error(
+      'Promotion scheduling is not available on this Vendor Studio tier.'
+    );
+  }
+
+  const promotionLimit = access.studio.limits.promotions;
 
   if (submit && productIds.length === 0) {
     throw new Error('Select at least one published product before submitting the promotion.');
@@ -428,6 +480,24 @@ export async function saveVendorPromotion(formData: FormData): Promise<void> {
   }
 
   const record = await prisma.$transaction(async transaction => {
+    if (!id && promotionLimit !== null) {
+      await lockVendorStudioQuota(transaction, access.vendor.id);
+
+      const currentPromotionCount = await transaction.promotion.count({
+        where: {
+          workspaceId: access.workspace.id,
+          vendorProfileId: access.vendor.id,
+          status: { not: 'ARCHIVED' }
+        }
+      });
+
+      assertVendorStudioQuotaAvailable({
+        current: currentPromotionCount,
+        limit: promotionLimit,
+        message: `This Vendor Studio tier allows up to ${promotionLimit} promotion${promotionLimit === 1 ? '' : 's'}.`
+      });
+    }
+
     const data = {
       workspaceId: access.workspace.id,
       vendorProfileId: access.vendor.id,
@@ -489,9 +559,11 @@ export async function saveVendorPromotion(formData: FormData): Promise<void> {
         summary: `${access.vendor.name} ${submit ? 'submitted' : 'saved'} ${title}.`,
         metadata: {
           vendorProfileId: access.vendor.id,
+          vendorStudioTier: access.studio.tier,
           productCount: productIds.length,
           promotionType: type,
-          priority
+          priority,
+          schedulingUsed: Boolean(startsAt || endsAt)
         }
       }
     });
@@ -537,6 +609,37 @@ export async function saveVendorCampaign(
   const startsAt = parseOptionalDate(text(formData, 'startsAt'), 'Campaign start date');
   const endsAt = parseOptionalDate(text(formData, 'endsAt'), 'Campaign end date');
   const requestedPriority = parseRequestedPriority(text(formData, 'requestedPriority'));
+  const campaignCapability = type === 'REEL' ? 'reels' : 'stories';
+  const campaignLimit =
+    type === 'REEL'
+      ? access.studio.limits.reels
+      : access.studio.limits.stories;
+  const assetLimit =
+    type === 'REEL'
+      ? access.studio.limits.reelAssetsPerCampaign
+      : access.studio.limits.storyAssetsPerCampaign;
+
+  if (!access.studio.capabilities[campaignCapability]) {
+    throw new Error(
+      `${type === 'REEL' ? 'Reels' : 'Stories'} are not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
+  if (type === 'REEL' && !access.studio.capabilities.video) {
+    throw new Error('Video publishing is not available for this vendor.');
+  }
+
+  if ((startsAt || endsAt) && !access.studio.capabilities.scheduling) {
+    throw new Error(
+      'Campaign scheduling is not available on this Vendor Studio tier.'
+    );
+  }
+
+  if (assetLimit !== null && mediaAssetIds.length > assetLimit) {
+    throw new Error(
+      `This Vendor Studio tier allows up to ${assetLimit} asset${assetLimit === 1 ? '' : 's'} per ${type.toLowerCase()} campaign.`
+    );
+  }
 
   if (!title || !mediaAssetIds.length) {
     throw new Error(
@@ -631,6 +734,15 @@ export async function saveVendorCampaign(
   }
 
   if (
+    !access.studio.capabilities.video &&
+    media.some(asset => asset.resourceType === 'VIDEO')
+  ) {
+    throw new Error(
+      'Video media is not available on this Vendor Studio tier.'
+    );
+  }
+
+  if (
     destination &&
     !(
       (destinationType === 'product' && product) ||
@@ -661,6 +773,26 @@ export async function saveVendorCampaign(
         : null;
 
   const campaign = await prisma.$transaction(async transaction => {
+    if (!id && campaignLimit !== null) {
+      await lockVendorStudioQuota(transaction, access.vendor.id);
+
+      const currentCampaignCount =
+        await transaction.storeStudioCampaign.count({
+          where: {
+            workspaceId: access.workspace.id,
+            vendorProfileId: access.vendor.id,
+            type,
+            status: { not: 'EXPIRED' }
+          }
+        });
+
+      assertVendorStudioQuotaAvailable({
+        current: currentCampaignCount,
+        limit: campaignLimit,
+        message: `This Vendor Studio tier allows up to ${campaignLimit} active ${type === 'REEL' ? 'Reel' : 'Story'} campaign${campaignLimit === 1 ? '' : 's'}.`
+      });
+    }
+
     const data = {
       workspaceId: access.workspace.id,
       vendorProfileId: access.vendor.id,
@@ -730,8 +862,10 @@ export async function saveVendorCampaign(
         metadata: {
           vendorProfileId: access.vendor.id,
           campaignType: type,
+          vendorStudioTier: access.studio.tier,
           assetCount: mediaAssetIds.length,
-          requestedPriority
+          requestedPriority,
+          schedulingUsed: Boolean(startsAt || endsAt)
         }
       }
     });

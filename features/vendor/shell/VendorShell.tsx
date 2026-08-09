@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   BadgePercent,
   BarChart3,
@@ -12,6 +12,7 @@ import {
   FolderKanban,
   GalleryVerticalEnd,
   LayoutDashboard,
+  LogOut,
   Menu,
   MessageSquareText,
   Store,
@@ -21,13 +22,17 @@ import {
 import { useState, type ComponentType, type ReactNode } from 'react';
 
 import type { VendorPermission } from '@/features/vendor/auth/vendorAccess';
+import type { VendorStudioCapabilities } from '@/features/vendor/entitlements/contracts';
+import { signOut } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 
 type VendorShellProps = {
   children: ReactNode;
   vendor: string;
+  vendorSlug: string;
   role: string;
   permissions: VendorPermission[];
+  studioCapabilities: VendorStudioCapabilities;
 };
 
 type VendorNavigationItem = {
@@ -35,18 +40,19 @@ type VendorNavigationItem = {
   label: string;
   icon: ComponentType<{ className?: string }>;
   permission?: VendorPermission;
+  capability?: keyof VendorStudioCapabilities;
 };
 
 const navigation: VendorNavigationItem[] = [
   { href: '/vendor', label: 'Overview', icon: LayoutDashboard },
   { href: '/vendor/assistant', label: 'AJ Studio Manager', icon: BrainCircuit },
   { href: '/vendor/inbox', label: 'Inbox', icon: MessageSquareText, permission: 'communication:view' },
-  { href: '/vendor/media', label: 'Media Studio', icon: GalleryVerticalEnd, permission: 'media:view' },
-  { href: '/vendor/products', label: 'Product Studio', icon: Boxes, permission: 'product:view' },
-  { href: '/vendor/collections', label: 'Collection Studio', icon: FolderKanban, permission: 'collection:view' },
-  { href: '/vendor/promotions', label: 'Promotion Studio', icon: BadgePercent, permission: 'promotion:view' },
-  { href: '/vendor/stories', label: 'Stories', icon: Clapperboard, permission: 'campaign:view' },
-  { href: '/vendor/reels', label: 'Reels', icon: Clapperboard, permission: 'campaign:view' },
+  { href: '/vendor/media', label: 'Media Studio', icon: GalleryVerticalEnd, permission: 'media:view', capability: 'media' },
+  { href: '/vendor/products', label: 'Product Studio', icon: Boxes, permission: 'product:view', capability: 'products' },
+  { href: '/vendor/collections', label: 'Collection Studio', icon: FolderKanban, permission: 'collection:view', capability: 'collections' },
+  { href: '/vendor/promotions', label: 'Promotion Studio', icon: BadgePercent, permission: 'promotion:view', capability: 'promotions' },
+  { href: '/vendor/stories', label: 'Stories', icon: Clapperboard, permission: 'campaign:view', capability: 'stories' },
+  { href: '/vendor/reels', label: 'Reels', icon: Clapperboard, permission: 'campaign:view', capability: 'reels' },
   { href: '/vendor/submissions', label: 'Submissions', icon: FileClock, permission: 'submission:view' },
   { href: '/vendor/analytics', label: 'Analytics', icon: BarChart3, permission: 'analytics:view' },
   { href: '/vendor/team', label: 'Team', icon: UsersRound, permission: 'team:manage' }
@@ -61,15 +67,36 @@ function isActive(pathname: string, href: string): boolean {
 export function VendorShell({
   children,
   vendor,
+  vendorSlug,
   role,
-  permissions
+  permissions,
+  studioCapabilities
 }: VendorShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const permissionSet = new Set(permissions);
   const visibleNavigation = navigation.filter(
-    item => !item.permission || permissionSet.has(item.permission)
+    item =>
+      (!item.permission || permissionSet.has(item.permission)) &&
+      (!item.capability || studioCapabilities[item.capability])
   );
+
+  const handleSignOut = async () => {
+    if (signingOut) return;
+
+    setSigningOut(true);
+
+    try {
+      await signOut();
+      setMobileOpen(false);
+      router.replace('/account');
+      router.refresh();
+    } finally {
+      setSigningOut(false);
+    }
+  };
 
   const sidebar = (
     <div className="flex h-full flex-col">
@@ -112,11 +139,24 @@ export function VendorShell({
         <p className="text-[9px] font-bold uppercase text-muted-foreground">
           {role.replaceAll('_', ' ')}
         </p>
-        <Link
-          href="/store"
-          className="mt-3 block rounded-full border border-border px-3 py-2 text-center text-[9px] font-bold">
-          Open Store
-        </Link>
+        <div className="mt-3 space-y-1">
+          <Link
+            href={`/shops/${encodeURIComponent(vendorSlug)}`}
+            onClick={() => setMobileOpen(false)}
+            className="group flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground">
+            <span>Open Store</span>
+            <Store className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+
+          <button
+            type="button"
+            onClick={handleSignOut}
+            disabled={signingOut}
+            className="group flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60">
+            <span>{signingOut ? 'Signing out?' : 'Log Out'}</span>
+            <LogOut className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </button>
+        </div>
       </div>
     </div>
   );

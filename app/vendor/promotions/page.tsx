@@ -36,6 +36,12 @@ export default async function VendorPromotionsPage({
     throw new Error('Promotion access is required.');
   }
 
+  if (!access.studio.capabilities.promotions) {
+    throw new Error(
+      `Promotion Studio is not available on the ${access.studio.tier.toLowerCase()} Vendor Studio tier.`
+    );
+  }
+
   const { edit } = await searchParams;
   const [promotions, products, media, editing] = await Promise.all([
     prisma.promotion.findMany({
@@ -74,17 +80,25 @@ export default async function VendorPromotionsPage({
       : null
   ]);
 
+  const promotionLimit = access.studio.limits.promotions;
+  const hasPromotionCapacity =
+    promotionLimit === null || promotions.length < promotionLimit;
+  const promotionQuota =
+    promotionLimit === null
+      ? `${promotions.length} · Unlimited`
+      : `${promotions.length} / ${promotionLimit}`;
+
   return (
     <AdminPage>
       <div className="mx-auto max-w-[96rem] space-y-5">
         <AdminPageHeader
-          eyebrow="Vendor offers"
+          eyebrow={`${access.vendor.name} · ${access.studio.tier} Studio`}
           title="Promotion Studio"
-          description="Design controlled offers for your published products. Workspace approval is required before public activation."
+          description="Design controlled offers for your published products. Waffi Market approval is required before public activation."
         />
 
         <section className="grid gap-3 sm:grid-cols-3">
-          <AdminMetric icon={BadgePercent} label="Promotions" value={promotions.length} />
+          <AdminMetric icon={BadgePercent} label="Promotions" value={promotionQuota} />
           <AdminMetric
             icon={Clock3}
             label="Awaiting review"
@@ -97,7 +111,8 @@ export default async function VendorPromotionsPage({
           />
         </section>
 
-        {access.permissions.has('promotion:manage') ? (
+        {access.permissions.has('promotion:manage') &&
+        (editing || hasPromotionCapacity) ? (
           <AdminPanel
             title={editing ? `Edit ${editing.title}` : 'Create promotion'}
             description="Only your active published products and your own Media Studio assets can be submitted.">
@@ -154,23 +169,27 @@ export default async function VendorPromotionsPage({
                 />
               </Field>
 
-              <Field label="Starts">
-                <input
-                  name="startsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeLocal(editing?.startsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+              {access.studio.capabilities.scheduling ? (
+                <>
+                  <Field label="Starts">
+                    <input
+                      name="startsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeLocal(editing?.startsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
 
-              <Field label="Ends">
-                <input
-                  name="endsAt"
-                  type="datetime-local"
-                  defaultValue={dateTimeLocal(editing?.endsAt)}
-                  className={adminFieldClass}
-                />
-              </Field>
+                  <Field label="Ends">
+                    <input
+                      name="endsAt"
+                      type="datetime-local"
+                      defaultValue={dateTimeLocal(editing?.endsAt)}
+                      className={adminFieldClass}
+                    />
+                  </Field>
+                </>
+              ) : null}
 
               <Field label="Requested priority (0–10)">
                 <input
