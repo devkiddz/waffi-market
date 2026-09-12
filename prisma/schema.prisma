@@ -19,6 +19,10 @@ model User {
   uploadedMediaAssets  MediaAsset[]          @relation("MediaUploadedBy")
   ownedVendorProfiles  VendorProfile[]       @relation("VendorOwner")
   vendorMemberships    VendorMembership[]
+  requestedVendorCategoryAccesses VendorCategoryAccess[]       @relation("VendorCategoryAccessRequester")
+  reviewedVendorCategoryAccesses  VendorCategoryAccess[]       @relation("VendorCategoryAccessReviewer")
+  submittedCatalogRequests        CatalogVocabularyRequest[]   @relation("CatalogVocabularyRequester")
+  reviewedCatalogRequests         CatalogVocabularyRequest[]   @relation("CatalogVocabularyReviewer")
   id                   String                @id
   name                 String
   email                String
@@ -196,6 +200,368 @@ model ExperienceProfile {
 }
 
 // ============================================================
+// MARKETPLACE TAXONOMY FOUNDATION
+// ============================================================
+
+model MarketplaceMarket {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  slug  String
+  label String
+
+  aliases String[] @default([])
+
+  iconName    String?
+  image       String?
+  coverImages String[] @default([])
+
+  shortDescription String?
+  description      String?
+  accentColor      String?
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  vendorAssignments VendorMarketAssignment[]
+  categories        Category[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, slug])
+  @@unique([id, workspaceId])
+  @@index([workspaceId, active, position])
+  @@map("marketplace_market")
+}
+
+model VendorMarketAssignment {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  vendorProfileId String
+  vendorProfile   VendorProfile @relation(fields: [vendorProfileId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  marketId String
+  market   MarketplaceMarket @relation(fields: [marketId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  categoryAccesses VendorCategoryAccess[]
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([vendorProfileId, marketId])
+  @@unique([vendorProfileId, marketId, workspaceId])
+  @@index([workspaceId, active])
+  @@index([marketId, active])
+  @@index([vendorProfileId, active])
+  @@map("vendor_market_assignment")
+}
+
+enum CatalogAttributeValueMode {
+  CONTROLLED
+  TEXT
+  NUMBER
+  BOOLEAN
+  MEASUREMENT
+}
+
+enum VendorCategoryAccessStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum CatalogVocabularyRequestType {
+  CATEGORY
+  SUBCATEGORY
+  BRAND
+  TAG
+  ATTRIBUTE
+  ATTRIBUTE_VALUE
+}
+
+enum CatalogVocabularyRequestStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  MERGED
+}
+
+model CategoryBrandEligibility {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  brandId String
+  brand   Brand @relation(fields: [brandId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, brandId])
+  @@index([workspaceId, categoryId, active, position])
+  @@index([workspaceId, brandId, active])
+  @@map("category_brand_eligibility")
+}
+
+model CatalogTag {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  slug  String
+  label String
+
+  aliases     String[] @default([])
+  description String?
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  categoryEligibilities CategoryTagEligibility[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, slug])
+  @@unique([id, workspaceId])
+  @@index([workspaceId, active, position])
+  @@map("catalog_tag")
+}
+
+model CategoryTagEligibility {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  tagId String
+  tag   CatalogTag @relation(fields: [tagId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, tagId])
+  @@index([workspaceId, categoryId, active, position])
+  @@index([workspaceId, tagId, active])
+  @@map("category_tag_eligibility")
+}
+
+model CatalogAttribute {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  slug  String
+  label String
+
+  aliases String[] @default([])
+
+  valueMode CatalogAttributeValueMode @default(CONTROLLED)
+  unitFamily String?
+  description String?
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  values         CatalogAttributeValue[]
+  categoryGuides CategoryAttributeGuide[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, slug])
+  @@unique([id, workspaceId])
+  @@index([workspaceId, active, position])
+  @@map("catalog_attribute")
+}
+
+model CatalogAttributeValue {
+  id String @id @default(cuid())
+
+  workspaceId String
+
+  attributeId String
+  attribute   CatalogAttribute @relation(fields: [attributeId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  slug  String
+  label String
+
+  aliases String[] @default([])
+  numericValue Decimal? @db.Decimal(18, 6)
+  unit         String?
+  colorHex     String?
+  metadata     Json?
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  categoryAllowances CategoryAttributeAllowedValue[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([attributeId, slug])
+  @@unique([id, attributeId, workspaceId])
+  @@index([workspaceId, attributeId, active, position])
+  @@map("catalog_attribute_value")
+}
+
+model CategoryAttributeGuide {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  attributeId String
+  attribute   CatalogAttribute @relation(fields: [attributeId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  required        Boolean @default(false)
+  variantAxis     Boolean @default(false)
+  filterable      Boolean @default(true)
+  searchable      Boolean @default(true)
+  customerVisible Boolean @default(true)
+  vendorEditable  Boolean @default(true)
+  allowCustomValue Boolean @default(false)
+  position        Int     @default(0)
+
+  allowedValues CategoryAttributeAllowedValue[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, attributeId])
+  @@unique([categoryId, attributeId, workspaceId])
+  @@index([workspaceId, categoryId, position])
+  @@map("category_attribute_guide")
+}
+
+model CategoryAttributeAllowedValue {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  categoryId  String
+  attributeId String
+  guide       CategoryAttributeGuide @relation(fields: [categoryId, attributeId, workspaceId], references: [categoryId, attributeId, workspaceId], onDelete: Cascade)
+
+  attributeValueId String
+  attributeValue   CatalogAttributeValue @relation(fields: [attributeValueId, attributeId, workspaceId], references: [id, attributeId, workspaceId], onDelete: Cascade)
+
+  active   Boolean @default(true)
+  position Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, attributeValueId])
+  @@index([workspaceId, categoryId, attributeId, active, position])
+  @@map("category_attribute_allowed_value")
+}
+
+model VendorCategoryAccess {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  vendorProfileId String
+  vendorProfile   VendorProfile @relation("VendorCategoryAccessVendor", fields: [vendorProfileId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  marketId         String
+  marketAssignment VendorMarketAssignment @relation(fields: [vendorProfileId, marketId, workspaceId], references: [vendorProfileId, marketId, workspaceId], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId, marketId, workspaceId], references: [id, marketId, workspaceId], onDelete: Cascade)
+
+  requestedByUserId String
+  requestedBy       User @relation("VendorCategoryAccessRequester", fields: [requestedByUserId], references: [id], onDelete: Restrict)
+
+  reviewedByUserId String?
+  reviewedBy       User? @relation("VendorCategoryAccessReviewer", fields: [reviewedByUserId], references: [id], onDelete: SetNull)
+
+  status     VendorCategoryAccessStatus @default(PENDING)
+  reason     String?
+  reviewNote String?
+
+  requestedAt DateTime  @default(now())
+  reviewedAt  DateTime?
+  approvedAt  DateTime?
+  suspendedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([vendorProfileId, categoryId])
+  @@index([workspaceId, vendorProfileId, status])
+  @@index([workspaceId, categoryId, status])
+  @@map("vendor_category_access")
+}
+
+model CatalogVocabularyRequest {
+  id String @id @default(cuid())
+
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  vendorProfileId String
+  vendorProfile   VendorProfile @relation(fields: [vendorProfileId, workspaceId], references: [id, workspaceId], onDelete: Cascade)
+
+  requestedByUserId String
+  requestedBy       User @relation("CatalogVocabularyRequester", fields: [requestedByUserId], references: [id], onDelete: Restrict)
+
+  reviewedByUserId String?
+  reviewedBy       User? @relation("CatalogVocabularyReviewer", fields: [reviewedByUserId], references: [id], onDelete: SetNull)
+
+  requestType CatalogVocabularyRequestType
+  status      CatalogVocabularyRequestStatus @default(PENDING)
+
+  requestedLabel       String
+  requestedDescription String?
+  reason               String?
+  evidenceUrls         String[] @default([])
+  context              Json?
+
+  reviewNote       String?
+  resolvedEntityId String?
+
+  submittedAt DateTime  @default(now())
+  reviewedAt  DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  @@index([workspaceId, vendorProfileId, status])
+  @@index([workspaceId, requestType, status, submittedAt])
+  @@map("catalog_vocabulary_request")
+}
+
+// ============================================================
 // CATALOG
 // ============================================================
 
@@ -203,6 +569,14 @@ model Category {
   id    String @id
   slug  String @unique
   label String
+
+  workspaceId String?
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  marketId String?
+  market   MarketplaceMarket? @relation(fields: [marketId, workspaceId], references: [id, workspaceId], onDelete: Restrict)
+
+  aliases String[] @default([])
 
   iconName    String?
   image       String?
@@ -216,12 +590,19 @@ model Category {
   active   Boolean @default(true)
   position Int     @default(0)
 
-  subcategories Subcategory[]
-  products      Product[]
+  subcategories        Subcategory[]
+  products             Product[]
+  brandEligibilities   CategoryBrandEligibility[]
+  tagEligibilities     CategoryTagEligibility[]
+  attributeGuides      CategoryAttributeGuide[]
+  vendorAccesses       VendorCategoryAccess[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([id, workspaceId])
+  @@unique([id, marketId, workspaceId])
+  @@index([workspaceId, marketId, active, position])
   @@index([active, position])
   @@map("category")
 }
@@ -252,17 +633,31 @@ model Brand {
   slug String @unique
   name String
 
+  workspaceId String?
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  parentBrandId String?
+  parentBrand   Brand?  @relation("BrandHierarchy", fields: [parentBrandId, workspaceId], references: [id, workspaceId], onDelete: Restrict)
+  childBrands   Brand[] @relation("BrandHierarchy")
+
+  aliases String[] @default([])
+
   description String?
   logo        String?
   image       String?
 
-  active Boolean @default(true)
+  active   Boolean @default(true)
+  position Int     @default(0)
 
-  products Product[]
+  products             Product[]
+  categoryEligibilities CategoryBrandEligibility[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([id, workspaceId])
+  @@index([workspaceId, active, position])
+  @@index([parentBrandId])
   @@map("brand")
 }
 
@@ -1076,6 +1471,18 @@ model Workspace {
   storeStudioCampaigns    StoreStudioCampaign[]
   mediaAssets             MediaAsset[]
   vendors                 VendorProfile[]
+  marketplaceMarkets      MarketplaceMarket[]
+  vendorMarketAssignments VendorMarketAssignment[]
+  categories                 Category[]
+  brands                     Brand[]
+  catalogTags                CatalogTag[]
+  catalogAttributes          CatalogAttribute[]
+  categoryBrandEligibilities CategoryBrandEligibility[]
+  categoryTagEligibilities   CategoryTagEligibility[]
+  categoryAttributeGuides    CategoryAttributeGuide[]
+  categoryAttributeValues    CategoryAttributeAllowedValue[]
+  vendorCategoryAccesses     VendorCategoryAccess[]
+  catalogVocabularyRequests  CatalogVocabularyRequest[]
   storeCollections        StoreCollection[]
   notifications           Notification[]
   notificationPreferences NotificationPreference[]
@@ -2723,6 +3130,9 @@ model VendorProfile {
   studioEntitlement VendorStudioEntitlement?
 
   members     VendorMembership[]
+  marketAssignments VendorMarketAssignment[]
+  categoryAccesses   VendorCategoryAccess[]     @relation("VendorCategoryAccessVendor")
+  catalogRequests    CatalogVocabularyRequest[]
   products    Product[]
   promotions  Promotion[]
   collections StoreCollection[]
@@ -2743,6 +3153,7 @@ model VendorProfile {
   supportCases               SupportCase[]
 
   @@unique([workspaceId, slug])
+  @@unique([id, workspaceId])
   @@index([workspaceId, status, active])
   @@index([ownerUserId])
   @@index([logoMediaAssetId])
