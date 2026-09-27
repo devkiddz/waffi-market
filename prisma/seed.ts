@@ -13,6 +13,8 @@ import { seedHistorySettings } from './seeds/history-settings.seed';
 import { seedAdminAccounts } from './seeds/admin.seed';
 import {
   assignShelseaShowcaseCatalog,
+  seedFeaturedShopProducts,
+  seedShelseaSpotlightBanners,
   seedMarketplaceVendors
 } from './seeds/vendor.seed';
 
@@ -70,6 +72,15 @@ async function main() {
       shelseaVendorId: vendors.shelsea.id
     }
   );
+
+  await seedFeaturedShopProducts(prisma, {
+    workspaceId: workspaces.live.id,
+    vendors: vendors.all
+  });
+  await seedShelseaSpotlightBanners(prisma, {
+    workspaceId: workspaces.live.id,
+    shelseaVendorId: vendors.shelsea.id
+  });
 
   await seedCommerce(
     prisma,

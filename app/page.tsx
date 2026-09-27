@@ -1,24 +1,21 @@
 import HomeStorefront from '@/components/home/HomeStorefront';
-
-import { prisma } from '@/lib/prisma';
+import MarketplaceCarousel from '@/features/marketplace-carousel/MarketplaceCarousel';
+import { getVendorDirectory } from '@/features/vendor-storefront/server/getVendorStorefront';
+import { connection } from 'next/server';
+import { Suspense } from 'react';
+import CategoryNavigation from '@/components/navigation/CategoryNavigation';
 
 export default async function HomeRoute() {
-  const hero = await prisma.storefrontHero
-    .findFirst({
-      where: {
-        enabled: true,
+  await connection();
+  const directory = await getVendorDirectory().catch(() => null);
 
-        workspace: {
-          mode: 'LIVE',
-          active: true
-        }
-      },
-
-      orderBy: {
-        updatedAt: 'desc'
-      }
-    })
-    .catch(() => null);
-
-  return <HomeStorefront hero={hero} />;
+  return (
+    <>
+      <MarketplaceCarousel />
+      <div className="sticky top-[var(--app-navbar-height)] z-[100] min-w-0">
+        <Suspense fallback={null}><CategoryNavigation /></Suspense>
+      </div>
+      <HomeStorefront vendors={directory?.vendors ?? []} shopsAvailable={Boolean(directory)} />
+    </>
+  );
 }

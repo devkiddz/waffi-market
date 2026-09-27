@@ -3,7 +3,7 @@
 import { Suspense } from 'react';
 
 import Image from 'next/image';
-import { Crown, Heart, LogOut, ShieldCheck, ShoppingCart } from 'lucide-react';
+import { Crown, Heart, LogOut, ShieldCheck, ShoppingCart, Store } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import {
@@ -15,10 +15,12 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  useSidebar
 } from '@/components/ui/sidebar';
 
 import { useCatalog } from '@/features/catalog';
+import { MarketplaceLink } from '@/features/commerce-mode/components/MarketplaceLink';
 
 import { useCart } from '@/features/cart';
 import { PWAInstallControl } from '@/features/pwa';
@@ -60,16 +62,16 @@ function SidebarShopMenu() {
             isActive={activeCategory === category.slug}
             onClick={() => handleCategoryChange(category.slug)}
             tooltip={category.label}
-            className="h-12 rounded-2xl px-2 transition-all data-[active=true]:bg-secondary/10 data-[active=true]:text-secondary">
+            className="h-12 rounded-xl px-2 transition-all data-[active=true]:bg-secondary/10 data-[active=true]:text-secondary group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-0!">
             <Image
               src={category.image}
               alt={category.label}
               width={40}
               height={40}
-              className="size-10 shrink-0 rounded-xl object-cover"
+              className="size-10 shrink-0 rounded-lg object-cover group-data-[collapsible=icon]:size-9"
             />
 
-            <span className="font-semibold">{category.label}</span>
+            <span className="font-semibold group-data-[collapsible=icon]:hidden">{category.label}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       ))}
@@ -79,6 +81,8 @@ function SidebarShopMenu() {
 
 export function AppSidebar() {
   const router = useRouter();
+  const { state, isMobile } = useSidebar();
+  const compact = state === 'collapsed' && !isMobile;
 
   const { user, isAuthenticated, isPending, signOut } = useIdentity();
 
@@ -96,14 +100,12 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon" style={{ top: 'var(--app-navbar-height)', height: 'calc(100svh - var(--app-navbar-height))' }}>
       <div className="flex h-full flex-col overflow-hidden rounded-none shadow-none backdrop-blur-xl">
-        <SidebarHeader className="px-4 pb-3 pt-4">
-          <SidebarHeaderContent />
-        </SidebarHeader>
+        {!compact ? <SidebarHeader className="px-4 pb-3 pt-4"><SidebarHeaderContent /></SidebarHeader> : null}
 
-        <SidebarContent className="px-3">
-          <SidebarGroup className="p-3">
+        <SidebarContent className={compact ? 'px-1.5 pt-3' : 'px-3'}>
+          <SidebarGroup className={compact ? 'p-0' : 'p-3'}>
             <SidebarGroupLabel className="mb-2 px-1 text-xs font-bold uppercase tracking-wide text-muted-foreground">
               Shop
             </SidebarGroupLabel>
@@ -117,9 +119,13 @@ export function AppSidebar() {
               }>
               <SidebarShopMenu />
             </Suspense>
+            <MarketplaceLink className="mt-2 flex h-10 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-sidebar-foreground transition hover:bg-sidebar-accent group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0" >
+              <Store className="size-5 shrink-0" />
+              <span className="group-data-[collapsible=icon]:hidden">Shops</span>
+            </MarketplaceLink>
           </SidebarGroup>
 
-          <div className="mt-4 rounded-3xl border border-white/5 bg-background/50 p-4">
+          {!compact ? <div className="mt-4 rounded-3xl border border-white/5 bg-background/50 p-4">
             <div className="flex items-center gap-2">
               <div className="flex size-9 items-center justify-center rounded-2xl bg-accent/15 text-accent">
                 <Crown className="size-4" />
@@ -142,10 +148,16 @@ export function AppSidebar() {
               className="mt-4 w-full rounded-2xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground transition hover:opacity-90">
               Upgrade
             </button>
-          </div>
+          </div> : null}
         </SidebarContent>
 
-        <SidebarFooter className="mt-auto space-y-2 p-3">
+        {compact ? (
+          <SidebarFooter className="mt-auto items-center gap-1 p-1.5">
+            <button type="button" title="Wishlist" aria-label="Wishlist" onClick={() => router.push('/wishlist')} className="grid size-9 place-items-center rounded-md hover:bg-muted"><Heart className="size-4" /></button>
+            <button type="button" title="Cart" aria-label="Cart" onClick={() => router.push('/cart')} className="grid size-9 place-items-center rounded-md hover:bg-muted"><ShoppingCart className="size-4" /></button>
+            <button type="button" title="Account" aria-label="Account" onClick={() => router.push('/account')} className="grid size-9 place-items-center rounded-md hover:bg-muted"><Crown className="size-4" /></button>
+          </SidebarFooter>
+        ) : <SidebarFooter className="mt-auto space-y-2 p-3">
           <PWAInstallControl presentation="sidebar" />
 
           <div className="rounded-3xl border border-white/5 bg-background/50 p-4">
@@ -257,7 +269,7 @@ export function AppSidebar() {
               </div>
             )}
           </div>
-        </SidebarFooter>
+        </SidebarFooter>}
       </div>
     </Sidebar>
   );

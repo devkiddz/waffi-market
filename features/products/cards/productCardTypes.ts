@@ -7,7 +7,8 @@ export type ProductCardPresentation =
   | 'standard'
   | 'featured'
   | 'collection'
-  | 'hero';
+  | 'hero'
+  | 'compact';
 
 export type ProductCardActions = {
   /**

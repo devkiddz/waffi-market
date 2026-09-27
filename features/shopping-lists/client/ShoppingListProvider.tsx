@@ -24,6 +24,7 @@ import {
   createShoppingList,
   getShoppingLists,
   removeShoppingListItem,
+  ShoppingListRequestError,
   updateShoppingList,
   updateShoppingListItem,
   updateShoppingListPublication,
@@ -121,11 +122,13 @@ export function ShoppingListProvider({ workspaceId, children }: ShoppingListProv
       const message = getErrorMessage(requestError);
       setLists([]);
       setError(message);
-      feedback.error({
-        title: 'Shopping plans unavailable',
-        description: message,
-        groupKey: 'shopping-lists:load'
-      });
+      if (!(requestError instanceof ShoppingListRequestError && requestError.status === 401)) {
+        feedback.error({
+          title: 'Shopping plans unavailable',
+          description: message,
+          groupKey: 'shopping-lists:load'
+        });
+      }
     } finally {
       setLoading(false);
     }

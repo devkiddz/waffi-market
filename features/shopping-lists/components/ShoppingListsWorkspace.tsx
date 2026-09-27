@@ -68,6 +68,9 @@ export function ShoppingListsWorkspace() {
         <ArrowLeft className="size-4" />
         Back to dashboard
       </Link>
+      <Link href="/store#public-shopping-list-feed-slot" className="ml-4 inline-flex text-sm font-medium text-primary hover:underline">
+        Browse approved public lists
+      </Link>
 
       <section className="mt-6 overflow-hidden rounded-[2rem] border bg-card">
         <div className="relative px-5 py-8 sm:px-8 sm:py-10">

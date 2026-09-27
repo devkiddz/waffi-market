@@ -81,7 +81,7 @@ export default function CustomerExperienceNavigationPortal() {
 
       {targets.accountHistory
         ? createPortal(
-            <div className="lg:hidden">
+            <div>
               <ExperienceHistoryControl
                 presentation="account-sheet"
                 onResolved={closeAccountSheet}

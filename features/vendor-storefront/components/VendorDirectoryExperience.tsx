@@ -1,5 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useFollowingShops } from '../client/useFollowingShops';
 
 import {
   ArrowRight,
@@ -23,6 +27,9 @@ export default function VendorDirectoryExperience({
   workspaceName,
   vendors
 }: VendorDirectoryExperienceProps) {
+  const showFollowing = useSearchParams().get('view') === 'following';
+  const { following, toggle } = useFollowingShops();
+  const visibleVendors = showFollowing ? vendors.filter(vendor => following.includes(vendor.slug)) : vendors;
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[96rem] px-3 py-5 sm:px-5 sm:py-8 lg:px-7">
       <header className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/75 p-6 shadow-xl sm:p-9">
@@ -35,7 +42,7 @@ export default function VendorDirectoryExperience({
           </span>
 
           <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
-            Shops on {workspaceName}
+            {showFollowing ? 'Shops you follow' : `Shops on ${workspaceName}`}
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
@@ -45,9 +52,9 @@ export default function VendorDirectoryExperience({
         </div>
       </header>
 
-      {vendors.length > 0 ? (
+      {visibleVendors.length > 0 ? (
         <section className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {vendors.map(vendor => (
+          {visibleVendors.map(vendor => (
             <article
               key={vendor.id}
               className="group rounded-[2rem] border border-border/60 bg-card/75 p-5 shadow-lg transition hover:-translate-y-0.5 hover:border-primary/25">
@@ -90,6 +97,10 @@ export default function VendorDirectoryExperience({
                 <Metric icon={Clapperboard} value={vendor.reelCount} label="Reels" />
               </div>
 
+              <button type="button" onClick={() => toggle(vendor.slug)} aria-pressed={following.includes(vendor.slug)}
+                className="mt-4 text-xs font-semibold text-primary hover:underline">
+                {following.includes(vendor.slug) ? 'Following · Unfollow' : 'Follow shop'}
+              </button>
               <Link
                 href={`/shops/${encodeURIComponent(vendor.slug)}`}
                 className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-foreground px-4 text-xs font-bold text-background transition group-hover:bg-primary group-hover:text-primary-foreground">
@@ -103,10 +114,11 @@ export default function VendorDirectoryExperience({
         <section className="mt-7 grid min-h-72 place-items-center rounded-[2rem] border border-dashed border-border/70 bg-card/50 p-8 text-center">
           <div>
             <Store className="mx-auto size-9 text-muted-foreground" />
-            <h2 className="mt-4 text-xl font-bold">No public shops yet</h2>
+            <h2 className="mt-4 text-xl font-bold">{showFollowing ? 'No followed shops yet' : 'No public shops yet'}</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Approved vendor storefronts will appear here automatically.
+              {showFollowing ? 'Visit a shop and choose Follow to see it here.' : 'Approved vendor storefronts will appear here automatically.'}
             </p>
+            {showFollowing ? <Link href="/shops" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">Browse shops</Link> : null}
           </div>
         </section>
       )}

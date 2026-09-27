@@ -17,6 +17,7 @@ import { isCustomerExperienceRoute } from '@/features/customer-experience/custom
 import CustomerExperienceNavigationPortal from '@/features/experience-stack/CustomerExperienceNavigationPortal';
 import { ExperienceStackProvider } from '@/features/experience-stack/ExperienceStackProvider';
 import { useWorkspace } from '@/features/workspace';
+import { useCatalog } from '@/features/catalog';
 
 import { GlobalExperienceRuntime } from '@/features/feed-experience/runtime';
 
@@ -24,20 +25,18 @@ import GlobalCustomerFeedPortal from './GlobalCustomerFeedPortal';
 
 import { cn } from '@/lib/utils';
 
-const DESKTOP_DISCOVERY_QUERY = '(min-width: 1024px)';
-
 type DiscoverySurfaceProps = {
   pathname: string;
   workspaceId: string;
-  desktopViewport: boolean;
 };
 
-function DiscoverySurface({ pathname, workspaceId, desktopViewport }: DiscoverySurfaceProps) {
+function DiscoverySurface({ pathname, workspaceId }: DiscoverySurfaceProps) {
   /* AJ_PRODUCT_PAGE_HUB_HANDOFF_COLLAPSED_V2K */
   const [collapsed, setCollapsed] = useState(
     () =>
       !pathname.startsWith('/account')
   );
+  const [expanded, setExpanded] = useState(false);
 
   const [
     hubResetVersion,
@@ -50,6 +49,7 @@ useEffect(() => {
         setCollapsed(
           true
         );
+        setExpanded(false);
 
         setHubResetVersion(
           current =>
@@ -76,27 +76,30 @@ useEffect(() => {
         <CustomerExperienceNavigationPortal />
         <GlobalCustomerFeedPortal />
 
-        {desktopViewport ? (
-          <div
+        <div
             key={`desktop-hub:${hubResetVersion}`}
             data-aj-fluid-discovery-hub-width
             className={cn(
-              'sticky top-[calc(var(--app-navbar-height)+0.75rem)] z-40 hidden h-[calc(100dvh-var(--app-navbar-height)-1.5rem)] shrink-0 overflow-hidden py-3 pl-0 pr-3 transition-[width] duration-300 lg:block',
-              collapsed
-                ? 'w-20'
-                : 'w-[var(--app-panel-width)]'
+              'hidden shrink-0 overflow-hidden transition-[width] duration-300 lg:block',
+              expanded && !collapsed
+                ? 'fixed inset-x-0 bottom-0 top-[var(--app-navbar-height)] z-[115] w-screen bg-background p-0'
+                : cn(
+                    'sticky top-[var(--app-navbar-height)] z-40 h-[calc(100dvh-var(--app-navbar-height))] border-l border-border',
+                    collapsed ? 'w-20' : 'w-[var(--app-panel-width)]'
+                  )
             )}>
             <DesktopDiscoveryRail
               registry={discoveryRegistry}
               collapsed={collapsed}
-              onCollapsedChange={setCollapsed}
+              expanded={expanded}
+              onExpandedChange={setExpanded}
+              onCollapsedChange={next => {
+                setCollapsed(next);
+                if (next) setExpanded(false);
+              }}
             />
-          </div>
-        ) : (
-          <MobileDiscoverySheetHost
-            key={`mobile-hub:${hubResetVersion}`}
-          />
-        )}
+        </div>
+        <MobileDiscoverySheetHost key={`mobile-hub:${hubResetVersion}`} />
       </ExperienceStackProvider>
     </GlobalExperienceRuntime>
   );
@@ -104,35 +107,25 @@ useEffect(() => {
 
 export default function GlobalDiscoveryHost() {
   const pathname = usePathname();
-  const { activeWorkspace } = useWorkspace();
+  const { activeWorkspace, loading: workspaceLoading } = useWorkspace();
+  const { loading: catalogLoading } = useCatalog();
 
-  const [desktopViewport, setDesktopViewport] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(DESKTOP_DISCOVERY_QUERY);
-
-    const synchronizeViewport = () => {
-      setDesktopViewport(mediaQuery.matches);
-    };
-
-    synchronizeViewport();
-    mediaQuery.addEventListener('change', synchronizeViewport);
-
-    return () => {
-      mediaQuery.removeEventListener('change', synchronizeViewport);
-    };
-  }, []);
-
-  if (!isCustomerExperienceRoute(pathname) || desktopViewport === null) {
+  if (!isCustomerExperienceRoute(pathname)) {
     return null;
+  }
+
+  if (workspaceLoading || catalogLoading) {
+    return (
+      <aside aria-label="Discovery Hub loading" className="sticky top-[var(--app-navbar-height)] hidden h-[calc(100dvh-var(--app-navbar-height))] w-20 shrink-0 border-l border-border bg-card lg:grid lg:place-items-start">
+        <span className="mx-auto mt-4 size-10 animate-pulse rounded-md bg-muted" />
+      </aside>
+    );
   }
 
   return (
     <DiscoverySurface
-      key={desktopViewport ? 'desktop' : 'mobile'}
       pathname={pathname}
       workspaceId={activeWorkspace?.id ?? 'guest-live'}
-      desktopViewport={desktopViewport}
     />
   );
 }

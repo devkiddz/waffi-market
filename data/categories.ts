@@ -1,6 +1,8 @@
 import {
   BadgePercent,
   LayoutGrid,
+  House,
+  Smartphone,
   Scissors,
   Shirt,
   ShoppingBag,
@@ -153,6 +155,38 @@ export const categories = [
       { label: "Men's Fragrances", slug: 'men-fragrances' },
       { label: 'Unisex Fragrances', slug: 'unisex-fragrances' },
       { label: 'Perfume Oils', slug: 'perfume-oils' }
+    ]
+  },
+  {
+    id: 'electronics',
+    slug: 'electronics',
+    label: 'Electronics',
+    icon: Smartphone,
+    accentColor: '#6d6470',
+    image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=85&w=1200&auto=format&fit=crop',
+    coverImages: ['https://images.unsplash.com/photo-1498049794561-7780e7231661?q=85&w=1200&auto=format&fit=crop'],
+    shortDescription: 'Devices and useful technology for everyday life.',
+    description: 'Browse phones, accessories, electronics and connected essentials as vendors publish them.',
+    subcategories: [
+      { label: 'Phones', slug: 'phones' },
+      { label: 'Accessories', slug: 'electronics-accessories' },
+      { label: 'Home Electronics', slug: 'home-electronics' }
+    ]
+  },
+  {
+    id: 'home-living',
+    slug: 'home-living',
+    label: 'Home & Living',
+    icon: House,
+    accentColor: '#c8a45d',
+    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=85&w=1200&auto=format&fit=crop',
+    coverImages: ['https://images.unsplash.com/photo-1484154218962-a197022b5858?q=85&w=1200&auto=format&fit=crop'],
+    shortDescription: 'Practical pieces for your home and daily routine.',
+    description: 'Explore home essentials, appliances and décor as vendors publish them.',
+    subcategories: [
+      { label: 'Home Appliances', slug: 'home-appliances' },
+      { label: 'Home Essentials', slug: 'home-essentials' },
+      { label: 'Décor', slug: 'decor' }
     ]
   }
 ];

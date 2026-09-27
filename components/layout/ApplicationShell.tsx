@@ -20,32 +20,34 @@ type ApplicationShellProps = {
 
 export default function ApplicationShell({ children }: ApplicationShellProps) {
   const customerShell = (
-    <SidebarProvider defaultOpen>
-      <AppSidebar />
+    <SidebarProvider defaultOpen className="flex-col">
+      <header className="sticky top-0 z-[120] w-full shrink-0 bg-background" data-app-navbar>
+        <Suspense fallback={null}>
+          <NavbarComponent brandName="Waffi" brandSlug="" />
+        </Suspense>
+      </header>
 
-      <SidebarInset className="min-w-0 overflow-x-clip">
-        <div className="flex min-h-svh min-w-0 flex-col">
-          <header className="sticky top-0 z-[120] shrink-0 bg-background" data-app-navbar>
-            <Suspense fallback={null}>
-              <NavbarComponent brandName="Shelsea" brandSlug="" />
-            </Suspense>
-          </header>
+      <div className="flex min-w-0 flex-1">
+        <AppSidebar />
 
-          <main className="relative flex min-w-0 flex-1 flex-col">
-            <div
-              id="customer-experience-back-slot"
-              className="pointer-events-none absolute inset-x-0 top-0 z-[90] min-w-0 empty:hidden"
-              aria-live="polite"
-            />
+        <SidebarInset className="min-w-0 overflow-x-clip">
+          <div className="flex min-h-[calc(100svh-var(--app-navbar-height))] min-w-0 flex-col">
+            <main className="relative flex min-w-0 flex-1 flex-col">
+              <div
+                id="customer-experience-back-slot"
+                className="pointer-events-none absolute inset-x-0 top-0 z-[90] min-w-0 empty:hidden"
+                aria-live="polite"
+              />
 
-            <MobileApplicationShell>
-              <CustomerExperienceShell>{children}</CustomerExperienceShell>
-            </MobileApplicationShell>
-          </main>
+              <MobileApplicationShell>
+                <CustomerExperienceShell>{children}</CustomerExperienceShell>
+              </MobileApplicationShell>
+            </main>
 
-          <FooterComponent brandName="Shelsea" brandSlug="" />
-        </div>
-      </SidebarInset>
+            <FooterComponent brandName="Waffi" brandSlug="" />
+          </div>
+        </SidebarInset>
+      </div>
 
       <SearchMobileOverlay />
 

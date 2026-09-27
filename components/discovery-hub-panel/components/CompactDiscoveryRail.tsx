@@ -29,7 +29,7 @@ export default function CompactDiscoveryRail({
   onSelectItem
 }: CompactDiscoveryRailProps) {
   return (
-    <section className="flex h-full min-h-0 flex-col items-center rounded-3xl border border-primary/10 bg-card/70 px-2 py-3 shadow-sm backdrop-blur-xl">
+    <section className="flex h-full min-h-0 flex-col items-center rounded-lg border border-primary/10 bg-card/70 px-2 py-3 shadow-sm backdrop-blur-xl">
       <button
         type="button"
         onClick={onExpand}

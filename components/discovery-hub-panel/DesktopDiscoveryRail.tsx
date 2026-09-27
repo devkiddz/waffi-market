@@ -18,6 +18,8 @@ import {
 
 import {
   ChevronRight,
+  Expand,
+  Shrink,
   PanelRightOpen
 } from 'lucide-react';
 
@@ -80,6 +82,8 @@ type DesktopDiscoveryRailProps = {
   registry?: DiscoveryRegistry;
 
   collapsed: boolean;
+  expanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
 
   onCollapsedChange: (
     collapsed: boolean
@@ -94,6 +98,8 @@ export default function DesktopDiscoveryRail({
   registry =
     discoveryRegistry,
   collapsed,
+  expanded,
+  onExpandedChange,
   onCollapsedChange
 }: DesktopDiscoveryRailProps) {
   const pathname =
@@ -450,6 +456,7 @@ export default function DesktopDiscoveryRail({
           ) : (
             <div className="relative h-full min-h-0 w-full overflow-hidden">
               <DiscoveryHubPanel
+                className={expanded ? 'rounded-none border border-border' : 'rounded-lg border border-border'}
                 onGroupSelect={
                   handleNavigatorGroupSelect
                 }
@@ -495,6 +502,15 @@ export default function DesktopDiscoveryRail({
                   ) : null}
                 </div>
               </DiscoveryHubPanel>
+
+              <button
+                type="button"
+                onClick={() => onExpandedChange(!expanded)}
+                aria-label={expanded ? 'Restore Discovery Hub width' : 'Expand Discovery Hub to full width'}
+                title={expanded ? 'Restore width' : 'Expand to full width'}
+                className="absolute right-14 top-3 z-[70] grid size-9 place-items-center rounded-md border border-border bg-background/90 text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground">
+                {expanded ? <Shrink className="size-4" /> : <Expand className="size-4" />}
+              </button>
 
               <button
                 type="button"

@@ -11,6 +11,13 @@ type ShoppingListErrorResponse = {
   error?: string;
 };
 
+export class ShoppingListRequestError extends Error {
+  constructor(message: string, readonly status: number) {
+    super(message);
+    this.name = 'ShoppingListRequestError';
+  }
+}
+
 export type CreateShoppingListInput = {
   workspaceId: string;
   name: string;
@@ -71,7 +78,7 @@ async function readResponse<T>(
         ? data.error
         : 'Unable to complete the shopping list request.';
 
-    throw new Error(message);
+    throw new ShoppingListRequestError(message, response.status);
   }
 
   return data as T;

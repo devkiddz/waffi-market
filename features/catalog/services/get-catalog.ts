@@ -338,12 +338,23 @@ export async function getCatalogCategories(): Promise<CatalogCategoryRecord[]> {
     where: {
       active: true
     },
-    include: {
+    select: {
+      id: true,
+      slug: true,
+      label: true,
+      iconName: true,
+      image: true,
+      coverImages: true,
+      shortDescription: true,
+      description: true,
+      accentColor: true,
+      className: true,
       subcategories: {
         where: {
           active: true
         },
-        orderBy: [{ position: 'asc' }, { label: 'asc' }]
+        orderBy: [{ position: 'asc' }, { label: 'asc' }],
+        select: { slug: true, label: true }
       }
     },
     orderBy: [{ position: 'asc' }, { label: 'asc' }]

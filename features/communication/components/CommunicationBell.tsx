@@ -3,6 +3,7 @@
 import {
   Bell,
   BellRing,
+  PanelsTopLeft,
   Inbox,
   LoaderCircle,
   MessageCircle,
@@ -199,11 +200,10 @@ export function CommunicationBell() {
       open={open}
       onOpenChange={setOpen}>
       <DropdownMenuTrigger
-        aria-label={`Open updates. ${notifications.unreadCount} unread notifications and ${communication.unreadCount} unread messages.`}
-        className="rounded-full outline-none">
-        <div className="flex flex-col gap-1">
-          <div className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-foreground transition hover:bg-muted/80 focus-visible:ring-2 focus-visible:ring-ring/50">
-            <Bell className="size-4" />
+        aria-label={`Open updates and shopping activity. ${notifications.unreadCount} unread notifications and ${communication.unreadCount} unread messages.`}
+      className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <div className="relative flex size-10 shrink-0 items-center justify-center rounded-md text-foreground transition hover:bg-muted">
+            <PanelsTopLeft className="size-5" />
 
             {combinedUnread > 0 ? (
               <span className="absolute -right-1.5 -top-1.5 flex min-h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[9px] font-bold leading-4 text-accent-foreground shadow-sm">
@@ -219,11 +219,6 @@ export function CommunicationBell() {
                 <MessageCircle className="size-2.5" />
               </span>
             ) : null}
-          </div>
-
-          <span className="hidden text-xs md:inline">
-            Updates
-          </span>
         </div>
       </DropdownMenuTrigger>
 

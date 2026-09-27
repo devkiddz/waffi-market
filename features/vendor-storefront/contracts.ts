@@ -13,6 +13,15 @@ export type VendorDirectoryItem = {
   promotionCount: number;
   storyCount: number;
   reelCount: number;
+  banners?: Array<{
+    id: string;
+    mediaUrl: string;
+    mobileMediaUrl: string | null;
+    title: string;
+    description: string | null;
+    actionHref: string;
+    durationSeconds: number;
+  }>;
 };
 
 export type VendorStorefrontPromotion = {

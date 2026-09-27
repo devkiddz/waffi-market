@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 
 import { useActionFeedback } from '@/features/action-feedback';
+import { useFollowingShops } from '../client/useFollowingShops';
 import { useCart } from '@/features/cart';
 import { CommerceStoryRail } from '@/features/commerce-stories';
 import { openCustomerProductExperience } from '@/features/customer-experience';
@@ -42,6 +43,7 @@ export default function VendorStorefrontExperience({
   const router = useRouter();
   const { addToCart } = useCart();
   const { error: showError } = useActionFeedback();
+  const { following, toggle } = useFollowingShops();
 
   const openProduct = useCallback((product: ProductType): void => {
     openCustomerProductExperience({
@@ -179,6 +181,10 @@ export default function VendorStorefrontExperience({
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" aria-pressed={following.includes(storefront.slug)} onClick={() => toggle(storefront.slug)}
+                className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-xs font-semibold text-primary hover:bg-primary/15">
+                {following.includes(storefront.slug) ? 'Following · Unfollow' : 'Follow shop'}
+              </button>
               {storefront.email ? (
                 <a
                   href={`mailto:${storefront.email}`}

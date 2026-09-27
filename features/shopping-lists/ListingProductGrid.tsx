@@ -286,22 +286,20 @@ export function ListingProductGrid({
 
   if (layout === 'rail') {
     return (
-      <div className="group/rail relative min-w-0" style={gridStyle}>
+      <div className="min-w-0" style={gridStyle}>
+        <div className="mb-3 flex justify-end gap-2">
+          <button type="button" aria-label="Scroll products left" disabled={!canScrollLeft} onClick={() => scrollRail(-1)} className="grid size-9 place-items-center rounded-full border border-border bg-card text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-35"><ArrowLeft className="size-4" /></button>
+          <button type="button" aria-label="Scroll products right" disabled={!canScrollRight} onClick={() => scrollRail(1)} className="grid size-9 place-items-center rounded-full border border-border bg-card text-foreground transition hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-35"><ArrowRight className="size-4" /></button>
+        </div>
         <div
           ref={railRef}
           role="region"
           aria-label="Products, scroll horizontally for more"
           tabIndex={0}
           onScroll={updateRailControls}
-          className={`scrollbar-none grid min-w-0 snap-x snap-proximity grid-flow-col grid-rows-1 auto-cols-[calc((100%_-_1.5rem)/2.5)] gap-3 overflow-x-auto sm:auto-cols-[calc((100%_-_3rem)/3.5)] sm:gap-4 ${desktopColumns === 4 ? 'lg:auto-cols-[calc((100%_-_4rem)/4.5)]' : 'lg:auto-cols-[calc((100%_-_5rem)/5.5)]'}`}>
+          className={`scrollbar-none grid min-w-0 snap-x snap-proximity grid-flow-col grid-rows-1 auto-cols-[calc((100%_-_1.5rem)/2.5)] gap-3 overflow-x-auto sm:auto-cols-[calc((100%_-_3rem)/3.5)] sm:gap-4 ${desktopColumns === 4 ? 'lg:auto-cols-[calc((100%_-_4rem)/4.5)]' : 'lg:auto-cols-[calc((100%_-_6rem)/6.5)]'}`}>
           {cards.map(card => <div key={card.key} className="min-w-0 snap-start">{card}</div>)}
         </div>
-        {canScrollLeft ? (
-          <button type="button" aria-label="Scroll products left" onClick={() => scrollRail(-1)} className="absolute left-2 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-card text-foreground shadow-md opacity-0 transition-opacity hover:bg-muted focus-visible:grid focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring sm:grid sm:group-hover/rail:opacity-100 sm:group-focus-within/rail:opacity-100"><ArrowLeft className="size-4" /></button>
-        ) : null}
-        {canScrollRight ? (
-          <button type="button" aria-label="Scroll products right" onClick={() => scrollRail(1)} className="absolute right-2 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-card text-foreground shadow-md opacity-0 transition-opacity hover:bg-muted focus-visible:grid focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring sm:grid sm:group-hover/rail:opacity-100 sm:group-focus-within/rail:opacity-100"><ArrowRight className="size-4" /></button>
-        ) : null}
       </div>
     );
   }

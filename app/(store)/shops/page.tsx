@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import VendorDirectoryExperience from '@/features/vendor-storefront/components/VendorDirectoryExperience';
 import { getVendorDirectory } from '@/features/vendor-storefront/server/getVendorStorefront';
@@ -19,5 +20,5 @@ export default async function ShopsPage() {
     notFound();
   }
 
-  return <VendorDirectoryExperience {...directory} />;
+  return <Suspense fallback={null}><VendorDirectoryExperience {...directory} /></Suspense>;
 }

@@ -102,7 +102,7 @@ function MenuItem({
 
 function getInitials(name?: string) {
   if (!name) {
-    return 'AJ';
+    return 'W';
   }
 
   return name
@@ -140,7 +140,7 @@ function UserTrigger() {
     'Guest';
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-transparent p-1 transition hover:border-white/[0.08] hover:bg-background/55 lg:pr-3">
+    <div className="flex items-center gap-2 rounded-md border border-transparent p-1 transition hover:border-border hover:bg-muted lg:pr-2">
       <Avatar className="size-9 lg:size-10">
         <AvatarImage
           src={user?.image ?? undefined}
@@ -155,16 +155,14 @@ function UserTrigger() {
       </Avatar>
 
       <div className="hidden min-w-0 flex-col items-start lg:flex">
-        <span className="max-w-28 truncate text-sm font-semibold">
+        <span className="max-w-28 truncate text-xs text-muted-foreground">
           {isAuthenticated
-            ? `Hi, ${firstName}`
-            : 'Guest'}
+            ? `Hello, ${firstName}`
+            : 'Hello, Guest'}
         </span>
 
-        <span className="max-w-32 truncate text-[11px] capitalize text-muted-foreground">
-          {isAuthenticated
-            ? `${user?.tier ?? 'member'} member`
-            : 'Explore Shelsea'}
+        <span className="max-w-32 truncate text-sm font-semibold">
+          Account
         </span>
       </div>
     </div>
@@ -260,7 +258,7 @@ export default function UserActionComponent() {
           <SheetHeader className="sticky top-0 z-30 border-b border-border/70 bg-background/82 px-5 pb-5 pt-5 pr-16 text-left shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
             <SheetTitle className="text-base">
               {isAuthenticated
-                ? 'My Shelsea'
+                ? 'My Waffi'
                 : 'Guest Experience'}
             </SheetTitle>
 
@@ -324,7 +322,7 @@ export default function UserActionComponent() {
           <div className="space-y-3 px-3 py-4">
             <div
               id="customer-experience-history-account-slot"
-              className="lg:hidden"
+              className=""
               aria-live="polite"
             />
 

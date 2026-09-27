@@ -9,10 +9,10 @@
 
 @theme inline {
   /* Typography */
-  --font-base: var(--font-inter);
-  --font-heading: var(--font-geist-sans);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-base: var(--font-ui);
+  --font-heading: var(--font-ui);
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-code);
 
   /* Semantic colours */
   --color-background: var(--background);
@@ -81,11 +81,15 @@
 :root {
   color-scheme: light;
 
-  /* Offline-safe application font stacks */
-  --font-inter: 'Segoe UI Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-geist-sans:
-    'Segoe UI Variable Display', 'Segoe UI Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-geist-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  /* One dependable UI family across body text, headings and controls. */
+  --font-ui: 'Segoe UI Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-code: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  /* Story state: brand colours can be refined here without changing the rail. */
+  --story-ring-start: var(--brand-gold);
+  --story-ring-middle: var(--brand-wine);
+  --story-ring-end: var(--brand-navy);
+  --story-ring-viewed: var(--border);
 
   --background: #faf6f1;
   --foreground: #2a171d;
@@ -146,7 +150,7 @@
   --app-card-gap: clamp(0.5rem, 0.35rem + 0.5vw, 0.875rem);
   --app-control-height: clamp(2.5rem, 2.3rem + 0.35vw, 2.875rem);
   --app-card-radius: clamp(1rem, 0.8rem + 0.55vw, 1.75rem);
-  --app-panel-width: clamp(20rem, 29vw, 31rem);
+  --app-panel-width: clamp(19rem, 24vw, 27rem);
   --app-text-caption: clamp(0.72rem, 0.69rem + 0.1vw, 0.78rem);
   --app-text-body: clamp(0.875rem, 0.84rem + 0.12vw, 1rem);
   --app-text-title: clamp(1.2rem, 1rem + 0.65vw, 1.85rem);
@@ -287,6 +291,7 @@
     @apply bg-background text-foreground;
 
     background-color: var(--background);
+    font-family: var(--font-ui);
   }
 
   :where([id]) {

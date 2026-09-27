@@ -147,6 +147,32 @@ export async function getVendorDirectory(): Promise<
     }
   });
 
+  const bannerCampaigns = await prisma.storeStudioCampaign.findMany({
+    where: {
+      workspaceId: workspace.id,
+      vendorProfileId: { in: vendors.map(vendor => vendor.id) },
+      active: true,
+      status: { in: [...LIVE_CAMPAIGN_STATUSES] },
+      type: 'BANNER',
+      ...liveScheduleWhere(now)
+    },
+    select: {
+      id: true,
+      vendorProfileId: true,
+      title: true,
+      description: true,
+      assets: {
+        where: { active: true, mediaType: 'IMAGE' },
+        orderBy: { position: 'asc' },
+        select: {
+          id: true, mediaUrl: true, mobileMediaUrl: true, title: true,
+          description: true, actionHref: true, durationSeconds: true
+        }
+      }
+    },
+    orderBy: [{ adminWeight: 'desc' }, { requestedPriority: 'desc' }]
+  });
+
   const countFor = (
     vendorId: string,
     type: 'STORY' | 'REEL'
@@ -169,7 +195,19 @@ export async function getVendorDirectory(): Promise<
       collectionCount: vendor._count.collections,
       promotionCount: vendor._count.promotions,
       storyCount: countFor(vendor.id, 'STORY'),
-      reelCount: countFor(vendor.id, 'REEL')
+      reelCount: countFor(vendor.id, 'REEL'),
+      banners: bannerCampaigns
+        .filter(campaign => campaign.vendorProfileId === vendor.id)
+        .flatMap(campaign => campaign.assets.map(asset => ({
+          id: asset.id,
+          mediaUrl: asset.mediaUrl,
+          mobileMediaUrl: asset.mobileMediaUrl,
+          title: asset.title ?? campaign.title,
+          description: asset.description ?? campaign.description,
+          actionHref: asset.actionHref?.startsWith('/') && !asset.actionHref.startsWith('//')
+            ? asset.actionHref : `/shops/${encodeURIComponent(vendor.slug)}`,
+          durationSeconds: asset.durationSeconds ?? 6
+        })))
     }))
   };
 }
