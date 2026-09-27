@@ -576,7 +576,7 @@ export async function createProduct(formData: FormData): Promise<void> {
   revalidatePath('/admin/approvals');
   revalidatePath('/admin/analytics');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   redirect(`/admin/products/${product.id}`);
 }
 
@@ -652,5 +652,5 @@ export async function updateProduct(formData: FormData): Promise<void> {
   revalidatePath('/admin/approvals');
   revalidatePath('/admin/analytics');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }

@@ -66,7 +66,7 @@ export default function HomeProductSections({ vendors }: HomeProductSectionsProp
 
   return (
     <div className="mx-auto w-full max-w-7xl px-[var(--app-page-gutter)] pb-12">
-      <ProductSection title={featured.length ? 'Featured products' : 'Fresh from Waffi'} eyebrow="Picked for you" href={featured.length ? '/featured-products' : '/store'} products={featured.length ? featured : products.slice(0, 12)} />
+      <ProductSection title={featured.length ? 'Featured products' : 'Fresh from Waffi'} eyebrow="Picked for you" href={featured.length ? '/featured-products' : '/categories/all'} products={featured.length ? featured : products.slice(0, 12)} />
 
       {featuredShops.map(shop => (
         <VendorSpotlight
@@ -82,7 +82,7 @@ export default function HomeProductSections({ vendors }: HomeProductSectionsProp
           key={category.id}
           title={category.label}
           eyebrow="Explore category"
-          href={`/store?category=${encodeURIComponent(category.slug)}`}
+          href={`/categories/${encodeURIComponent(category.slug)}`}
           products={products.filter(product => product.category === category.slug).slice(0, 12)}
         />
       ))}

@@ -107,13 +107,14 @@ type FeedExperienceProviderProps = {
    * Store rendering a second Hub instance.
    */
   broadcastIntent?: boolean;
+  routeBasePath?: string;
 };
 
 // ============================================================
 // INTENT FACTORY
 // ============================================================
 
-function createIntent(target: ExperienceTarget): FeedIntent {
+function createIntent(target: ExperienceTarget, routeBasePath = '/discover'): FeedIntent {
   const createdAt = new Date().toISOString();
 
   const nonce = `${Date.now()}-${crypto.randomUUID()}`;
@@ -134,8 +135,8 @@ function createIntent(target: ExperienceTarget): FeedIntent {
       const categorySlug = target.categorySlug ?? 'all';
       const route =
         categorySlug === 'all'
-          ? '/store'
-          : `/store?category=${encodeURIComponent(categorySlug)}`;
+          ? routeBasePath
+          : `${routeBasePath}?category=${encodeURIComponent(categorySlug)}`;
 
       return {
         id: `store-discovery:${categorySlug}:${nonce}`,
@@ -155,7 +156,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         type: 'category',
         source: 'user-action',
         categorySlug: target.categorySlug,
-        route: `/store?category=${encodeURIComponent(target.categorySlug)}`,
+        route: `${routeBasePath}?category=${encodeURIComponent(target.categorySlug)}`,
         surface: 'store',
         title: `Browse ${target.categorySlug}`,
         createdAt
@@ -167,7 +168,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         type: 'product',
         source: 'user-action',
         targetId: target.productId,
-        route: `/store?product=${encodeURIComponent(target.productId)}`,
+        route: `${routeBasePath}?product=${encodeURIComponent(target.productId)}`,
         surface: 'product',
         title: 'Product experience',
         createdAt
@@ -179,7 +180,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         type: 'collection',
         source: 'user-action',
         targetId: target.collectionId,
-        route: `/store?collection=${encodeURIComponent(target.collectionId)}`,
+        route: `${routeBasePath}?collection=${encodeURIComponent(target.collectionId)}`,
         surface: 'collection',
         title: 'Collection experience',
         createdAt
@@ -191,7 +192,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         type: 'promotion',
         source: 'user-action',
         targetId: target.promotionId,
-        route: `/store?promotion=${encodeURIComponent(target.promotionId)}`,
+        route: `${routeBasePath}?promotion=${encodeURIComponent(target.promotionId)}`,
         surface: 'promotion',
         title: 'Promotion experience',
         createdAt
@@ -203,7 +204,7 @@ function createIntent(target: ExperienceTarget): FeedIntent {
         type: 'search',
         source: 'search',
         query: target.query,
-        route: `/store?q=${encodeURIComponent(target.query)}`,
+        route: `${routeBasePath}?q=${encodeURIComponent(target.query)}`,
         surface: 'search',
         title: `Search: ${target.query}`,
         createdAt
@@ -220,7 +221,8 @@ export function FeedExperienceProvider({
   initialIntent,
   context,
   baseActions,
-  broadcastIntent = false
+  broadcastIntent = false,
+  routeBasePath = '/discover'
 }: FeedExperienceProviderProps) {
   const [intent, setIntent] = useState<FeedIntent>(initialIntent);
 
@@ -452,14 +454,13 @@ export function FeedExperienceProvider({
       }
 
       beginResolution(
-        createIntent(
-          target
-        )
+        createIntent(target, routeBasePath)
       );
     },
     [
       beginResolution,
-      previewCatalogProductInHub
+      previewCatalogProductInHub,
+      routeBasePath
     ]
   );
 
@@ -484,13 +485,13 @@ export function FeedExperienceProvider({
 
         categorySlug:
           'all'
-      }),
+      }, routeBasePath),
       {
         recordCurrent:
           false
       }
     );
-  }, [beginResolution]);
+  }, [beginResolution, routeBasePath]);
 
   const revealProductDetails = useCallback((productId: string) => {
     setProductDetailsDisclosure(currentDisclosure => ({
@@ -593,12 +594,12 @@ export function FeedExperienceProvider({
       createIntent({
         type: 'store-discovery',
         categorySlug: activeProduct?.category ?? 'all'
-      }),
+      }, routeBasePath),
       {
         recordCurrent: false
       }
     );
-  }, [beginResolution, context.catalog.products, intent.id, intent.targetId, intent.type]);
+  }, [beginResolution, context.catalog.products, intent.id, intent.targetId, intent.type, routeBasePath]);
 
   const actions = useMemo<FeedActions>(
     () => ({

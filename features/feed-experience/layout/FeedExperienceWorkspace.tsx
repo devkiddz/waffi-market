@@ -35,6 +35,7 @@ import { PublicShoppingListRail } from '@/features/shopping-lists/components/Pub
 import { useIdentity } from '@/providers/IdentityProvider';
 
 import type { ProductType, ProductVariantType } from '@/types/types';
+import type { VendorStorefront } from '@/features/vendor-storefront/contracts';
 
 import type { FeedActions, FeedContext, FeedIntent } from '../contracts';
 
@@ -47,11 +48,13 @@ import { StoreGridDestination } from './StoreGridDestination';
 type FeedExperienceWorkspaceProps = {
   canManageStoreStudio?: boolean;
   storeStudioWorkspaceId?: string | null;
+  vendorStorefront?: VendorStorefront;
 };
 
 function FeedExperienceWorkspaceContent({
   canManageStoreStudio = false,
-  storeStudioWorkspaceId = null
+  storeStudioWorkspaceId = null,
+  vendorStorefront
 }: FeedExperienceWorkspaceProps) {
   const {
     activeWorkspace,
@@ -107,6 +110,46 @@ function FeedExperienceWorkspaceContent({
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const routeBase = vendorStorefront ? `/vendors/${encodeURIComponent(vendorStorefront.slug)}` : '/discover';
+  const scopedProducts = vendorStorefront?.products ?? catalogProducts;
+  const scopedCategories = useMemo(() => vendorStorefront
+    ? catalogCategories.filter(category => category.slug === 'all' || scopedProducts.some(product => product.category === category.slug))
+    : catalogCategories, [catalogCategories, scopedProducts, vendorStorefront]);
+  const scopedPromos: Promo[] = useMemo(() => vendorStorefront
+    ? vendorStorefront.promotions.map(promotion => ({
+        id: promotion.id,
+        slug: promotion.slug,
+        title: promotion.title,
+        description: promotion.description ?? undefined,
+        type: 'sale',
+        layout: 'card',
+        badge: promotion.badge,
+        productIds: promotion.productIds,
+        image: promotion.imageUrl ?? undefined,
+        href: promotion.href,
+        active: true,
+        priority: 1
+      }))
+    : promos, [vendorStorefront]);
+  const vendorShowcase = useMemo(() => vendorStorefront ? {
+    stories: vendorStorefront.stories,
+    banners: vendorStorefront.banners.map((banner, position) => ({
+      id: banner.id,
+      campaignId: banner.id,
+      mediaType: 'image' as const,
+      mediaUrl: banner.mediaUrl,
+      mobileMediaUrl: banner.mobileMediaUrl,
+      posterUrl: null,
+      eyebrow: vendorStorefront.name,
+      title: banner.title,
+      description: banner.description,
+      primaryAction: { label: 'Explore products', href: `${routeBase}#products` },
+      secondaryAction: null,
+      autoplay: true,
+      durationMs: Math.max(3500, banner.durationSeconds * 1000),
+      position
+    }))
+  } : undefined, [vendorStorefront, routeBase]);
 
   const selectedCategory = searchParams.get('category') ?? 'all';
   const selectedCollectionId = searchParams.get('collection');
@@ -135,11 +178,11 @@ function FeedExperienceWorkspaceContent({
 
       const query = params.toString();
 
-      router.push(query ? `/store?${query}` : '/store', {
+      router.push(query ? `${routeBase}?${query}` : routeBase, {
         scroll: false
       });
     },
-    [router, searchParams]
+    [router, searchParams, routeBase]
   );
 
   // ============================================================
@@ -163,14 +206,14 @@ function FeedExperienceWorkspaceContent({
 
   const toggleLike = useCallback(
     (productId: string) => {
-      const product = catalogProducts.find(item => item.id === productId);
+      const product = scopedProducts.find(item => item.id === productId);
 
       void toggleWishlist({
         id: productId,
         name: product?.name
       });
     },
-    [catalogProducts, toggleWishlist]
+    [scopedProducts, toggleWishlist]
   );
 
   // ============================================================
@@ -182,7 +225,7 @@ function FeedExperienceWorkspaceContent({
   const [promoOpen, setPromoOpen] = useState(false);
 
   const previewPromotion = useCallback((promoId: string) => {
-    const promotion = promos.find(item => item.id === promoId);
+    const promotion = scopedPromos.find(item => item.id === promoId);
 
     if (!promotion) {
       return;
@@ -191,7 +234,7 @@ function FeedExperienceWorkspaceContent({
     setSelectedPromo(promotion);
 
     setPromoOpen(true);
-  }, []);
+  }, [scopedPromos]);
 
   const closePromoPreview = useCallback(() => {
     setSelectedPromo(null);
@@ -199,7 +242,7 @@ function FeedExperienceWorkspaceContent({
   }, []);
 
   /**
-   * Legacy `/store?product=` links now resolve into the Hub only.
+   * Legacy `/discover?product=` links now resolve into the Hub only.
    *
    * The query remains backward compatible, but it cannot assemble
    * or replace the central Feed with the retired product block.
@@ -210,7 +253,7 @@ function FeedExperienceWorkspaceContent({
     }
 
     const product =
-      catalogProducts.find(
+      scopedProducts.find(
         candidate =>
           String(candidate.id) ===
             String(selectedProductId) ||
@@ -263,7 +306,7 @@ function FeedExperienceWorkspaceContent({
         product.id
     });
   }, [
-    catalogProducts,
+    scopedProducts,
     selectedProductId
   ]);
 
@@ -280,7 +323,7 @@ function FeedExperienceWorkspaceContent({
         type: 'collection',
         source: 'route',
         targetId: selectedCollectionId,
-        route: `/store?collection=${encodeURIComponent(selectedCollectionId)}`,
+        route: `${routeBase}?collection=${encodeURIComponent(selectedCollectionId)}`,
         surface: 'collection',
         title: 'Collection experience',
         createdAt
@@ -293,7 +336,7 @@ function FeedExperienceWorkspaceContent({
         type: 'promotion',
         source: 'route',
         targetId: selectedPromotionId,
-        route: `/store?promotion=${encodeURIComponent(selectedPromotionId)}`,
+        route: `${routeBase}?promotion=${encodeURIComponent(selectedPromotionId)}`,
         surface: 'promotion',
         title: 'Promotion experience',
         createdAt
@@ -301,14 +344,14 @@ function FeedExperienceWorkspaceContent({
     }
 
     return {
-      id: `store-discovery:${selectedCategory}`,
+      id: `store-discovery:${routeBase}:${selectedCategory}`,
       type: 'store-discovery',
       source: 'route',
       categorySlug: selectedCategory,
       route:
         selectedCategory === 'all'
-          ? '/store'
-          : `/store?category=${encodeURIComponent(selectedCategory)}`,
+          ? routeBase
+          : `${routeBase}?category=${encodeURIComponent(selectedCategory)}`,
       surface: 'store',
       title: selectedCategory === 'all' ? 'Store discovery' : `Browse ${selectedCategory}`,
       createdAt
@@ -316,7 +359,8 @@ function FeedExperienceWorkspaceContent({
   }, [
     selectedCategory,
     selectedCollectionId,
-    selectedPromotionId
+    selectedPromotionId,
+    routeBase
   ]);
 
   // ============================================================
@@ -325,11 +369,12 @@ function FeedExperienceWorkspaceContent({
 
   const context = useMemo<FeedContext>(
     () => ({
+      vendorShowcase,
       catalog: {
-        products: catalogProducts,
-        categories: catalogCategories,
-        collections: catalogCollections,
-        promotions: promos
+        products: scopedProducts,
+        categories: scopedCategories,
+        collections: vendorStorefront?.collections ?? catalogCollections,
+        promotions: scopedPromos
       },
 
       user: {
@@ -346,7 +391,7 @@ function FeedExperienceWorkspaceContent({
 
       activity: activeProfile.activity,
 
-      storeStudio: storeStudio ?? undefined,
+      storeStudio: vendorStorefront ? undefined : storeStudio ?? undefined,
 
       experience: {
         orders: activeProfile.orders,
@@ -367,7 +412,7 @@ function FeedExperienceWorkspaceContent({
         now: new Date().toISOString()
       }
     }),
-    [activeProfile, catalogCategories, catalogCollections, catalogProducts, cartProductIds, isAuthenticated, normalizedTier, storeStudio, wishlistProductIds]
+    [activeProfile, scopedCategories, catalogCollections, scopedProducts, scopedPromos, cartProductIds, isAuthenticated, normalizedTier, storeStudio, vendorStorefront, vendorShowcase, wishlistProductIds]
   );
 
   // ============================================================
@@ -396,22 +441,22 @@ function FeedExperienceWorkspaceContent({
     }
 
     return selectedPromo.productIds
-      .map(productId => catalogProducts.find(product => product.id === productId))
+      .map(productId => scopedProducts.find(product => product.id === productId))
       .filter((product): product is ProductType => Boolean(product));
-  }, [selectedPromo, catalogProducts]);
+  }, [selectedPromo, scopedProducts]);
 
 
   const gridProducts = useMemo(() => {
     if (selectedCategory === 'all') {
-      return catalogProducts;
+      return scopedProducts;
     }
 
     if (selectedCategory === 'deals') {
-      return catalogProducts.filter(product => product.discountPercentage > 0);
+      return scopedProducts.filter(product => product.discountPercentage > 0);
     }
 
-    return catalogProducts.filter(product => product.category === selectedCategory);
-  }, [catalogProducts, selectedCategory]);
+    return scopedProducts.filter(product => product.category === selectedCategory);
+  }, [scopedProducts, selectedCategory]);
 
   // ============================================================
   // LOADING AND ERROR STATES
@@ -458,6 +503,7 @@ function FeedExperienceWorkspaceContent({
       initialIntent={initialIntent}
       context={context}
       baseActions={baseActions}
+      routeBasePath={routeBase}
       broadcastIntent>
       {selectedView === 'grid' ? (
         <StoreGridDestination
@@ -466,10 +512,10 @@ function FeedExperienceWorkspaceContent({
           onAddToCart={handleAddToCart}
         />
       ) : (
-        <div className="min-h-dvh px-3 py-3 md:px-4 md:py-4 lg:h-[calc(100dvh-6.5rem)] lg:min-h-0 lg:overflow-hidden">
-          <section className="min-w-0 pb-6 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:rounded-3xl lg:bg-card/50 lg:p-4 lg:scroll-smooth lg:scrollbar-none">
-            <PublicShoppingListRail workspaceId={activeWorkspace.id} />
-            <FeedRenderer />
+        <div className={vendorStorefront ? 'min-w-0' : 'min-h-dvh px-3 py-3 md:px-4 md:py-4 lg:h-[calc(100dvh-6.5rem)] lg:min-h-0 lg:overflow-hidden'}>
+          <section id={vendorStorefront ? 'products' : undefined} className={vendorStorefront ? 'min-w-0' : 'min-w-0 pb-6 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:rounded-3xl lg:bg-card/50 lg:p-4 lg:scroll-smooth lg:scrollbar-none'}>
+            {!vendorStorefront ? <PublicShoppingListRail workspaceId={activeWorkspace.id} /> : null}
+            <FeedRenderer vendorStorefront={vendorStorefront} vendorCategories={scopedCategories} selectedVendorCategory={selectedCategory} />
           </section>
 
           <PromoModal
@@ -481,7 +527,7 @@ function FeedExperienceWorkspaceContent({
 
           {canManageStoreStudio &&
           activeWorkspace.id === storeStudioWorkspaceId ? (
-            <StorefrontReelComposer products={catalogProducts} />
+            <StorefrontReelComposer products={scopedProducts} />
           ) : null}
         </div>
       )}
@@ -491,12 +537,14 @@ function FeedExperienceWorkspaceContent({
 
 export default function FeedExperienceWorkspace({
   canManageStoreStudio = false,
-  storeStudioWorkspaceId = null
+  storeStudioWorkspaceId = null,
+  vendorStorefront
 }: FeedExperienceWorkspaceProps) {
   return (
     <FeedExperienceWorkspaceContent
       canManageStoreStudio={canManageStoreStudio}
       storeStudioWorkspaceId={storeStudioWorkspaceId}
+      vendorStorefront={vendorStorefront}
     />
   );
 }

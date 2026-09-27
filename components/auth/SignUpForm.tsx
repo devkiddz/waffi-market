@@ -196,18 +196,11 @@ export default function SignUpForm({
 
       if (emailVerificationEnabled) {
         setVerificationEmail(normalizedEmail);
-        setVerificationDeliveryState('sending');
+        // Better Auth sends on sign-up; requesting another email here produces two links.
+        setVerificationDeliveryState('sent');
 
         setPassword('');
         setConfirmPassword('');
-
-        try {
-          const sent = await sendVerificationEmail(normalizedEmail, destination);
-
-          setVerificationDeliveryState(sent ? 'sent' : 'failed');
-        } catch {
-          setVerificationDeliveryState('failed');
-        }
 
         return;
       }
@@ -287,7 +280,7 @@ export default function SignUpForm({
           <AuthNotice
             variant="success"
             title="Verification email sent"
-            description="Open the message and select the verification link. Check your spam folder if it is not visible."
+            description="Check your inbox for the verification link. If it does not arrive, you can request another email below."
           />
         ) : null}
 

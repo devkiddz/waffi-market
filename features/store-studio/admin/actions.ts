@@ -327,7 +327,7 @@ export async function createProductReels(
   });
 
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   revalidatePath('/admin');
   revalidatePath('/admin/store-studio');
 

@@ -643,14 +643,14 @@ export async function seedShelseaSpotlightBanners(
       update: {
         mediaType: 'IMAGE', mediaUrl: image, title: slide.title,
         description: slide.description, eyebrow: 'Shelsea spotlight',
-        actionLabel: 'Visit shop', actionHref: '/shops/shelsea',
+        actionLabel: 'Visit shop', actionHref: '/vendors/shelsea',
         durationSeconds: 6, position, active: true
       },
       create: {
         id: `${campaignId}-${position}`, campaignId,
         mediaType: 'IMAGE', mediaUrl: image, title: slide.title,
         description: slide.description, eyebrow: 'Shelsea spotlight',
-        actionLabel: 'Visit shop', actionHref: '/shops/shelsea',
+        actionLabel: 'Visit shop', actionHref: '/vendors/shelsea',
         durationSeconds: 6, position, active: true
       }
     });

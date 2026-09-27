@@ -1,24 +1,14 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 
-import VendorDirectoryExperience from '@/features/vendor-storefront/components/VendorDirectoryExperience';
-import { getVendorDirectory } from '@/features/vendor-storefront/server/getVendorStorefront';
-
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
-export const metadata: Metadata = {
-  title: 'Shops',
-  description: 'Browse verified merchants operating through Shelsea.'
-};
-
-export default async function ShopsPage() {
-  const directory = await getVendorDirectory();
-
-  if (!directory) {
-    notFound();
+export default async function LegacyShopsPage({
+  searchParams
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(await searchParams)) {
+    if (Array.isArray(value)) value.forEach(item => params.append(key, item));
+    else if (value !== undefined) params.set(key, value);
   }
-
-  return <Suspense fallback={null}><VendorDirectoryExperience {...directory} /></Suspense>;
+  redirect(`/vendors${params.size ? `?${params}` : ''}`);
 }

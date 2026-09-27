@@ -228,7 +228,7 @@ export async function saveStoreCollection(formData: FormData): Promise<void> {
   revalidatePath('/admin/approvals');
   revalidatePath('/vendor/collections');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   revalidatePath('/api/catalog');
 }
 
@@ -309,6 +309,6 @@ export async function setStoreCollectionStatus(formData: FormData) {
   revalidatePath('/admin/approvals');
   revalidatePath('/vendor/collections');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   revalidatePath('/api/catalog');
 }

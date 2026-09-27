@@ -53,7 +53,7 @@ export default function VendorPromotionExperience({
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[96rem] px-3 py-5 sm:px-5 sm:py-8 lg:px-7">
       <Link
-        href={`/shops/${encodeURIComponent(detail.vendor.slug)}`}
+        href={`/vendors/${encodeURIComponent(detail.vendor.slug)}`}
         className="mb-4 inline-flex h-9 items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3 text-xs font-bold text-muted-foreground transition hover:text-foreground">
         <ArrowLeft className="size-3.5" />
         Back to {detail.vendor.name}

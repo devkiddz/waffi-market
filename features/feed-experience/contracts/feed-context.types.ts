@@ -1,5 +1,7 @@
 import type { CollectionType } from "@/data/collections";
 import type { Promo } from "@/data/promos";
+import type { CommerceStory } from '@/features/commerce-stories';
+import type { StoreStudioBannerSlideProjection } from '@/features/store-studio/contracts';
 import type { CategoriesType, ProductType } from "@/types/types";
 import type {
   WorkspaceCommerceProjection
@@ -42,6 +44,11 @@ export type FeedEnvironmentContext = {
 
 export type FeedContext = {
   catalog: FeedCatalogContext;
+  /** Vendor-owned media, including an intentionally empty set with no marketplace fallback. */
+  vendorShowcase?: {
+    banners: StoreStudioBannerSlideProjection[];
+    stories: CommerceStory[];
+  };
 
   user: FeedUserContext;
 

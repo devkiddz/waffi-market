@@ -210,9 +210,9 @@ export function resolveCustomerSurface(
 
   if (
     pathname ===
-      '/shops' ||
+      '/vendors' ||
     pathname.startsWith(
-      '/shops/'
+      '/vendors/'
     )
   ) {
     return 'shop';

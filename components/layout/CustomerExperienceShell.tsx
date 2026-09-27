@@ -23,7 +23,7 @@ export default function CustomerExperienceShell({ children }: CustomerExperience
   return (
     <div className="min-w-0 flex-1 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
       <div className="relative min-w-0">
-        {pathname !== '/' ? (
+        {pathname !== '/' && !pathname.startsWith('/vendors/') ? (
           <div className="sticky top-[var(--app-navbar-height)] z-[100] min-w-0">
             <Suspense fallback={null}><CategoryNavigation /></Suspense>
           </div>

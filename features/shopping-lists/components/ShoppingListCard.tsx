@@ -116,7 +116,7 @@ export function ShoppingListCard({ list, onEdit, onArchive }: Props) {
 
           <div className="mt-4 grid grid-cols-2 gap-2">
             <Link
-              href={`/store?view=grid&shoppingList=${encodeURIComponent(list.id)}`}
+              href={`/discover?view=grid&shoppingList=${encodeURIComponent(list.id)}`}
               className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border bg-background px-3 text-sm font-semibold transition hover:bg-muted">
               <PackagePlus className="size-4" />
               Add products

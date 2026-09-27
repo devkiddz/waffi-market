@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Eye, Heart, ListPlus, MoreVertical, ShoppingBag, Sparkles, Truck, Star } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Eye, Heart, ListPlus, MoreVertical, ShoppingBag, Sparkles, Truck, Star, Store } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -27,6 +29,7 @@ type Props = {
 };
 
 export function CompactProductActions({ product, variant, onOpenHub, onAddToCart, onAskAI, compact = false }: Props) {
+  const router = useRouter();
   const [shoppingListOpen, setShoppingListOpen] = useState(false);
   const shoppingLists = useOptionalShoppingLists();
   const { toggleWishlist, isWishlisted, isMutating } = useWishlist();
@@ -76,6 +79,16 @@ export function CompactProductActions({ product, variant, onOpenHub, onAddToCart
             <DropdownMenuItem disabled={!shoppingLists} onClick={() => setShoppingListOpen(true)}>
               <ListPlus className="size-4" /> Add to shopping list
             </DropdownMenuItem>
+            {product.merchant ? (
+              <DropdownMenuItem onClick={() => router.push(`/vendors/${encodeURIComponent(product.merchant!.slug)}`)}>
+                <span className="relative grid size-4 shrink-0 place-items-center overflow-hidden rounded-full bg-muted">
+                  {product.merchant.logoUrl ? (
+                    <Image src={product.merchant.logoUrl} alt="" fill sizes="16px" className="object-cover" />
+                  ) : <Store className="size-3" />}
+                </span>
+                <span className="truncate">Visit {product.merchant.name}</span>
+              </DropdownMenuItem>
+            ) : null}
             <DropdownMenuItem onClick={() => {
               if (onAskAI) {
                 void onAskAI(product, variant);

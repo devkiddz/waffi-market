@@ -52,7 +52,7 @@ export default function MobileBottomNavigation({
       type: 'route',
       id: 'store',
       label: 'Store',
-      href: '/store',
+      href: '/',
       icon: ShoppingBag
     },
     {

@@ -58,6 +58,7 @@ export type VendorStorefront = {
   email: string | null;
   phone: string | null;
   logoUrl: string | null;
+  banners: NonNullable<VendorDirectoryItem['banners']>;
   products: ProductType[];
   collections: CollectionType[];
   promotions: VendorStorefrontPromotion[];

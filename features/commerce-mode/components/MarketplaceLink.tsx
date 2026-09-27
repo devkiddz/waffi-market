@@ -15,7 +15,7 @@ type MarketplaceLinkProps = {
 export function MarketplaceLink({
   children,
   className,
-  href = '/shops'
+  href = '/vendors'
 }: MarketplaceLinkProps) {
   const { activeWorkspace, loading } = useWorkspace();
 

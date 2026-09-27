@@ -97,5 +97,5 @@ export async function updateWorkspaceSettings(formData: FormData) {
   revalidatePath('/admin');
   revalidatePath('/vendor');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }

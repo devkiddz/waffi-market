@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LayoutGrid } from 'lucide-react';
@@ -14,14 +14,15 @@ export default function CategoryNavigation() {
   const [compact, setCompact] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { categories } = useCatalog();
   const available = new Map(categories.map(category => [category.slug, category]));
   const pills = categoryDefinitions
     .filter(category => category.slug !== 'all')
     .map(category => available.get(category.slug) ?? category)
     .concat([available.get('all') ?? categoryDefinitions[0]]);
-  const selected = pathname === '/store' ? searchParams.get('category') ?? 'all' : null;
+  const selected = pathname.startsWith('/categories/')
+    ? decodeURIComponent(pathname.slice('/categories/'.length))
+    : pathname === '/' ? 'all' : null;
 
   useEffect(() => {
     const update = () => setCompact(window.scrollY > 160);
@@ -33,14 +34,10 @@ export default function CategoryNavigation() {
   const openCategory = (slug: string) => {
     if (slug === 'all') {
       requestFreshStoreExperience();
-      router.push('/store');
+      router.push('/');
       return;
     }
-    const params = pathname === '/store'
-      ? new URLSearchParams(searchParams.toString())
-      : new URLSearchParams();
-    params.set('category', slug);
-    router.push(`/store?${params.toString()}`);
+    router.push(`/categories/${encodeURIComponent(slug)}`);
   };
 
   return (
@@ -49,7 +46,7 @@ export default function CategoryNavigation() {
         <nav aria-label="Shop shortcuts" className="scrollbar-none min-w-0 overflow-x-auto px-[var(--app-page-gutter)] py-1.5">
           <div className="flex w-max items-center gap-2">
             <Link href="/featured-products" aria-current={pathname === '/featured-products' ? 'page' : undefined} className="inline-flex h-9 items-center rounded-full bg-primary px-4 text-xs font-semibold text-primary-foreground">Featured</Link>
-            <Link href="/shops?view=following" className="inline-flex h-9 items-center rounded-full border border-primary/30 bg-primary/10 px-4 text-xs font-semibold text-primary hover:bg-primary/15">Following</Link>
+            <Link href="/vendors?view=following" className="inline-flex h-9 items-center rounded-full border border-primary/30 bg-primary/10 px-4 text-xs font-semibold text-primary hover:bg-primary/15">Following</Link>
             <Link href="/account/lists" className="inline-flex h-9 items-center rounded-full border border-primary/30 bg-primary/10 px-4 text-xs font-semibold text-primary hover:bg-primary/15">Shopping Lists</Link>
           </div>
         </nav>

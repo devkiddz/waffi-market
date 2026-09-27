@@ -91,7 +91,7 @@ export default function ProductsCarousel({ title, category, products, onSelect, 
 
         <div className="z-10 flex items-center gap-2">
           <Link
-            href={`/store?category=${encodeURIComponent(category)}&view=grid`}
+            href={`/categories/${encodeURIComponent(category)}`}
             className="
           text-sm font-medium text-accent
           transition-all duration-200

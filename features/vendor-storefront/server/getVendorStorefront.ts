@@ -205,7 +205,7 @@ export async function getVendorDirectory(): Promise<
           title: asset.title ?? campaign.title,
           description: asset.description ?? campaign.description,
           actionHref: asset.actionHref?.startsWith('/') && !asset.actionHref.startsWith('//')
-            ? asset.actionHref : `/shops/${encodeURIComponent(vendor.slug)}`,
+            ? asset.actionHref : `/vendors/${encodeURIComponent(vendor.slug)}`,
           durationSeconds: asset.durationSeconds ?? 6
         })))
     }))
@@ -251,7 +251,7 @@ export async function getVendorStorefront(
 
   const now = new Date();
 
-  const [products, collectionRecords, promotionRecords, campaignRecords] =
+  const [products, collectionRecords, promotionRecords, campaignRecords, bannerCampaigns] =
     await Promise.all([
       prisma.product.findMany({
         where: {
@@ -412,6 +412,30 @@ export async function getVendorStorefront(
           { requestedPriority: 'desc' },
           { updatedAt: 'desc' }
         ]
+      }),
+      prisma.storeStudioCampaign.findMany({
+        where: {
+          workspaceId: workspace.id,
+          vendorProfileId: vendor.id,
+          active: true,
+          status: { in: [...LIVE_CAMPAIGN_STATUSES] },
+          type: 'BANNER',
+          ...liveScheduleWhere(now)
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          assets: {
+            where: { active: true, mediaType: 'IMAGE' },
+            orderBy: { position: 'asc' },
+            select: {
+              id: true, mediaUrl: true, mobileMediaUrl: true, title: true,
+              description: true, actionHref: true, durationSeconds: true
+            }
+          }
+        },
+        orderBy: [{ adminWeight: 'desc' }, { requestedPriority: 'desc' }]
       })
     ]);
 
@@ -498,7 +522,7 @@ export async function getVendorStorefront(
         description: promotion.description,
         badge: promotionBadge(promotion.type, promotion.discountValue),
         imageUrl: image,
-        href: `/shops/${encodeURIComponent(vendor.slug)}/promotions/${encodeURIComponent(promotion.slug)}`,
+        href: `/vendors/${encodeURIComponent(vendor.slug)}/promotions/${encodeURIComponent(promotion.slug)}`,
         productIds,
         productCount: productIds.length,
         startsAt: promotion.startsAt?.toISOString() ?? null,
@@ -590,7 +614,7 @@ export async function getVendorStorefront(
             ? { actionHref: asset.actionHref }
             : actionType === 'vendor'
               ? {
-                  actionHref: `/shops/${encodeURIComponent(vendor.slug)}`
+                  actionHref: `/vendors/${encodeURIComponent(vendor.slug)}`
                 }
               : {}),
           durationMs: Math.max(
@@ -630,6 +654,16 @@ export async function getVendorStorefront(
     email: vendor.email,
     phone: vendor.phone,
     logoUrl: vendor.logoMediaAsset?.secureUrl ?? null,
+    banners: bannerCampaigns.flatMap(campaign => campaign.assets.map(asset => ({
+      id: asset.id,
+      mediaUrl: asset.mediaUrl,
+      mobileMediaUrl: asset.mobileMediaUrl,
+      title: asset.title ?? campaign.title,
+      description: asset.description ?? campaign.description,
+      actionHref: asset.actionHref?.startsWith('/') && !asset.actionHref.startsWith('//')
+        ? asset.actionHref : `/vendors/${encodeURIComponent(vendor.slug)}`,
+      durationSeconds: asset.durationSeconds ?? 6
+    }))),
     products: mappedProducts,
     collections,
     promotions,
@@ -770,7 +804,7 @@ export async function getVendorPromotion(
       description: promotion.description,
       badge: promotionBadge(promotion.type, promotion.discountValue),
       imageUrl: image,
-      href: `/shops/${encodeURIComponent(promotion.vendorProfile.slug)}/promotions/${encodeURIComponent(promotion.slug)}`,
+      href: `/vendors/${encodeURIComponent(promotion.vendorProfile.slug)}/promotions/${encodeURIComponent(promotion.slug)}`,
       productIds: products.map(product => product.id),
       productCount: products.length,
       startsAt: promotion.startsAt?.toISOString() ?? null,

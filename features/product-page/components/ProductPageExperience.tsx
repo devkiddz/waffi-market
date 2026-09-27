@@ -257,7 +257,7 @@ export function ProductPageExperience({
           <ChevronRight className="size-3 shrink-0" />
 
           <Link
-            href="/store"
+            href="/"
             className="shrink-0 transition hover:text-foreground">
             Store
           </Link>
@@ -265,7 +265,7 @@ export function ProductPageExperience({
           <ChevronRight className="size-3 shrink-0" />
 
           <Link
-            href={`/store?category=${encodeURIComponent(data.category.slug)}`}
+            href={`/categories/${encodeURIComponent(data.category.slug)}`}
             className="shrink-0 transition hover:text-foreground">
             {
               data.category.label

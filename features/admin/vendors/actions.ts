@@ -89,7 +89,7 @@ export async function createVendor(formData: FormData): Promise<void> {
 
   revalidatePath('/admin/vendors');
   revalidatePath('/admin/approvals');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }
 
 export async function updateVendorProfile(vendorId: string, formData: FormData) {
@@ -110,9 +110,9 @@ export async function updateVendorProfile(vendorId: string, formData: FormData) 
   await prisma.adminAuditEvent.create({ data: { workspaceId: access.membership.workspaceId, actorId: access.session.user.id, action: 'VENDOR_UPDATED', targetType: 'VENDOR', targetId: vendorId, summary: `${name} vendor profile was updated.` } });
   revalidatePath('/admin/vendors');
   revalidatePath(`/admin/vendors/${vendorId}`);
-  revalidatePath('/shops');
-  revalidatePath(`/shops/${existing.slug}`);
-  revalidatePath(`/shops/${slug}`);
+  revalidatePath('/vendors');
+  revalidatePath(`/vendors/${existing.slug}`);
+  revalidatePath(`/vendors/${slug}`);
 }
 
 export async function adminAddVendorMember(vendorId: string, formData: FormData) {
@@ -212,5 +212,5 @@ export async function setVendorStatus(formData: FormData) {
   revalidatePath('/admin/vendors');
   revalidatePath(`/admin/vendors/${id}`);
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }

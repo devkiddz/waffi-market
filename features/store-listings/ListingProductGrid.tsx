@@ -293,7 +293,7 @@ export function ListingProductGrid({
           aria-label="Products, scroll horizontally for more"
           tabIndex={0}
           onScroll={updateRailControls}
-          className={`scrollbar-none grid min-w-0 snap-x snap-proximity grid-flow-col grid-rows-1 auto-cols-[calc((100%_-_1.5rem)/2.5)] gap-3 overflow-x-auto sm:auto-cols-[calc((100%_-_3rem)/3.5)] sm:gap-4 ${desktopColumns === 4 ? 'lg:auto-cols-[calc((100%_-_4rem)/4.5)]' : 'lg:auto-cols-[calc((100%_-_5rem)/5.5)]'}`}>
+          className={`scrollbar-none grid min-w-0 snap-x snap-proximity grid-flow-col grid-rows-1 auto-cols-[calc((100%_-_1rem)/2.5)] gap-2 overflow-x-auto sm:auto-cols-[calc((100%_-_2.25rem)/3.5)] sm:gap-3 ${desktopColumns === 4 ? 'lg:auto-cols-[calc((100%_-_3rem)/4.5)]' : 'lg:auto-cols-[calc((100%_-_3.75rem)/5.5)]'}`}>
           {cards.map(card => <div key={card.key} className="min-w-0 snap-start">{card}</div>)}
         </div>
         {canScrollLeft ? (
@@ -323,9 +323,9 @@ export function ListingProductGrid({
       className="
         grid min-w-0
         grid-cols-2
-        gap-3
+        gap-2
         sm:grid-cols-3
-        sm:gap-4
+        sm:gap-3
         lg:[grid-template-columns:repeat(var(--shelsea-listing-columns),minmax(0,1fr))]
       ">
       {cards}

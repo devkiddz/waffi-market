@@ -31,7 +31,7 @@ async function main() {
 
   for (const shop of shops) {
     const assets = shop.campaigns.flatMap(campaign => campaign.assets);
-    console.log(`${shop.name}: ${assets.length} active story asset(s) — /shops/${shop.slug}`);
+    console.log(`${shop.name}: ${assets.length} active story asset(s) — /vendors/${shop.slug}`);
   }
   if (shops.length !== 5 || shops.some(shop => !shop.campaigns.some(c => c.assets.some(a => a.mediaUrl)))) {
     throw new Error('A featured shop is missing a playable active story. Run the focused seed first.');

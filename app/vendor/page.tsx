@@ -88,7 +88,7 @@ export default async function VendorOverviewPage() {
           description="Manage your private store catalogue, media and campaigns. Marketplace-visible changes remain subject to Waffi Market approval and distribution authority."
           action={
             <Link
-              href={`/shops/${encodeURIComponent(access.vendor.slug)}`}
+              href={`/vendors/${encodeURIComponent(access.vendor.slug)}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-4 text-xs font-bold text-background">

@@ -64,7 +64,7 @@ export default function SingleProductLayout({ product }: { product: ProductType 
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <p className="text-xs font-black uppercase tracking-[.16em] text-primary">{product.category.replaceAll('-', ' ')}</p>
             <h1 className="mt-3 text-3xl font-black leading-tight tracking-[-.035em] sm:text-4xl xl:text-5xl">{product.name}</h1>
-            {product.merchant ? <Link href={`/shops/${encodeURIComponent(product.merchant.slug)}`} className="mt-2 inline-flex text-xs font-semibold text-muted-foreground transition hover:text-primary">Sold by {product.merchant.name}</Link> : null}
+            {product.merchant ? <Link href={`/vendors/${encodeURIComponent(product.merchant.slug)}`} className="mt-2 inline-flex text-xs font-semibold text-muted-foreground transition hover:text-primary">Sold by {product.merchant.name}</Link> : null}
             <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted-foreground"><span className="inline-flex items-center gap-1"><Star className="size-4 fill-amber-400 text-amber-400" /><strong className="text-foreground">{product.rating.toFixed(1)}</strong></span><span>{product.reviews.toLocaleString()} reviews</span><span className="size-1 rounded-full bg-border" /><span>{product.soldCount.toLocaleString()} sold</span></div>
             <p className="mt-5 text-sm leading-6 text-muted-foreground sm:text-base">{product.shortDescription}</p>
 

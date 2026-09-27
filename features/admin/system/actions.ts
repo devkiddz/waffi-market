@@ -90,5 +90,5 @@ export async function updateWorkspaceCommerceMode(formData: FormData) {
   revalidatePath('/admin');
   revalidatePath('/vendor');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }

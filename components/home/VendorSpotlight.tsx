@@ -38,7 +38,7 @@ export default function VendorSpotlight({ shop, products, categories }: VendorSp
           <h2 className="truncate font-heading text-sm font-semibold text-foreground sm:text-base">{shop.name}</h2>
           {shop.description ? <p className="hidden truncate text-xs text-muted-foreground sm:block">{shop.description}</p> : null}
         </div>
-        <Link href={`/shops/${encodeURIComponent(shop.slug)}`} className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-primary hover:underline">
+        <Link href={`/vendors/${encodeURIComponent(shop.slug)}`} className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-primary hover:underline">
           Visit shop <ArrowRight className="size-3.5" />
         </Link>
       </div>

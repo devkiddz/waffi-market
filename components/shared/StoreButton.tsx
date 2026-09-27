@@ -18,7 +18,7 @@ export default function StoreButton({ active = false, onClick, className }: Stor
   const router = useRouter();
 
   const handleClick = (): void => {
-    router.push('/store');
+    router.push('/');
 
     onClick?.();
   };

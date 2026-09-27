@@ -6,8 +6,7 @@ import { MarketplaceLink } from '@/features/commerce-mode/components/Marketplace
 
 const quickLinks = [
   { href: '/', label: 'Home' },
-  { href: '/store', label: 'Store discovery' },
-  { href: '/store?view=grid', label: 'All products' },
+  { href: '/categories/all', label: 'All products' },
   { href: '/promos', label: 'Promotions' }
 ];
 

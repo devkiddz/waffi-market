@@ -141,7 +141,7 @@ export function VendorShell({
         </p>
         <div className="mt-3 space-y-1">
           <Link
-            href={`/shops/${encodeURIComponent(vendorSlug)}`}
+            href={`/vendors/${encodeURIComponent(vendorSlug)}`}
             onClick={() => setMobileOpen(false)}
             className="group flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground">
             <span>Open Store</span>

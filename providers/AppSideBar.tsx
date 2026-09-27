@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 import Image from 'next/image';
 import { Crown, Heart, LogOut, ShieldCheck, ShoppingCart, Store } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
   Sidebar,
@@ -33,22 +33,11 @@ import SidebarHeaderContent from '@/providers/SidebarHeaderContent';
 function SidebarShopMenu() {
   const { categories } = useCatalog();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const activeCategory = searchParams.get('category') ?? 'all';
+  const pathname = usePathname();
+  const activeCategory = pathname.startsWith('/categories/') ? decodeURIComponent(pathname.split('/')[2] ?? 'all') : 'all';
 
   const handleCategoryChange = (slug: string): void => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (slug === 'all') {
-      params.delete('category');
-    } else {
-      params.set('category', slug);
-    }
-
-    const query = params.toString();
-
-    router.push(query ? `/store?${query}` : '/store', {
+    router.push(slug === 'all' ? '/' : `/categories/${encodeURIComponent(slug)}`, {
       scroll: false
     });
   };

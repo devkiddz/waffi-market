@@ -17,6 +17,9 @@ import type {
 } from '@/types/types';
 
 import FeedExperienceLoader from '../providers/FeedExperienceLoader';
+import VendorStoreSections from '@/features/vendor-storefront/components/VendorStoreSections';
+import type { VendorStorefront } from '@/features/vendor-storefront/contracts';
+import type { CategoriesType } from '@/types/types';
 
 import {
   useFeedExperienceContext
@@ -218,7 +221,11 @@ function unifyFeaturedProductModules(
   );
 }
 
-export function FeedRenderer() {
+export function FeedRenderer({ vendorStorefront, vendorCategories, selectedVendorCategory = 'all' }: {
+  vendorStorefront?: VendorStorefront;
+  vendorCategories?: CategoriesType;
+  selectedVendorCategory?: string;
+} = {}) {
   const {
     experience,
     actions,
@@ -247,6 +254,21 @@ export function FeedRenderer() {
           intentType={
             pendingIntent?.type
           }
+        />
+      </main>
+    );
+  }
+
+  if (vendorStorefront) {
+    const showcase = resolvedModules.find(module => module.type === 'store-showcase');
+    return (
+      <main data-experience-key={experience.key}>
+        {showcase ? <FeedModuleRenderer module={showcase} actions={actions} /> : null}
+        <VendorStoreSections
+          storefront={vendorStorefront}
+          categories={vendorCategories ?? []}
+          selectedCategory={selectedVendorCategory}
+          onCategoryChange={category => actions.changeCategory({ category })}
         />
       </main>
     );

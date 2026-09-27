@@ -674,7 +674,7 @@ async function recordAudit({
 
 function revalidateStoreStudio(): void {
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   revalidatePath('/admin');
   revalidatePath('/admin/store-studio');
 }

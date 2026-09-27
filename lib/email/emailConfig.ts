@@ -7,11 +7,15 @@ type TransactionalEmailConfig = {
 };
 
 export function isAuthEmailEnabled(): boolean {
-  return (
-    process.env.AUTH_EMAIL_ENABLED === 'true' &&
-    Boolean(process.env.RESEND_API_KEY?.trim()) &&
-    Boolean(process.env.AUTH_EMAIL_FROM?.trim())
-  );
+  if (process.env.AUTH_EMAIL_ENABLED?.trim().toLowerCase() !== 'true') return false;
+
+  if (!process.env.RESEND_API_KEY?.trim() || !process.env.AUTH_EMAIL_FROM?.trim()) {
+    throw new Error(
+      'AUTH_EMAIL_ENABLED is true, but RESEND_API_KEY or AUTH_EMAIL_FROM is missing. Configure email delivery or set AUTH_EMAIL_ENABLED=false explicitly.'
+    );
+  }
+
+  return true;
 }
 
 export function getTransactionalEmailConfig(): TransactionalEmailConfig {

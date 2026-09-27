@@ -28,8 +28,8 @@ export function StoreGridDestination({
     'Browse the complete Shelsea catalogue in a clear responsive product grid.';
   const discoveryHref =
     selectedCategory === 'all'
-      ? '/store'
-      : `/store?category=${encodeURIComponent(selectedCategory)}`;
+      ? '/discover'
+      : `/discover?category=${encodeURIComponent(selectedCategory)}`;
 
   return (
     <div className="min-h-dvh px-[var(--app-page-gutter)] py-4 sm:py-6">

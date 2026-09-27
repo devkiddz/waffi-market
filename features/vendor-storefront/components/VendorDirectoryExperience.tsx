@@ -42,11 +42,11 @@ export default function VendorDirectoryExperience({
           </span>
 
           <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
-            {showFollowing ? 'Shops you follow' : `Shops on ${workspaceName}`}
+            {showFollowing ? 'Vendors you follow' : `Vendors on ${workspaceName}`}
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-            Discover approved merchants through the same Shelsea Store,
+            Discover approved merchants through the same Waffi marketplace,
             product experience and customer action system.
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function VendorDirectoryExperience({
 
                 <div className="min-w-0">
                   <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-primary">
-                    Approved shop
+                    Approved vendor
                   </p>
                   <h2 className="mt-1 truncate text-xl font-black tracking-tight">
                     {vendor.name}
@@ -99,12 +99,12 @@ export default function VendorDirectoryExperience({
 
               <button type="button" onClick={() => toggle(vendor.slug)} aria-pressed={following.includes(vendor.slug)}
                 className="mt-4 text-xs font-semibold text-primary hover:underline">
-                {following.includes(vendor.slug) ? 'Following · Unfollow' : 'Follow shop'}
+                {following.includes(vendor.slug) ? 'Following · Unfollow' : 'Follow vendor'}
               </button>
               <Link
-                href={`/shops/${encodeURIComponent(vendor.slug)}`}
+                href={`/vendors/${encodeURIComponent(vendor.slug)}`}
                 className="mt-5 inline-flex h-10 w-full items-center justify-center gap-2 rounded-full bg-foreground px-4 text-xs font-bold text-background transition group-hover:bg-primary group-hover:text-primary-foreground">
-                Visit shop
+                Visit vendor
                 <ArrowRight className="size-4" />
               </Link>
             </article>
@@ -118,7 +118,7 @@ export default function VendorDirectoryExperience({
             <p className="mt-2 text-sm text-muted-foreground">
               {showFollowing ? 'Visit a shop and choose Follow to see it here.' : 'Approved vendor storefronts will appear here automatically.'}
             </p>
-            {showFollowing ? <Link href="/shops" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">Browse shops</Link> : null}
+            {showFollowing ? <Link href="/vendors" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">Browse shops</Link> : null}
           </div>
         </section>
       )}

@@ -189,6 +189,7 @@ export function resolveCustomerRouteIntent(
   }
 
   if (
+    pathname === '/discover' ||
     pathname === '/store' ||
     pathname.startsWith(
       '/store/'
@@ -390,14 +391,14 @@ export function resolveCustomerRouteIntent(
   }
 
   if (
-    pathname === '/shops' ||
-    pathname.startsWith('/shops/')
+    pathname === '/vendors' ||
+    pathname.startsWith('/vendors/')
   ) {
     const vendorSlug =
-      pathname === '/shops'
+      pathname === '/vendors'
         ? null
         : decodeURIComponent(
-            pathname.slice('/shops/'.length).split('/')[0] ?? ''
+            pathname.slice('/vendors/'.length).split('/')[0] ?? ''
           );
 
     return {

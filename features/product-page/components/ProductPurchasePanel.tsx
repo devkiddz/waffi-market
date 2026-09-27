@@ -532,7 +532,7 @@ export function ProductPurchasePanel({
           }>
           {product.merchant ? (
             <Link
-              href={`/shops/${encodeURIComponent(product.merchant.slug)}`}
+              href={`/vendors/${encodeURIComponent(product.merchant.slug)}`}
               className={cn(
                 styles.assuranceItem,
                 styles.assuranceMerchant

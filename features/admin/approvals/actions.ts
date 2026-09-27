@@ -160,6 +160,6 @@ function revalidateApprovalSurfaces() {
   revalidatePath('/admin/todos');
   revalidatePath('/admin/store-studio');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
   revalidatePath('/notifications');
 }

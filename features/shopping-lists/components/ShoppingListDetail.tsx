@@ -345,7 +345,7 @@ export function ShoppingListDetail({
 
             <div className="flex flex-wrap gap-2">
               <Link
-                href={`/store?view=grid&shoppingList=${encodeURIComponent(
+                href={`/discover?view=grid&shoppingList=${encodeURIComponent(
                   list.id
                 )}`}
                 className="inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-sm font-medium hover:bg-muted">
@@ -464,7 +464,7 @@ export function ShoppingListDetail({
           </div>
 
           <Link
-            href={`/store?view=grid&shoppingList=${encodeURIComponent(
+            href={`/discover?view=grid&shoppingList=${encodeURIComponent(
               list.id
             )}`}
             className="inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-sm font-semibold hover:bg-muted">
@@ -522,7 +522,7 @@ export function ShoppingListDetail({
               </p>
 
               <Link
-                href={`/store?view=grid&shoppingList=${encodeURIComponent(
+                href={`/discover?view=grid&shoppingList=${encodeURIComponent(
                   list.id
                 )}`}
                 className="mt-5 inline-flex h-10 items-center gap-2 rounded-xl bg-foreground px-4 text-sm font-semibold text-background">

@@ -82,7 +82,7 @@ export default function FeaturedVendorRail({ vendors, storyShops }: {
       if (href) router.push(href);
     },
     restoreExperience: () => undefined,
-    resetExperience: () => router.push('/store'),
+    resetExperience: () => router.push('/'),
     changeCategory: () => undefined,
     previewProduct: product => router.push(`/products/${encodeURIComponent(product.slug)}`),
     toggleLike: () => undefined,
@@ -153,7 +153,7 @@ export default function FeaturedVendorRail({ vendors, storyShops }: {
                     {content}
                   </button>
                 ) : (
-                  <Link key={vendor.id} href={`/shops/${encodeURIComponent(vendor.slug)}`}
+                  <Link key={vendor.id} href={`/vendors/${encodeURIComponent(vendor.slug)}`}
                     aria-label={`Visit ${vendor.name}`} title={vendor.name} className={className}>
                     {content}
                   </Link>

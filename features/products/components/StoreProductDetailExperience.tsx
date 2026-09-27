@@ -194,7 +194,7 @@ export function StoreProductDetailExperience({
 
                 {product.merchant ? (
                   <Link
-                    href={`/shops/${encodeURIComponent(product.merchant.slug)}`}
+                    href={`/vendors/${encodeURIComponent(product.merchant.slug)}`}
                     className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition hover:text-primary">
                     Sold by {product.merchant.name}
                   </Link>

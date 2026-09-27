@@ -244,7 +244,7 @@ export async function savePromotion(formData: FormData) {
   revalidatePath('/admin/approvals');
   revalidatePath('/vendor/promotions');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }
 
 export async function setPromotionStatus(formData: FormData) {
@@ -281,5 +281,5 @@ export async function setPromotionStatus(formData: FormData) {
   revalidatePath('/admin/approvals');
   revalidatePath('/vendor/promotions');
   revalidatePath('/store');
-  revalidatePath('/shops');
+  revalidatePath('/vendors');
 }

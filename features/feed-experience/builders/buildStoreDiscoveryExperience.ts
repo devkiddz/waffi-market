@@ -353,14 +353,18 @@ export function buildStoreDiscoveryExperience(
  * banner or Reel fallbacks, and vice versa.
  */
   const activeStoreBannerSlides =
-    storeBannerSlides.length > 0
+    context.vendorShowcase
+      ? context.vendorShowcase.banners
+      : storeBannerSlides.length > 0
       ? storeBannerSlides
       : ENABLE_STATIC_STORE_STUDIO_FALLBACK
         ? fallbackStoreBannerSlides
         : [];
 
   const activeCommerceStories =
-    projectedCommerceStories.length > 0
+    context.vendorShowcase
+      ? context.vendorShowcase.stories
+      : projectedCommerceStories.length > 0
       ? [...projectedCommerceStories].sort(
           (firstStory, secondStory) =>
             secondStory.priority - firstStory.priority
@@ -370,7 +374,9 @@ export function buildStoreDiscoveryExperience(
         : [];
 
   const activeStoreReels =
-    projectedStoreReels.length > 0
+    context.vendorShowcase
+      ? []
+      : projectedStoreReels.length > 0
       ? projectedStoreReels
       : ENABLE_STATIC_STORE_STUDIO_FALLBACK
         ? fallbackStoreReels.slice(0, STORE_REEL_LIMIT)
@@ -908,7 +914,7 @@ export function buildStoreDiscoveryExperience(
         priority: 110,
         data: {
           title: 'Stories',
-          storyViewAllHref: '/store/stories',
+          storyViewAllHref: context.vendorShowcase ? undefined : '/store/stories',
           stories: activeCommerceStories,
           banners: activeStoreBannerSlides
         }

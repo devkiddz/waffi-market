@@ -560,7 +560,7 @@ export function ProductPageDetails({
             </p>
 
             <Link
-              href={`/store?category=${encodeURIComponent(category.slug)}`}
+              href={`/categories/${encodeURIComponent(category.slug)}`}
               className={
                 styles.categoryAction
               }>
@@ -629,7 +629,7 @@ export function ProductPageDetails({
           </div>
 
           <Link
-            href={`/shops/${encodeURIComponent(product.merchant.slug)}`}
+            href={`/vendors/${encodeURIComponent(product.merchant.slug)}`}
             className={
               styles.merchantAction
             }>

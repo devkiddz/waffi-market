@@ -50,7 +50,7 @@ export default function ProductsCarousel({
         </div>
 
         <Link
-          href={`/store?category=${encodeURIComponent(category)}&view=grid`}
+          href={`/categories/${encodeURIComponent(category)}`}
           className="inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-primary transition hover:bg-primary/5">
           View all
           <ArrowRight className="size-4" />
