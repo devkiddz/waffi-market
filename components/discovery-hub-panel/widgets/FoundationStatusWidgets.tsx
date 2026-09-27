@@ -164,7 +164,7 @@ export function RewardsStatusWidget() {
       title="Rewards"
       description="Your membership identity is real; a points ledger is not active yet."
       statusLabel={`Current tier: ${tier}`}
-      statusDescription="Shelsea will not display invented points, expiry dates or progress. The Rewards workspace documents the prepared capability until the ledger is implemented."
+      statusDescription="Waffi will not display invented points, expiry dates or progress. The Rewards workspace documents the prepared capability until the ledger is implemented."
       actionLabel="Open Rewards"
       onAction={() =>
         router.push(

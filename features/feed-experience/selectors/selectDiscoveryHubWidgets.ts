@@ -238,7 +238,7 @@ export function selectDiscoveryHubWidgets({
                   ? `${cartCount} ${
                       cartCount === 1 ? 'cart selection is' : 'cart selections are'
                     } waiting alongside your orders.`
-                  : 'Your latest Shelsea order activity.',
+                  : 'Your latest Waffi order activity.',
               stats: [
                 {
                   label: 'Completed',
@@ -279,7 +279,7 @@ export function selectDiscoveryHubWidgets({
                     cartCount === 1 ? 'cart selection is' : 'cart selections are'
                   } waiting alongside your active orders.`
                 : recentOrders.length > 0
-                  ? 'Your latest Shelsea order activity.'
+                  ? 'Your latest Waffi order activity.'
                   : 'You have no active shopping activity yet.',
             stats: [
               {

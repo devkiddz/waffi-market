@@ -34,15 +34,15 @@ import SearchProvider from '@/providers/SearchProvider';
 import ThemeProvider from '@/providers/ThemeProvider';
 
 export const metadata: Metadata = {
-  applicationName: 'Shelsea',
+  applicationName: 'Waffi',
 
   title: {
-    default: 'Shelsea — Fashion, Beauty & Lifestyle',
+    default: 'Waffi Market — Discover Products and Vendors',
 
-    template: '%s · Shelsea'
+    template: '%s · Waffi'
   },
 
-  description: 'Discover clothing, accessories, hair, fragrances and curated style at Shelsea.',
+  description: 'Discover products and independent vendors on Waffi Market.',
 
   manifest: '/manifest.webmanifest',
 
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
     statusBarStyle: 'black-translucent',
 
-    title: 'Shelsea'
+    title: 'Waffi'
   },
 
   icons: {

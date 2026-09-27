@@ -307,7 +307,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     groupId: 'home',
     layout: 'tracking',
     title: 'Delivery Tracker',
-    description: 'Your Shelsea order is currently on the way.',
+    description: 'Your Waffi order is currently on the way.',
     defaultPriority: 105,
     pagePriority: {
       tracking: 260,
@@ -653,7 +653,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     groupId: 'orders',
     layout: 'grid',
     title: 'Recent Orders',
-    description: 'Your latest Shelsea order activity.',
+    description: 'Your latest Waffi order activity.',
     defaultPriority: 110,
     pagePriority: {
       orders: 250,
@@ -892,7 +892,7 @@ export const discoveryWidgets: DiscoveryWidgetDefinition[] = [
     slides: champagneSlides,
     insight: 'Tonight’s mood looks like premium champagne with sweet pairings.',
     action: {
-      label: 'Ask Shelsea AI',
+      label: 'Ask Waffi AI',
       href: '/ai'
     }
   },

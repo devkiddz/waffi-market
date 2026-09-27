@@ -32,7 +32,7 @@ export default function VendorDirectoryExperience({
   const visibleVendors = showFollowing ? vendors.filter(vendor => following.includes(vendor.slug)) : vendors;
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[96rem] px-3 py-5 sm:px-5 sm:py-8 lg:px-7">
-      <header className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/75 p-6 shadow-xl sm:p-9">
+      <header className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/75 p-5 shadow-sm sm:p-7">
         <div className="pointer-events-none absolute -right-24 -top-32 size-80 rounded-full bg-primary/10 blur-3xl" />
 
         <div className="relative max-w-3xl">
@@ -41,7 +41,7 @@ export default function VendorDirectoryExperience({
             Verified merchant directory
           </span>
 
-          <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="mt-4 font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
             {showFollowing ? 'Vendors you follow' : `Vendors on ${workspaceName}`}
           </h1>
 
@@ -57,7 +57,7 @@ export default function VendorDirectoryExperience({
           {visibleVendors.map(vendor => (
             <article
               key={vendor.id}
-              className="group rounded-[2rem] border border-border/60 bg-card/75 p-5 shadow-lg transition hover:-translate-y-0.5 hover:border-primary/25">
+              className="group rounded-2xl border border-border/60 bg-card/75 p-5 shadow-sm transition hover:shadow-md">
               <div className="flex items-start gap-4">
                 {vendor.logoUrl ? (
                   <div className="relative size-16 shrink-0 overflow-hidden rounded-2xl border border-border/60 bg-muted">
@@ -79,12 +79,12 @@ export default function VendorDirectoryExperience({
                   <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-primary">
                     Approved vendor
                   </p>
-                  <h2 className="mt-1 truncate text-xl font-black tracking-tight">
+                  <h2 className="mt-1 truncate font-heading text-base font-semibold tracking-tight sm:text-lg">
                     {vendor.name}
                   </h2>
                   <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted-foreground">
                     {vendor.description ??
-                      'A verified merchant operating inside the Shelsea commerce experience.'}
+                      'A verified merchant operating inside the Waffi marketplace.'}
                   </p>
                 </div>
               </div>

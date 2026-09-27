@@ -4,7 +4,7 @@ import CollectionsDirectoryExperience from '@/features/collection/pages/Collecti
 
 export const metadata: Metadata = {
   title: 'Collections',
-  description: 'Browse Shelsea curated product collections.'
+  description: 'Browse Waffi curated product collections.'
 };
 
 export default function CollectionsPage() {

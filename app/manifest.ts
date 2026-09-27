@@ -8,10 +8,10 @@ export default function manifest(): MetadataRoute.Manifest {
       '/',
 
     name:
-      'Shelsea — Premium Commerce Experience',
+      'Waffi — Premium Commerce Experience',
 
     short_name:
-      'Shelsea',
+      'Waffi',
 
     description:
       'A discovery-led shopping workspace for products, food, drinks and premium experiences.',
@@ -91,7 +91,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Store',
 
         description:
-          'Continue shopping in Shelsea.',
+          'Continue shopping in Waffi.',
 
         url:
           '/store',
@@ -117,7 +117,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Cart',
 
         description:
-          'Review the active Shelsea cart.',
+          'Review the active Waffi cart.',
 
         url:
           '/cart',
@@ -169,7 +169,7 @@ export default function manifest(): MetadataRoute.Manifest {
           'Account',
 
         description:
-          'Open the Shelsea customer dashboard.',
+          'Open the Waffi customer dashboard.',
 
         url:
           '/account',

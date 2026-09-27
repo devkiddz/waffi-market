@@ -72,17 +72,17 @@ const experienceModes: ExperienceMode[] = [
     label: 'Live',
     badge: 'Real shopping',
 
-    title: 'Shop Shelsea as a real customer',
+    title: 'Shop Waffi as a real customer',
 
     description:
-      'Live is your real shopping experience. Browse products, build your cart, place orders and enjoy the active Shelsea Store.',
+      'Live is your real shopping experience. Browse products, build your cart, place orders and enjoy the active Waffi Store.',
 
     availability: 'Available to guests and registered customers.',
 
     icon: ShoppingBag,
 
     benefits: [
-      'Browse the active Shelsea product catalogue.',
+      'Browse the active Waffi product catalogue.',
       'Preview products and build a real shopping cart.',
       'Preserve orders, rewards and account activity when signed in.'
     ]
@@ -94,10 +94,10 @@ const experienceModes: ExperienceMode[] = [
     label: 'Demo',
     badge: 'Guided experience',
 
-    title: 'See more of what Shelsea can do',
+    title: 'See more of what Waffi can do',
 
     description:
-      'Demo gives you a guided view of Shelsea with prepared products, campaigns, customer activity, orders and shopping scenarios already in motion.',
+      'Demo gives you a guided view of Waffi with prepared products, campaigns, customer activity, orders and shopping scenarios already in motion.',
 
     availability: 'Demo access will be enabled progressively for registered testers.',
 
@@ -105,7 +105,7 @@ const experienceModes: ExperienceMode[] = [
 
     benefits: [
       'Explore prepared customer and shopping scenarios.',
-      'Discover wider Shelsea features and experiences.',
+      'Discover wider Waffi features and experiences.',
       'Test freely without changing your real Live activity.'
     ]
   },
@@ -119,7 +119,7 @@ const experienceModes: ExperienceMode[] = [
     title: 'Try complete shopping journeys safely',
 
     description:
-      'Practice gives registered users a private space to experiment with shopping actions, simulated value and complete Shelsea journeys without affecting Live activity.',
+      'Practice gives registered users a private space to experiment with shopping actions, simulated value and complete Waffi journeys without affecting Live activity.',
 
     availability: 'Practice access will be introduced progressively for registered users.',
 
@@ -128,7 +128,7 @@ const experienceModes: ExperienceMode[] = [
     benefits: [
       'Use isolated cart, wishlist and activity records.',
       'Try complete journeys without affecting Live data.',
-      'Learn how Shelsea works at your own pace.'
+      'Learn how Waffi works at your own pace.'
     ]
   }
 ];
@@ -140,7 +140,7 @@ const accountBenefits = [
     title: 'Discover what suits you',
 
     description:
-      'Shelsea can use your interests and Store activity to surface more relevant products and experiences.'
+      'Waffi can use your interests and Store activity to surface more relevant products and experiences.'
   },
 
   {
@@ -154,7 +154,7 @@ const accountBenefits = [
   {
     icon: Layers3,
 
-    title: 'Explore more Shelsea modes',
+    title: 'Explore more Waffi modes',
 
     description:
       'Registered testers may receive access to Live, Demo and Practice experiences as they become available.'
@@ -279,7 +279,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
               <div className="relative min-h-72 overflow-hidden rounded-3xl border border-white/10 bg-black lg:min-h-80">
                 <Image
                   src="/assets/Image-2.png"
-                  alt="Shelsea shopping, food and drinks experience"
+                  alt="Waffi shopping, food and drinks experience"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -293,7 +293,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
                 <div className="relative flex min-h-72 flex-col justify-between p-6 text-white sm:p-8 lg:min-h-80">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold backdrop-blur">
-                      Shelsea Guest Welcome
+                      Waffi Guest Welcome
                     </span>
 
                     <span className="rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs text-white/75 backdrop-blur">
@@ -311,7 +311,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
                     </h1>
 
                     <p className="mt-4 max-w-md text-sm leading-7 text-white/75 sm:text-base">
-                      Explore Shelsea, discover products, build your cart and experience the Store freely.
+                      Explore Waffi, discover products, build your cart and experience the Store freely.
                       Create an account whenever you are ready to make the journey truly yours.
                     </p>
 
@@ -335,7 +335,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
               {/* EXPERIENCE MODE SELECTOR */}
               <div className="mt-6">
                 <div>
-                  <p className="text-sm font-semibold text-foreground">Explore Shelsea your way</p>
+                  <p className="text-sm font-semibold text-foreground">Explore Waffi your way</p>
 
                   <p className="mt-1 text-sm text-muted-foreground">
                     Select a mode to learn what each experience offers.
@@ -415,7 +415,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
             <section className="bg-background p-6 sm:p-8 lg:p-10">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                  Your Shelsea account
+                  Your Waffi account
                 </span>
 
                 <span className="rounded-full border px-3 py-1 text-xs text-muted-foreground">
@@ -425,12 +425,12 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
 
               <DialogHeader className="mt-6 text-left">
                 <DialogTitle className="text-2xl leading-tight sm:text-3xl">
-                  Let Shelsea remember the journey you are building.
+                  Let Waffi remember the journey you are building.
                 </DialogTitle>
 
                 <DialogDescription className="mt-3 text-sm leading-7 sm:text-base">
                   Guest access remains available. Creating an account simply gives your shopping activity a
-                  home, allowing Shelsea to preserve your progress and provide a more connected experience.
+                  home, allowing Waffi to preserve your progress and provide a more connected experience.
                 </DialogDescription>
               </DialogHeader>
 
@@ -509,7 +509,7 @@ export function StoreExperienceOnboarding({ suppressed = false }: StoreExperienc
               </Button>
 
               <p className="mt-4 text-center text-xs leading-5 text-muted-foreground">
-                Demo and Practice access may vary during the Shelsea testing rollout.
+                Demo and Practice access may vary during the Waffi testing rollout.
               </p>
             </section>
           </div>

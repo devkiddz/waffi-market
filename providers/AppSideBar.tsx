@@ -121,7 +121,7 @@ export function AppSidebar() {
               </div>
 
               <div>
-                <h3 className="text-sm font-black">Shelsea Premium</h3>
+                <h3 className="text-sm font-black">Waffi Premium</h3>
 
                 <p className="text-xs text-muted-foreground">Priority service</p>
               </div>
@@ -230,7 +230,7 @@ export function AppSidebar() {
             ) : (
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm font-bold">Welcome to Shelsea</p>
+                  <p className="text-sm font-bold">Welcome to Waffi</p>
 
                   <p className="text-xs leading-5 text-muted-foreground">
                     Your guest cart is available on this device. Sign in later to save and sync your shopping

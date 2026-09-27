@@ -18,15 +18,15 @@ export async function generateMetadata({
 
   if (!detail) {
     return {
-      title: 'Store Reel | Shelsea'
+      title: 'Store Reel | Waffi'
     };
   }
 
   return {
-    title: `${detail.reel.title} | Shelsea Reel`,
+    title: `${detail.reel.title} | Waffi Reel`,
     description:
       detail.reel.caption ??
-      `Watch and shop ${detail.reel.title} on Shelsea.`
+      `Watch and shop ${detail.reel.title} on Waffi.`
   };
 }
 

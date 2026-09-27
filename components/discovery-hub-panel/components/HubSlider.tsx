@@ -395,7 +395,7 @@ export default function HubSlider({
                 backdrop-blur-xl
               "
             >
-              Shelsea Spotlight
+              Waffi Spotlight
             </span>
 
             {activeItem.badge ? (

@@ -94,7 +94,7 @@ function FeedExperienceWorkspaceContent({
       if (!addedItem) {
         error({
           title: 'Unable to add product',
-          description: 'Shelsea could not add this product to your cart. Please try again.'
+          description: 'Waffi could not add this product to your cart. Please try again.'
         });
 
         return;
@@ -468,7 +468,7 @@ function FeedExperienceWorkspaceContent({
         <div className="flex flex-col items-center gap-3">
           <LoaderCircle className="size-6 animate-spin text-primary" />
 
-          <p className="text-sm font-medium text-muted-foreground">Loading Shelsea</p>
+          <p className="text-sm font-medium text-muted-foreground">Loading Waffi</p>
         </div>
       </div>
     );
@@ -478,7 +478,7 @@ function FeedExperienceWorkspaceContent({
     return (
       <div className="grid min-h-[50vh] place-items-center px-6 text-center">
         <div>
-          <p className="font-semibold">Shelsea is temporarily unavailable</p>
+          <p className="font-semibold">Waffi is temporarily unavailable</p>
 
           <p className="mt-2 text-sm text-muted-foreground">{workspaceError ?? catalogError}</p>
         </div>
@@ -489,7 +489,7 @@ function FeedExperienceWorkspaceContent({
   if (!activeWorkspace) {
     return (
       <div className="grid min-h-[50vh] place-items-center px-6 text-center">
-        <p className="text-sm text-muted-foreground">Shelsea could not prepare your shopping experience.</p>
+        <p className="text-sm text-muted-foreground">Waffi could not prepare your shopping experience.</p>
       </div>
     );
   }

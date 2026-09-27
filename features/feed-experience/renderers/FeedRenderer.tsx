@@ -162,7 +162,7 @@ function unifyFeaturedProductModules(
             module =>
               module.data.title
           )?.data.title ??
-          'Featured across Shelsea',
+          'Featured across Waffi',
 
         subtitle:
           featuredModules.find(

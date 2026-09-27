@@ -137,7 +137,7 @@ export default function PromotionsPage() {
               text-rose-500
             ">
             <Sparkles className="size-3.5" />
-            Shelsea campaigns
+            Waffi campaigns
           </span>
 
           <h1

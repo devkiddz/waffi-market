@@ -1111,160 +1111,108 @@
 
 
 /* ============================================================
-   SHELSEA_ROSE_500_BRAND_SYSTEM_V1
-   Primary accent: Tailwind rose-500 #f43f5e
+   WAFFI MARKET PALETTE
+   Forest green, warm ivory and restrained gold.
 ============================================================ */
 
 :root {
-  --background: #fffafb;
-  --foreground: #241317;
-
+  --background: #f8f9f5;
+  --foreground: #182a22;
   --card: #ffffff;
-  --card-foreground: #241317;
-
+  --card-foreground: #182a22;
   --popover: #ffffff;
-  --popover-foreground: #241317;
-
-  --primary: #241317;
+  --popover-foreground: #182a22;
+  --primary: #216349;
   --primary-foreground: #ffffff;
-
-  --secondary: #f43f5e;
-  --secondary-foreground: #ffffff;
-
-  --accent: #f43f5e;
+  --secondary: #d9b761;
+  --secondary-foreground: #213023;
+  --accent: #287457;
   --accent-foreground: #ffffff;
-
-  --muted: #faeef1;
-  --muted-foreground: #776168;
-
-  --border: rgb(76 5 25 / 0.11);
-  --input: rgb(76 5 25 / 0.15);
-  --ring: #fb7185;
-
-  --surface-subtle: rgb(255 250 251 / 0.62);
-  --surface-soft: rgb(255 250 251 / 0.78);
-  --surface-strong: rgb(255 255 255 / 0.92);
-
-  --glass-surface: rgb(255 250 251 / 0.64);
-  --glass-surface-strong: rgb(255 255 255 / 0.82);
-  --glass-border: rgb(159 18 57 / 0.11);
-  --glass-highlight: rgb(255 255 255 / 0.82);
-
-  --shadow-soft: 0 10px 30px rgb(76 5 25 / 0.07);
-  --shadow-medium: 0 18px 50px rgb(76 5 25 / 0.11);
-  --shadow-strong: 0 28px 80px rgb(76 5 25 / 0.16);
-
-  --chart-1: #f43f5e;
-  --chart-2: #be123c;
-  --chart-3: #d6ad62;
-  --chart-4: #881337;
-  --chart-5: #fda4af;
-
-  --sidebar: #fff9fa;
-  --sidebar-foreground: #241317;
-  --sidebar-primary: #f43f5e;
+  --muted: #edf2eb;
+  --muted-foreground: #52645a;
+  --border: rgb(24 60 42 / 0.12);
+  --input: rgb(24 60 42 / 0.17);
+  --ring: #216349;
+  --surface-subtle: rgb(248 249 245 / 0.64);
+  --surface-soft: rgb(248 249 245 / 0.8);
+  --surface-strong: rgb(255 255 255 / 0.94);
+  --glass-surface: rgb(248 249 245 / 0.68);
+  --glass-surface-strong: rgb(255 255 255 / 0.85);
+  --glass-border: rgb(24 60 42 / 0.12);
+  --glass-highlight: rgb(255 255 255 / 0.84);
+  --shadow-soft: 0 10px 30px rgb(20 49 35 / 0.07);
+  --shadow-medium: 0 18px 50px rgb(20 49 35 / 0.11);
+  --shadow-strong: 0 28px 80px rgb(20 49 35 / 0.16);
+  --chart-1: #216349;
+  --chart-2: #d9b761;
+  --chart-3: #71a58c;
+  --chart-4: #496b58;
+  --chart-5: #b5cbb9;
+  --sidebar: #f8f9f5;
+  --sidebar-foreground: #182a22;
+  --sidebar-primary: #216349;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #fff1f2;
-  --sidebar-accent-foreground: #9f1239;
-  --sidebar-border: rgb(159 18 57 / 0.11);
-  --sidebar-ring: #fb7185;
-
-  --brand-navy: #241317;
-  --brand-navy-light: #3a2028;
-  --brand-navy-deep: #12090c;
-
-  --brand-wine: #f43f5e;
-  --brand-wine-light: #fb7185;
-  --brand-wine-deep: #9f1239;
-
-  --brand-gold: #d6ad62;
-  --brand-gold-light: #e7c77d;
-  --brand-gold-soft: #f7e7bc;
-
-  --gradient-brand:
-    linear-gradient(
-      135deg,
-      #12090c 0%,
-      #241317 62%,
-      #4c0519 100%
-    );
-
-  --gradient-premium:
-    linear-gradient(
-      135deg,
-      #241317 0%,
-      #881337 52%,
-      #f43f5e 118%
-    );
-
-  --gradient-royal:
-    linear-gradient(
-      135deg,
-      #9f1239 0%,
-      #e11d48 52%,
-      #fb7185 100%
-    );
-
-  --gradient-wine:
-    linear-gradient(
-      135deg,
-      #4c0519 0%,
-      #9f1239 50%,
-      #f43f5e 100%
-    );
+  --sidebar-accent: #edf2eb;
+  --sidebar-accent-foreground: #1d5b43;
+  --sidebar-border: rgb(24 60 42 / 0.12);
+  --sidebar-ring: #216349;
+  --brand-navy: #183c2e;
+  --brand-navy-light: #3f8061;
+  --brand-navy-deep: #112a20;
+  --brand-wine: #287457;
+  --brand-wine-light: #6aa785;
+  --brand-wine-deep: #1a503c;
+  --brand-gold: #d9b761;
+  --brand-gold-light: #e6ce8b;
+  --brand-gold-soft: #f5eac8;
+  --gradient-brand: linear-gradient(135deg, #173d2c, #287457 62%, #6aa785);
+  --gradient-premium: linear-gradient(135deg, #183c2e, #216349 62%, #d9b761);
+  --gradient-royal: linear-gradient(135deg, #1a503c, #287457 55%, #d9b761);
+  --gradient-wine: linear-gradient(135deg, #1a503c, #287457 55%, #6aa785);
+  --story-ring-start: var(--brand-gold);
+  --story-ring-middle: var(--brand-wine);
+  --story-ring-end: var(--brand-navy);
 }
 
 .dark {
-  --background: #0b0b0e;
-  --foreground: #fff1f2;
-
-  --card: #121216;
-  --card-foreground: #fff1f2;
-
-  --popover: #171318;
-  --popover-foreground: #fff1f2;
-
-  --primary: #fff1f2;
-  --primary-foreground: #0b0b0e;
-
-  --secondary: #f43f5e;
-  --secondary-foreground: #ffffff;
-
-  --accent: #f43f5e;
-  --accent-foreground: #ffffff;
-
-  --muted: #1d171b;
-  --muted-foreground: #cbb8be;
-
-  --border: rgb(251 113 133 / 0.14);
-  --input: rgb(251 113 133 / 0.17);
-  --ring: #fb7185;
-
-  --surface-subtle: rgb(18 18 22 / 0.45);
-  --surface-soft: rgb(18 18 22 / 0.66);
-  --surface-strong: rgb(18 18 22 / 0.88);
-
-  --glass-surface: rgb(18 18 22 / 0.58);
-  --glass-surface-strong: rgb(23 19 24 / 0.80);
-  --glass-border: rgb(251 113 133 / 0.12);
+  --background: #0d1712;
+  --foreground: #edf6ed;
+  --card: #14251c;
+  --card-foreground: #edf6ed;
+  --popover: #182b20;
+  --popover-foreground: #edf6ed;
+  --primary: #94d6ad;
+  --primary-foreground: #102319;
+  --secondary: #d9b761;
+  --secondary-foreground: #192419;
+  --accent: #94d6ad;
+  --accent-foreground: #102319;
+  --muted: #1d3427;
+  --muted-foreground: #bacbbf;
+  --border: rgb(189 225 198 / 0.15);
+  --input: rgb(189 225 198 / 0.2);
+  --ring: #94d6ad;
+  --surface-subtle: rgb(20 37 28 / 0.5);
+  --surface-soft: rgb(20 37 28 / 0.69);
+  --surface-strong: rgb(20 37 28 / 0.9);
+  --glass-surface: rgb(20 37 28 / 0.6);
+  --glass-surface-strong: rgb(20 37 28 / 0.83);
+  --glass-border: rgb(189 225 198 / 0.15);
   --glass-highlight: rgb(255 255 255 / 0.07);
-
   --shadow-soft: 0 12px 35px rgb(0 0 0 / 0.22);
   --shadow-medium: 0 22px 60px rgb(0 0 0 / 0.31);
   --shadow-strong: 0 32px 90px rgb(0 0 0 / 0.42);
-
-  --chart-1: #fb7185;
-  --chart-2: #f43f5e;
-  --chart-3: #d6ad62;
-  --chart-4: #fda4af;
-  --chart-5: #881337;
-
-  --sidebar: #0f0f12;
-  --sidebar-foreground: #fff1f2;
-  --sidebar-primary: #fb7185;
-  --sidebar-primary-foreground: #19090e;
-  --sidebar-accent: #20151a;
-  --sidebar-accent-foreground: #ffe4e6;
-  --sidebar-border: rgb(251 113 133 / 0.12);
-  --sidebar-ring: #fb7185;
+  --chart-1: #94d6ad;
+  --chart-2: #d9b761;
+  --chart-3: #4c9c72;
+  --chart-4: #b1d4ba;
+  --chart-5: #577b61;
+  --sidebar: #112017;
+  --sidebar-foreground: #edf6ed;
+  --sidebar-primary: #94d6ad;
+  --sidebar-primary-foreground: #102319;
+  --sidebar-accent: #1d3427;
+  --sidebar-accent-foreground: #edf6ed;
+  --sidebar-border: rgb(189 225 198 / 0.15);
+  --sidebar-ring: #94d6ad;
 }

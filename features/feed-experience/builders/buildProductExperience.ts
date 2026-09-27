@@ -262,7 +262,7 @@ export function buildProductExperience(
       data: {
         title: 'Continue Discovering',
         subtitle:
-          'Keep exploring selections across Shelsea.',
+          'Keep exploring selections across Waffi.',
         products: continueDiscoveryProducts,
         source: 'continue-discovery'
       }

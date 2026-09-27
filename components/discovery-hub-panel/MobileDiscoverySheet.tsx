@@ -35,7 +35,7 @@ export default function MobileDiscoverySheet({ open, onOpenChange }: MobileDisco
 
         <SheetHeader className="sr-only">
           <SheetTitle>Discovery Hub</SheetTitle>
-          <SheetDescription>Explore your personalized Shelsea workspace.</SheetDescription>
+          <SheetDescription>Explore your personalized Waffi workspace.</SheetDescription>
         </SheetHeader>
 
         <div className="h-full min-h-0 w-full overflow-hidden">

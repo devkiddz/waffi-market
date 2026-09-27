@@ -491,12 +491,12 @@ export function buildStoreDiscoveryExperience(
 
   const categoryExperienceTitle =
     selectedCategory === 'all'
-      ? 'Featured across Shelsea'
+      ? 'Featured across Waffi'
       : selectedCategoryRecord?.label ?? 'Featured products';
 
   const categoryExperienceSubtitle =
     selectedCategory === 'all'
-      ? 'A polished mix of fashion, hair, fragrance and finishing pieces from across Shelsea.'
+      ? 'A polished mix of fashion, hair, fragrance and finishing pieces from across Waffi.'
       : selectedCategoryRecord?.shortDescription ??
         selectedCategoryRecord?.description ??
         `Explore standout products from ${categoryExperienceTitle}.`;
@@ -652,7 +652,7 @@ export function buildStoreDiscoveryExperience(
 
   const discoverySectionSubtitle =
     selectedCategory === 'all'
-      ? 'Keep discovering more style, beauty and finishing pieces from across Shelsea.'
+      ? 'Keep discovering more style, beauty and finishing pieces from across Waffi.'
       : `Continue exploring products selected from ${categoryExperienceTitle}.`;
 
   const specialPickTitle =
@@ -893,7 +893,7 @@ export function buildStoreDiscoveryExperience(
                 }
               },
               enabled: shelfProducts.length > 0,
-              reason: `Shelsea curated shelf "${shelf.title}" requires matching products.`
+              reason: `Waffi curated shelf "${shelf.title}" requires matching products.`
             } satisfies ExperienceModuleCandidate;
           })
           .filter(candidate => candidate.enabled !== false)

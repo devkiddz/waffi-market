@@ -221,7 +221,7 @@ export function StoreBanner({ slides }: StoreBannerProps) {
               </p>
             ) : null}
 
-            <h1 className="mt-1.5 text-xl font-black tracking-tight sm:mt-2 sm:text-4xl">
+            <h1 className="mt-1.5 text-lg font-semibold tracking-tight sm:mt-2 sm:text-2xl lg:text-3xl">
               {activeSlide.title || 'Discover Shelsea'}
             </h1>
 

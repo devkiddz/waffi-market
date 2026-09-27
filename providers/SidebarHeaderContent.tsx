@@ -31,7 +31,7 @@ export default function SidebarHeaderContent() {
       ">
       <div className="min-w-0">
         <LogoComponent
-          brandName="Shelsea"
+          brandName="Waffi"
           brandSlug=""
         />
 

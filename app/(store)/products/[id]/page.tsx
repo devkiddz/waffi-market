@@ -68,7 +68,7 @@ export async function generateMetadata({
     description:
       data.product.shortDescription ||
       data.product.longDescription ||
-      `Shop ${data.product.name} on Shelsea.`,
+      `Shop ${data.product.name} on Waffi.`,
 
     alternates: {
       canonical:
@@ -82,7 +82,7 @@ export async function generateMetadata({
         data.product.name,
       description:
         data.product.shortDescription ||
-        `Shop ${data.product.name} on Shelsea.`,
+        `Shop ${data.product.name} on Waffi.`,
       url:
         `/products/${encodeURIComponent(data.product.slug)}`,
       ...(image

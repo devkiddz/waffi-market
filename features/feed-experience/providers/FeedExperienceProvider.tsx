@@ -127,7 +127,7 @@ function createIntent(target: ExperienceTarget, routeBasePath = '/discover'): Fe
         source: 'user-action',
         route: '/',
         surface: 'home',
-        title: 'Shelsea home',
+        title: 'Waffi home',
         createdAt
       };
 

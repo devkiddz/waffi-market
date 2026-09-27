@@ -124,7 +124,7 @@ async function requestRuntime(
           )
         ) {
           throw new Error(
-            'Shelsea returned an invalid customer commerce response.'
+            'Waffi returned an invalid customer commerce response.'
           );
         }
 

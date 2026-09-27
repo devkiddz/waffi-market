@@ -18,7 +18,7 @@ function VendorShelf({ title, products }: { title: string; products: ProductType
   if (!products.length) return null;
   return (
     <section aria-label={title} className="min-w-0 border-t border-border py-6 sm:py-8">
-      <h2 className="mb-3 font-heading text-xl font-semibold text-foreground sm:text-2xl">{title}</h2>
+      <h2 className="mb-3 font-heading text-lg font-semibold text-foreground sm:text-xl">{title}</h2>
       <ListingProductGrid products={products.slice(0, 12)} presentation="compact" layout="rail" />
     </section>
   );

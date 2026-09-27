@@ -168,7 +168,7 @@ export function ActionFeedbackViewport({ messages, onDismiss }: ActionFeedbackVi
 
           const Icon = cartPreview ? ShoppingBag : configuration.icon;
 
-          const bannerLabel = message.banner?.label ?? 'Shelsea';
+          const bannerLabel = message.banner?.label ?? 'Waffi';
 
           const bannerDetail =
             message.banner?.detail ?? (cartPreview ? 'Your shopping cart' : 'Experience notification');
